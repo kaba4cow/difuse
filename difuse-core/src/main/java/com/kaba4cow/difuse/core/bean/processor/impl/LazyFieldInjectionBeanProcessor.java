@@ -3,11 +3,11 @@ package com.kaba4cow.difuse.core.bean.processor.impl;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
+import com.kaba4cow.difuse.core.bean.processor.BeanProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
@@ -28,7 +28,7 @@ public class LazyFieldInjectionBeanProcessor implements BeanProcessor {
 				field.setAccessible(true);
 				field.set(bean, createProxy(field, session));
 			} catch (Exception exception) {
-				throw new DifuseException(String.format("Could not initialize lazy field %s for bean of type %s",
+				throw new BeanProcessorException(String.format("Could not initialize lazy field %s for bean of type %s",
 						field.getName(), beanSource.getBeanClass().getClass()), exception);
 			}
 		});
