@@ -9,27 +9,19 @@ import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
 
 public class MethodBeanSource extends BeanSource<Method> {
 
-	private final ClassBeanSource ownerBeanSource;
-
 	public MethodBeanSource(//
 			ContextSource contextSource, //
 			Method beanMethod, //
 			BeanProtector beanProtector, //
 			ScopeHandlerRegistry scopeHandlerRegistry, //
-			ClassBeanSource ownerBeanSource) {
+			Class<?> declaringClass) {
 		super(//
 				contextSource, //
 				beanMethod, //
 				beanMethod.getReturnType(), //
-				ownerBeanSource.getDeclaringClass(), //
+				declaringClass, //
 				beanProtector, //
 				scopeHandlerRegistry);
-		this.ownerBeanSource = ownerBeanSource;
-		this.ownerBeanSource.addChildBeanSource(this);
-	}
-
-	public ClassBeanSource getOwnerBeanSource() {
-		return ownerBeanSource;
 	}
 
 }

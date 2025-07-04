@@ -30,7 +30,10 @@ public class BeanSourceFactory {
 
 	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {
 		BeanProtector classBeanProtector = beanProtectorFactory.createBeanProtector(beanClass);
-		ClassBeanSource classBeanSource = new ClassBeanSource(contextSource, beanClass, classBeanProtector,
+		ClassBeanSource classBeanSource = new ClassBeanSource(//
+				contextSource, //
+				beanClass, //
+				classBeanProtector, //
 				scopeHandlerRegistry);
 		beanSourceRegistry.register(classBeanSource);
 		createMethodBeanSources(contextSource, classBeanSource);
@@ -43,8 +46,13 @@ public class BeanSourceFactory {
 
 	private void createMethodBeanSource(ContextSource contextSource, Method beanMethod, ClassBeanSource ownerBeanSource) {
 		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector(ownerBeanSource.getBeanClass(), beanMethod);
-		MethodBeanSource methodBeanSource = new MethodBeanSource(contextSource, beanMethod, beanProtector, scopeHandlerRegistry,
-				ownerBeanSource);
+		MethodBeanSource methodBeanSource = new MethodBeanSource(//
+				contextSource, //
+				beanMethod, //
+				beanProtector, //
+				scopeHandlerRegistry, //
+				ownerBeanSource.getDeclaringClass());
+		ownerBeanSource.addChildBeanSource(methodBeanSource);
 		beanSourceRegistry.register(methodBeanSource);
 	}
 
