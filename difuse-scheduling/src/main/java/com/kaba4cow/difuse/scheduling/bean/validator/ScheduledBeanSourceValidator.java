@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.scheduling;
+package com.kaba4cow.difuse.scheduling.bean.validator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
