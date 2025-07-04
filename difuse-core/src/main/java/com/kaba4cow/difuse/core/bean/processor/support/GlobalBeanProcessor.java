@@ -19,7 +19,7 @@ public class GlobalBeanProcessor {
 				bean = beanProcessor.process(bean, beanProvider, session);
 			} catch (Exception exception) {
 				throw new BeanProcessorException(String.format("BeanProcessor %s could not process bean of %s",
-						beanProcessor.getClass().getName(), beanProvider));
+						beanProcessor.getClass().getName(), beanProvider), exception);
 			}
 		return bean;
 	}
