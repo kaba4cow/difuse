@@ -15,40 +15,39 @@ public class ProxyFactory {
 
 	private ProxyFactory() {}
 
-	public static <T> T createProxy(Class<T> targetClass, InvocationHandler invocationHandler) {
-		return targetClass.isInterface()//
-				? createInterfaceProxy(targetClass, invocationHandler)//
-				: createClassProxy(targetClass, invocationHandler);
+	public static <T> T createProxy(Class<T> type, InvocationHandler invocationHandler) {
+		return type.isInterface()//
+				? createInterfaceProxy(type, invocationHandler)//
+				: createClassProxy(type, invocationHandler);
 	}
 
-	public static <T> T createLazyProxy(Class<T> targetClass, Supplier<?> instanceSupplier) {
-		return targetClass.isInterface()//
-				? createLazyInterfaceProxy(targetClass, instanceSupplier)//
-				: createLazyClassProxy(targetClass, instanceSupplier);
+	public static <T> T createLazyProxy(Class<T> type, Supplier<?> instanceSupplier) {
+		return type.isInterface()//
+				? createLazyInterfaceProxy(type, instanceSupplier)//
+				: createLazyClassProxy(type, instanceSupplier);
 	}
 
-	private static <T> T createInterfaceProxy(Class<T> targetClass, InvocationHandler invocationHandler) {
-		return targetClass
-				.cast(Proxy.newProxyInstance(targetClass.getClassLoader(), new Class<?>[] { targetClass }, invocationHandler));
+	private static <T> T createInterfaceProxy(Class<T> type, InvocationHandler invocationHandler) {
+		return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, invocationHandler));
 	}
 
-	private static <T> T createLazyInterfaceProxy(Class<T> targetClass, Supplier<?> instanceSupplier) {
-		return createInterfaceProxy(targetClass, new LazyInterfaceLoader(instanceSupplier));
+	private static <T> T createLazyInterfaceProxy(Class<T> type, Supplier<?> instanceSupplier) {
+		return createInterfaceProxy(type, new LazyInterfaceLoader(instanceSupplier));
 	}
 
-	private static <T> T createClassProxy(Class<T> targetClass, Callback callback) {
+	private static <T> T createClassProxy(Class<T> type, Callback callback) {
 		Enhancer enhancer = new Enhancer();
-		enhancer.setSuperclass(targetClass);
+		enhancer.setSuperclass(type);
 		enhancer.setCallback(callback);
-		return targetClass.cast(enhancer.create());
+		return type.cast(enhancer.create());
 	}
 
-	private static <T> T createClassProxy(Class<T> targetClass, InvocationHandler invocationHandler) {
-		return createClassProxy(targetClass, new MethodCallback(invocationHandler));
+	private static <T> T createClassProxy(Class<T> type, InvocationHandler invocationHandler) {
+		return createClassProxy(type, new MethodCallback(invocationHandler));
 	}
 
-	private static <T> T createLazyClassProxy(Class<T> targetClass, Supplier<?> instanceSupplier) {
-		return createClassProxy(targetClass, new LazyClassLoader(instanceSupplier));
+	private static <T> T createLazyClassProxy(Class<T> type, Supplier<?> instanceSupplier) {
+		return createClassProxy(type, new LazyClassLoader(instanceSupplier));
 	}
 
 	private static class LazyInterfaceLoader implements InvocationHandler {
