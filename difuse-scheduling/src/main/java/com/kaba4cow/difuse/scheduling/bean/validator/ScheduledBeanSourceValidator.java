@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.bean.source.impl.MethodBeanSource;
+import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidationException;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidator;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
@@ -24,7 +24,7 @@ public class ScheduledBeanSourceValidator implements BeanSourceValidator {
 
 	@Override
 	public void validate(BeanSource<?> beanSource) throws BeanSourceValidationException {
-		if (beanSource instanceof MethodBeanSource)
+		if (beanSource instanceof ClassBeanSource == false)
 			return;
 		Class<?> beanClass = beanSource.getDeclaringClass();
 		for (Method method : MethodScanner.of(beanClass).findMethods()) {
