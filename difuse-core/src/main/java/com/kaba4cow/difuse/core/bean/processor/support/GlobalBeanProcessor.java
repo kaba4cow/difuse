@@ -14,13 +14,14 @@ public class GlobalBeanProcessor {
 	private BeanProcessorRegistry beanProcessorRegistry;
 
 	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		try {
-			for (BeanProcessor beanProcessor : beanProcessorRegistry.getBeanProcessors())
+		for (BeanProcessor beanProcessor : beanProcessorRegistry.getBeanProcessors())
+			try {
 				bean = beanProcessor.process(bean, beanProvider, session);
-			return bean;
-		} catch (Exception exception) {
-			throw new BeanProcessorException(String.format("Could not process bean of %s", beanProvider));
-		}
+			} catch (Exception exception) {
+				throw new BeanProcessorException(String.format("BeanProcessor %s could not process bean of %s",
+						beanProcessor.getClass().getName(), beanProvider));
+			}
+		return bean;
 	}
 
 }
