@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
+import com.kaba4cow.difuse.core.bean.preprocessor.support.GlobalBeanPreProcessor;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
@@ -28,6 +29,9 @@ public class BeanSourceFactory {
 	@SystemDependency
 	private BeanProtectorFactory beanProtectorFactory;
 
+	@SystemDependency
+	private GlobalBeanPreProcessor globalBeanPreProcessor;
+
 	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {
 		BeanProtector classBeanProtector = beanProtectorFactory.createBeanProtector(beanClass);
 		ClassBeanSource classBeanSource = new ClassBeanSource(//
@@ -35,8 +39,10 @@ public class BeanSourceFactory {
 				beanClass, //
 				classBeanProtector, //
 				scopeRegistry);
-		beanSourceRegistry.register(classBeanSource);
-		createMethodBeanSources(contextSource, classBeanSource);
+		if (globalBeanPreProcessor.process(classBeanSource)) {
+			beanSourceRegistry.register(classBeanSource);
+			createMethodBeanSources(contextSource, classBeanSource);
+		}
 	}
 
 	private void createMethodBeanSources(ContextSource contextSource, ClassBeanSource ownerBeanSource) {
@@ -52,8 +58,10 @@ public class BeanSourceFactory {
 				beanProtector, //
 				scopeRegistry, //
 				ownerBeanSource.getDeclaringClass());
-		ownerBeanSource.addChildBeanSource(methodBeanSource);
-		beanSourceRegistry.register(methodBeanSource);
+		if (globalBeanPreProcessor.process(methodBeanSource)) {
+			ownerBeanSource.addChildBeanSource(methodBeanSource);
+			beanSourceRegistry.register(methodBeanSource);
+		}
 	}
 
 	private Set<Method> findBeanMethods(Class<?> sourceClass) {
