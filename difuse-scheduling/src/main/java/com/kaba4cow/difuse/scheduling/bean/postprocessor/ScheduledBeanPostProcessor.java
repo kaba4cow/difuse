@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.scheduling.bean.processor;
+package com.kaba4cow.difuse.scheduling.bean.postprocessor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -7,8 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.BiFunction;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
-import com.kaba4cow.difuse.core.bean.processor.impl.BeanProcessorReflections;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.impl.BeanPostProcessorReflections;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
@@ -19,7 +19,7 @@ import com.kaba4cow.difuse.scheduling.failbehavior.FailBehaviorFactory;
 import com.kaba4cow.difuse.scheduling.task.MethodTask;
 import com.kaba4cow.difuse.scheduling.task.TaskFactory;
 
-public class ScheduledBeanProcessor implements BeanProcessor {
+public class ScheduledBeanPostProcessor implements BeanPostProcessor {
 
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
@@ -44,7 +44,7 @@ public class ScheduledBeanProcessor implements BeanProcessor {
 			DependencyProviderSession session, //
 			Class<T> annotationType, //
 			BiFunction<ScheduledExecutorService, MethodTask<T>, Runnable> taskSupplier) {
-		BeanProcessorReflections.findAnnotatedMethods(beanSource, annotationType).stream()//
+		BeanPostProcessorReflections.findAnnotatedMethods(beanSource, annotationType).stream()//
 				.map(method -> createMethodTask(annotationType, method, bean, session))//
 				.map(methodTask -> taskSupplier.apply(scheduler, methodTask))//
 				.forEach(Runnable::run);

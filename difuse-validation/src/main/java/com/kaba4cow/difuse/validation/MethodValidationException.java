@@ -5,9 +5,9 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessorException;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
 
-public class MethodValidationException extends BeanProcessorException {
+public class MethodValidationException extends BeanPostProcessorException {
 
 	private static final long serialVersionUID = 1L;
 

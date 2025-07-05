@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.processor.support.GlobalBeanProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.support.GlobalBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.BeanProviderException;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
@@ -15,16 +15,16 @@ import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 public class ClassBeanProvider extends BeanProvider<ClassBeanSource> {
 
-	private final GlobalBeanProcessor globalBeanProcessor;
+	private final GlobalBeanPostProcessor globalBeanPostProcessor;
 
 	private final Constructor<?> targetConstructor;
 
 	public ClassBeanProvider(//
 			ClassBeanSource beanSource, //
 			DependencyProvider dependencyProvider, //
-			GlobalBeanProcessor globalBeanProcessor) {
+			GlobalBeanPostProcessor globalBeanPostProcessor) {
 		super(beanSource, dependencyProvider);
-		this.globalBeanProcessor = globalBeanProcessor;
+		this.globalBeanPostProcessor = globalBeanPostProcessor;
 		this.targetConstructor = findTargetConstructor();
 	}
 
@@ -32,7 +32,7 @@ public class ClassBeanProvider extends BeanProvider<ClassBeanSource> {
 	protected Object createBean(DependencyProviderSession session) {
 		try {
 			Object bean = createBeanInstance(session);
-			return globalBeanProcessor.process(bean, this, session);
+			return globalBeanPostProcessor.process(bean, this, session);
 		} catch (Exception exception) {
 			throw new BeanProviderException(
 					String.format("Could not create class bean of type %s", getBeanSource().getBeanClass()), exception);

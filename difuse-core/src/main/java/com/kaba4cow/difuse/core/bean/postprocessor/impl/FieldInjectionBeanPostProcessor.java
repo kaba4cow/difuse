@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.processor.impl;
+package com.kaba4cow.difuse.core.bean.postprocessor.impl;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -7,13 +7,13 @@ import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessorException;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class FieldInjectionBeanProcessor implements BeanProcessor {
+public class FieldInjectionBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
@@ -28,7 +28,7 @@ public class FieldInjectionBeanProcessor implements BeanProcessor {
 				field.setAccessible(true);
 				field.set(bean, session.provideDependency(field, field.getGenericType()));
 			} catch (Exception exception) {
-				throw new BeanProcessorException(String.format("Could not initialize field %s for bean of type %s",
+				throw new BeanPostProcessorException(String.format("Could not initialize field %s for bean of type %s",
 						field.getName(), beanSource.getBeanClass().getClass()), exception);
 			}
 		});
@@ -36,7 +36,7 @@ public class FieldInjectionBeanProcessor implements BeanProcessor {
 	}
 
 	private Set<Field> findEagerFields(BeanSource<?> beanSource) {
-		return BeanProcessorReflections.findFields(beanSource, //
+		return BeanPostProcessorReflections.findFields(beanSource, //
 				field -> !field.isAnnotationPresent(Lazy.class), //
 				field -> field.isAnnotationPresent(Provided.class) || field.isAnnotationPresent(Property.class)//
 		);

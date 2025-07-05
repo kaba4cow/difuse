@@ -1,12 +1,12 @@
-package com.kaba4cow.difuse.core.bean.processor.impl;
+package com.kaba4cow.difuse.core.bean.postprocessor.impl;
 
-import com.kaba4cow.difuse.core.annotation.lifecycle.PreDestroy;
+import com.kaba4cow.difuse.core.annotation.lifecycle.PostConstruct;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class PreDestroyBeanProcessor implements BeanProcessor {
+public class PostConstructBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
@@ -15,15 +15,15 @@ public class PreDestroyBeanProcessor implements BeanProcessor {
 
 	@Override
 	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		beanProvider.addDestroyHook(bean, () -> invokePreDestroyMethods(bean, beanProvider));
+		invokePostConstructMethods(bean, beanProvider);
 		return bean;
 	}
 
-	private void invokePreDestroyMethods(Object bean, BeanProvider<?> beanProvider) {
-		BeanProcessorReflections.invokeAnnotatedMethods(//
+	private void invokePostConstructMethods(Object bean, BeanProvider<?> beanProvider) {
+		BeanPostProcessorReflections.invokeAnnotatedMethods(//
 				bean, //
 				beanProvider.getBeanSource(), //
-				PreDestroy.class, //
+				PostConstruct.class, //
 				method -> new Object[0]//
 		);
 	}

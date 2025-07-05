@@ -1,13 +1,13 @@
-package com.kaba4cow.difuse.core.bean.processor.impl;
+package com.kaba4cow.difuse.core.bean.postprocessor.impl;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class MethodInjectionBeanProcessor implements BeanProcessor {
+public class MethodInjectionBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
@@ -21,7 +21,7 @@ public class MethodInjectionBeanProcessor implements BeanProcessor {
 	}
 
 	private void invokeProvidedMethods(Object bean, BeanSource<?> beanSource, DependencyProviderSession session) {
-		BeanProcessorReflections.invokeAnnotatedMethods(bean, beanSource, Provided.class, session::provideDependencies);
+		BeanPostProcessorReflections.invokeAnnotatedMethods(bean, beanSource, Provided.class, session::provideDependencies);
 	}
 
 }

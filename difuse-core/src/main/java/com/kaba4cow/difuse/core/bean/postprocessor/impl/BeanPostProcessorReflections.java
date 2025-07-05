@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.processor.impl;
+package com.kaba4cow.difuse.core.bean.postprocessor.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,9 +14,9 @@ import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.util.reflections.FieldScanner;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
-public class BeanProcessorReflections {
+public class BeanPostProcessorReflections {
 
-	private BeanProcessorReflections() {}
+	private BeanPostProcessorReflections() {}
 
 	public static void invokeAnnotatedMethods(Object bean, BeanSource<?> beanSource, Class<? extends Annotation> annotation,
 			Function<Method, Object[]> function) {

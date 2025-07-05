@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.processor.impl;
+package com.kaba4cow.difuse.core.bean.postprocessor.impl;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -6,14 +6,14 @@ import java.util.Set;
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessorException;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 
-public class LazyFieldInjectionBeanProcessor implements BeanProcessor {
+public class LazyFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
@@ -28,7 +28,7 @@ public class LazyFieldInjectionBeanProcessor implements BeanProcessor {
 				field.setAccessible(true);
 				field.set(bean, createProxy(field, session));
 			} catch (Exception exception) {
-				throw new BeanProcessorException(String.format("Could not initialize lazy field %s for bean of type %s",
+				throw new BeanPostProcessorException(String.format("Could not initialize lazy field %s for bean of type %s",
 						field.getName(), beanSource.getBeanClass().getClass()), exception);
 			}
 		});
@@ -40,7 +40,7 @@ public class LazyFieldInjectionBeanProcessor implements BeanProcessor {
 	}
 
 	private Set<Field> findLazyFields(BeanSource<?> beanSource) {
-		return BeanProcessorReflections.findFields(beanSource, //
+		return BeanPostProcessorReflections.findFields(beanSource, //
 				field -> field.isAnnotationPresent(Lazy.class), //
 				field -> field.isAnnotationPresent(Provided.class)//
 		);

@@ -1,10 +1,10 @@
-package com.kaba4cow.difuse.core.bean.processor;
+package com.kaba4cow.difuse.core.bean.postprocessor;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public interface BeanProcessor {
+public interface BeanPostProcessor {
 
 	BeanLifecyclePhase getLifecyclePhase();
 

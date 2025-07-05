@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.processor.support;
+package com.kaba4cow.difuse.core.bean.postprocessor.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,25 +11,25 @@ import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
 @SystemComponent
-public class BeanProcessorInitializer {
+public class BeanPostProcessorInitializer {
 
-	private static final Logger log = LoggerFactory.getLogger("BeanProcessorInitializer");
+	private static final Logger log = LoggerFactory.getLogger("BeanPostProcessorInitializer");
 
 	@SystemDependency
 	private ContextSourceRegistry contextSourceRegistry;
 
 	@SystemDependency
-	private BeanProcessorRegistrar beanProcessorRegistrar;
+	private BeanPostProcessorRegistrar beanPostProcessorRegistrar;
 
-	public void initializeBeanProcessors() {
-		log.info("Initializing BeanProcessors...");
+	public void initializeBeanPostProcessors() {
+		log.info("Initializing BeanPostProcessors...");
 		ExecutionTimer timer = new ExecutionTimer().start();
 
-		beanProcessorRegistrar.registerBeanProcessors(DifuseApplication.class);
+		beanPostProcessorRegistrar.registerBeanPostProcessors(DifuseApplication.class);
 		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-			beanProcessorRegistrar.registerBeanProcessors(contextSource.getSourceClass());
+			beanPostProcessorRegistrar.registerBeanPostProcessors(contextSource.getSourceClass());
 
-		log.info("BeanProcessor initialization took {} ms", timer.finish().getExecutionMillis());
+		log.info("BeanPostProcessor initialization took {} ms", timer.finish().getExecutionMillis());
 	}
 
 }

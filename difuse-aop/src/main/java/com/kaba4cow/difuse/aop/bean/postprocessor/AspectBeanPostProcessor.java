@@ -1,12 +1,12 @@
-package com.kaba4cow.difuse.aop.bean.processor;
+package com.kaba4cow.difuse.aop.bean.postprocessor;
 
 import com.kaba4cow.difuse.aop.annotation.Aspect;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class AspectBeanProcessor implements BeanProcessor {
+public class AspectBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {

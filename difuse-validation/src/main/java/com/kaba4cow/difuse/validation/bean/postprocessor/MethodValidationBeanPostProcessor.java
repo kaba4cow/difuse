@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.validation.bean.processor;
+package com.kaba4cow.difuse.validation.bean.postprocessor;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -9,14 +9,14 @@ import javax.validation.Validation;
 import javax.validation.executable.ExecutableValidator;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
+import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 import com.kaba4cow.difuse.validation.MethodValidationException;
 import com.kaba4cow.difuse.validation.annotation.Validated;
 
-public class MethodValidationBeanProcessor implements BeanProcessor {
+public class MethodValidationBeanPostProcessor implements BeanPostProcessor {
 
 	private final ExecutableValidator validator = Validation.buildDefaultValidatorFactory().getValidator().forExecutables();
 
