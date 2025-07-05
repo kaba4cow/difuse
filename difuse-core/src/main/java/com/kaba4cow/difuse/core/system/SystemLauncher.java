@@ -7,7 +7,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.BeanInitializer;
 import com.kaba4cow.difuse.core.context.ContextInitializer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
-import com.kaba4cow.difuse.core.dependency.provider.impl.DelegatingDependencyProvider;
+import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvider;
 import com.kaba4cow.difuse.core.environment.support.EnvironmentInitializer;
 import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookDispatcher;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
@@ -29,7 +29,7 @@ public class SystemLauncher {
 	private SystemShutdownHookDispatcher shutdownHookDispatcher;
 
 	@SystemDependency
-	private DelegatingDependencyProvider dependencyProvider;
+	private GlobalDependencyProvider dependencyProvider;
 
 	public DependencyProvider launch() {
 		log.info("Launching system...");

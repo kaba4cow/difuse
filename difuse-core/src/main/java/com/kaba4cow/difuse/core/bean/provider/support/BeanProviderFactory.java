@@ -7,7 +7,7 @@ import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.MethodBeanSource;
-import com.kaba4cow.difuse.core.dependency.provider.impl.DelegatingDependencyProvider;
+import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvider;
 
 @SystemBean
 public class BeanProviderFactory {
@@ -19,7 +19,7 @@ public class BeanProviderFactory {
 	private GlobalBeanPostProcessor globalBeanPostProcessor;
 
 	@SystemDependency
-	private DelegatingDependencyProvider dependencyProvider;
+	private GlobalDependencyProvider dependencyProvider;
 
 	public void createClassBeanProvider(ClassBeanSource classBeanSource) {
 		ClassBeanProvider classBeanProvider = new ClassBeanProvider(classBeanSource, dependencyProvider,

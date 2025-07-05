@@ -10,7 +10,7 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 
 @SystemBean
-public class DelegatingDependencyProvider implements DependencyProvider {
+public class GlobalDependencyProvider implements DependencyProvider {
 
 	@SystemDependency
 	private PropertyDependencyProvider propertyDependencyProvider;
