@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
+import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 
 public class MethodBeanSource extends BeanSource<Method> {
 
@@ -13,7 +13,7 @@ public class MethodBeanSource extends BeanSource<Method> {
 			ContextSource contextSource, //
 			Method beanMethod, //
 			BeanProtector beanProtector, //
-			ScopeHandlerRegistry scopeHandlerRegistry, //
+			ScopeRegistry scopeRegistry, //
 			Class<?> declaringClass) {
 		super(//
 				contextSource, //
@@ -21,7 +21,7 @@ public class MethodBeanSource extends BeanSource<Method> {
 				beanMethod.getReturnType(), //
 				declaringClass, //
 				beanProtector, //
-				scopeHandlerRegistry);
+				scopeRegistry);
 	}
 
 }

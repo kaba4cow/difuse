@@ -44,7 +44,7 @@ public abstract class BeanProvider<T extends BeanSource<?>> {
 	}
 
 	public Object provideBean() {
-		return beanSource.getScopeHandler().getBean(this);
+		return beanSource.getScope().getBean(this);
 	}
 
 	public T getBeanSource() {

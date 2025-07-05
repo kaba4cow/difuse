@@ -1,9 +1,9 @@
 package com.kaba4cow.difuse.core.scope.handler.impl;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
 
-public class PrototypeScopeHandler extends ScopeHandler {
+public class PrototypeScope extends Scope {
 
 	@Override
 	public Object requestBean(BeanProvider<?> beanProvider) {

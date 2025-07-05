@@ -5,11 +5,9 @@ import java.util.Map;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 
-public abstract class ScopeHandler {
+public abstract class Scope {
 
-	private final ScopeHandlerBeanRegistry beanRegistry = new ScopeHandlerBeanRegistry();
-
-	public ScopeHandler() {}
+	private final ScopeBeanRegistry beanRegistry = new ScopeBeanRegistry();
 
 	protected abstract Object requestBean(BeanProvider<?> beanProvider);
 

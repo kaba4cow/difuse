@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.MethodBeanSource;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
+import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
 @SystemComponent
@@ -23,7 +23,7 @@ public class BeanSourceFactory {
 	private BeanSourceRegistry beanSourceRegistry;
 
 	@SystemDependency
-	private ScopeHandlerRegistry scopeHandlerRegistry;
+	private ScopeRegistry scopeRegistry;
 
 	@SystemDependency
 	private BeanProtectorFactory beanProtectorFactory;
@@ -34,7 +34,7 @@ public class BeanSourceFactory {
 				contextSource, //
 				beanClass, //
 				classBeanProtector, //
-				scopeHandlerRegistry);
+				scopeRegistry);
 		beanSourceRegistry.register(classBeanSource);
 		createMethodBeanSources(contextSource, classBeanSource);
 	}
@@ -50,7 +50,7 @@ public class BeanSourceFactory {
 				contextSource, //
 				beanMethod, //
 				beanProtector, //
-				scopeHandlerRegistry, //
+				scopeRegistry, //
 				ownerBeanSource.getDeclaringClass());
 		ownerBeanSource.addChildBeanSource(methodBeanSource);
 		beanSourceRegistry.register(methodBeanSource);

@@ -7,7 +7,7 @@ import java.util.Set;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
+import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 
 public class ClassBeanSource extends BeanSource<Class<?>> {
 
@@ -17,14 +17,14 @@ public class ClassBeanSource extends BeanSource<Class<?>> {
 			ContextSource contextSource, //
 			Class<?> beanClass, //
 			BeanProtector beanProtector, //
-			ScopeHandlerRegistry scopeHandlerRegistry) {
+			ScopeRegistry scopeRegistry) {
 		super(//
 				contextSource, //
 				beanClass, //
 				beanClass, //
 				beanClass, //
 				beanProtector, //
-				scopeHandlerRegistry);
+				scopeRegistry);
 	}
 
 	public void addChildBeanSource(MethodBeanSource childBeanSource) {

@@ -8,11 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 
-public class ScopeHandlerBeanRegistry {
+public class ScopeBeanRegistry {
 
 	private final Map<BeanProvider<?>, List<Object>> registry = new ConcurrentHashMap<>();
 
-	public ScopeHandlerBeanRegistry() {}
+	public ScopeBeanRegistry() {}
 
 	public void registerBean(BeanProvider<?> beanProvider, Object bean) {
 		registry.computeIfAbsent(beanProvider, key -> new ArrayList<>()).add(bean);

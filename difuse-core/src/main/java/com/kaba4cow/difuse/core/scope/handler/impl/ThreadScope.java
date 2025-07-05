@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
 
-public class ThreadScopeHandler extends ScopeHandler {
+public class ThreadScope extends Scope {
 
 	private final ThreadLocal<Map<BeanProvider<?>, Object>> maps = ThreadLocal.withInitial(HashMap::new);
 

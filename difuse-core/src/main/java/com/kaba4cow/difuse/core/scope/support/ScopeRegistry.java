@@ -16,27 +16,27 @@ import com.kaba4cow.difuse.core.annotation.scope.Scoped;
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
-import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
+import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScope;
 
 @SystemComponent
-public class ScopeHandlerRegistry {
+public class ScopeRegistry {
 
-	private static final Logger log = LoggerFactory.getLogger("ScopeHandlerRegistry");
+	private static final Logger log = LoggerFactory.getLogger("ScopeRegistry");
 
 	@SystemDependency
-	private ScopeHandlerFactory scopeHandlerFactory;
+	private ScopeFactory scopeHandlerFactory;
 
-	private final Map<Class<? extends ScopeHandler>, ScopeHandler> registry = new ConcurrentHashMap<>();
+	private final Map<Class<? extends Scope>, Scope> registry = new ConcurrentHashMap<>();
 
-	public Collection<ScopeHandler> getAllScopeHandlers() {
+	public Collection<Scope> getAllScopes() {
 		return Collections.unmodifiableCollection(registry.values());
 	}
 
-	public ScopeHandler getScopeHandler(BeanSource<?> beanSource) {
+	public Scope getScope(BeanSource<?> beanSource) {
 		return findScopeAnnotation(beanSource.getSourceElement())//
 				.map(Scoped::value)//
-				.map(this::getScopeHandler)//
+				.map(this::getScope)//
 				.orElseGet(this::getDefaultScopeHandler);
 	}
 
@@ -50,16 +50,16 @@ public class ScopeHandlerRegistry {
 						.findFirst();
 	}
 
-	private ScopeHandler getScopeHandler(Class<? extends ScopeHandler> type) {
+	private Scope getScope(Class<? extends Scope> type) {
 		return registry.computeIfAbsent(type, key -> {
-			ScopeHandler scopeHandler = scopeHandlerFactory.createScopeHandler(type);
-			log.debug("Registered ScopeHandler {}", type);
+			Scope scopeHandler = scopeHandlerFactory.createScope(type);
+			log.debug("Registered Scope {}", type);
 			return scopeHandler;
 		});
 	}
 
-	private ScopeHandler getDefaultScopeHandler() {
-		return getScopeHandler(SingletonScopeHandler.class);
+	private Scope getDefaultScopeHandler() {
+		return getScope(SingletonScope.class);
 	}
 
 }

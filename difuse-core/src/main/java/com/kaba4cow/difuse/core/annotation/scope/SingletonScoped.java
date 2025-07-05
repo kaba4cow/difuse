@@ -8,12 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScope;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Scoped(SingletonScopeHandler.class)
+@Scoped(SingletonScope.class)
 public @interface SingletonScoped {
 
 }

@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
 
-public class SingletonScopeHandler extends ScopeHandler {
+public class SingletonScope extends Scope {
 
 	private final Map<BeanProvider<?>, Object> map = new ConcurrentHashMap<>();
 

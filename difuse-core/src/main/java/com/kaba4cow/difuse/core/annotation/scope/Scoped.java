@@ -8,13 +8,13 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
 public @interface Scoped {
 
-	Class<? extends ScopeHandler> value();
+	Class<? extends Scope> value();
 
 }

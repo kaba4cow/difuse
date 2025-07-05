@@ -7,8 +7,8 @@ import com.kaba4cow.difuse.core.annotation.bean.Named;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
-import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
-import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
+import com.kaba4cow.difuse.core.scope.handler.Scope;
+import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 
 public abstract class BeanSource<T extends AnnotatedElement> implements DependencyConsumer {
 
@@ -22,7 +22,7 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 
 	private final BeanProtector beanProtector;
 
-	private final ScopeHandler scopeHandler;
+	private final Scope scope;
 
 	protected BeanSource(//
 			ContextSource contextSource, //
@@ -30,13 +30,13 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 			Class<?> beanClass, //
 			Class<?> declaringClass, //
 			BeanProtector beanProtector, //
-			ScopeHandlerRegistry scopeHandlerRegistry) {
+			ScopeRegistry scopeRegistry) {
 		this.contextSource = contextSource;
 		this.sourceElement = sourceElement;
 		this.beanClass = beanClass;
 		this.declaringClass = declaringClass;
 		this.beanProtector = beanProtector;
-		this.scopeHandler = scopeHandlerRegistry.getScopeHandler(this);
+		this.scope = scopeRegistry.getScope(this);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 		return beanProtector;
 	}
 
-	public ScopeHandler getScopeHandler() {
-		return scopeHandler;
+	public Scope getScope() {
+		return scope;
 	}
 
 	public String getName() {
@@ -82,8 +82,8 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 	@Override
 	public String toString() {
 		return String.format(
-				"BeanSource [sourceElement=%s, beanClass=%s, declaringClass=%s, beanProtector=%s, scopeHandler=%s, contextSource=%s]",
-				sourceElement, beanClass, declaringClass, beanProtector, scopeHandler, contextSource);
+				"BeanSource [sourceElement=%s, beanClass=%s, declaringClass=%s, beanProtector=%s, scope=%s, contextSource=%s]",
+				sourceElement, beanClass, declaringClass, beanProtector, scope, contextSource);
 	}
 
 }
