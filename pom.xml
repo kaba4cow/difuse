@@ -30,6 +30,7 @@
 		<module>difuse-core</module>
 		<module>difuse-scheduling</module>
 		<module>difuse-validation</module>
+		<module>difuse-aop</module>
 	</modules>
 	<dependencies>
 		<dependency>
