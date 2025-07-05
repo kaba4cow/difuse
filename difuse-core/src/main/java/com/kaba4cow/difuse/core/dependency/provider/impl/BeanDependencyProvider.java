@@ -79,7 +79,7 @@ public class BeanDependencyProvider implements DependencyProvider {
 		Class<?> valueClass = (Class<?>) valueType;
 		Map<String, Object> map = new LinkedHashMap<>();
 		for (BeanProvider<?> provider : beanProviderRegistry.findByClass(valueClass)) {
-			String name = provider.getBeanSource().getName();
+			String name = provider.getBeanSource().getInfo().getName();
 			Object previous = map.putIfAbsent(name, provider.provideProtectedBean(dependencyConsumer));
 			if (Objects.nonNull(previous))
 				throw new DifuseException(

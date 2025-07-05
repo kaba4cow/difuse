@@ -21,7 +21,7 @@ public class BeanProviderRegistry {
 	private final Map<String, Set<BeanProvider<?>>> registry = new ConcurrentHashMap<>();
 
 	public void register(BeanProvider<?> beanProvider) {
-		String name = beanProvider.getBeanSource().getName();
+		String name = beanProvider.getBeanSource().getInfo().getName();
 		if (!registry.containsKey(name))
 			registry.put(name, ConcurrentHashMap.newKeySet());
 		registry.get(name).add(beanProvider);
@@ -46,7 +46,7 @@ public class BeanProviderRegistry {
 	public List<BeanProvider<?>> findEagerBeanProviders(Class<? extends BeanProvider<?>> beanProviderClass) {
 		return registry.values().stream()//
 				.flatMap(Set::stream)//
-				.filter(beanProvider -> !beanProvider.getBeanSource().isLazy())//
+				.filter(beanProvider -> beanProvider.getBeanSource().getInfo().isEager())//
 				.filter(beanProviderClass::isInstance)//
 				.collect(Collectors.toList());
 	}
