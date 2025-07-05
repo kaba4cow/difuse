@@ -2,14 +2,14 @@ package com.kaba4cow.difuse.core.bean.protector;
 
 import java.lang.reflect.AnnotatedElement;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.application.ApplicationParameters;
 
-@CoreComponent
+@SystemComponent
 public class BeanProtectorFactory {
 
-	@CoreDependency
+	@SystemDependency
 	private ApplicationParameters applicationParameters;
 
 	public BeanProtector createBeanProtector(AnnotatedElement... elements) {

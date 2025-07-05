@@ -3,22 +3,22 @@ package com.kaba4cow.difuse.core.bean.provider.support;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-@CoreComponent
+@SystemComponent
 public class BeanProviderInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("BeanProviderInitializer");
 
-	@CoreDependency
+	@SystemDependency
 	private BeanProviderRegistry beanProviderRegistry;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanProviderRegistrar beanProviderRegistrar;
 
 	public void initializeBeanProviders() {

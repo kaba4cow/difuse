@@ -12,19 +12,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
 import com.kaba4cow.difuse.core.annotation.scope.Scope;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
 import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScopeHandler;
 
-@CoreComponent
+@SystemComponent
 public class ScopeHandlerRegistry {
 
 	private static final Logger log = LoggerFactory.getLogger("ScopeHandlerRegistry");
 
-	@CoreDependency
+	@SystemDependency
 	private ScopeHandlerFactory scopeHandlerFactory;
 
 	private final Map<Class<? extends ScopeHandler>, ScopeHandler> registry = new ConcurrentHashMap<>();

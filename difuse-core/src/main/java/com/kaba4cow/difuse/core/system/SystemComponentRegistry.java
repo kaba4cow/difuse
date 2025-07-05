@@ -1,15 +1,13 @@
-package com.kaba4cow.difuse.core.application.component;
+package com.kaba4cow.difuse.core.system;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CoreComponentRegistry {
+public class SystemComponentRegistry {
 
 	private final Map<Class<?>, Object> registry = new HashMap<>();
-
-	public CoreComponentRegistry() {}
 
 	public void registerComponent(Object component) {
 		registry.put(component.getClass(), component);

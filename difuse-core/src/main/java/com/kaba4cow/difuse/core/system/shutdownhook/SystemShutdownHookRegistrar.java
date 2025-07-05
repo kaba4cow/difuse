@@ -1,24 +1,24 @@
-package com.kaba4cow.difuse.core.application.shutdownhook;
+package com.kaba4cow.difuse.core.system.shutdownhook;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.kaba4cow.difuse.core.annotation.application.ShutdownHook;
+import com.kaba4cow.difuse.core.annotation.system.SystemShutdownHook;
 
-public class ApplicationShutdownHookRegistrar {
+public class SystemShutdownHookRegistrar {
 
-	private final ApplicationShutdownHookRegistry applicationShutdownHookRegistry;
+	private final SystemShutdownHookRegistry shutdownHookRegistry;
 
-	public ApplicationShutdownHookRegistrar(ApplicationShutdownHookRegistry applicationShutdownHookRegistry) {
-		this.applicationShutdownHookRegistry = applicationShutdownHookRegistry;
+	public SystemShutdownHookRegistrar(SystemShutdownHookRegistry shutdownHookRegistry) {
+		this.shutdownHookRegistry = shutdownHookRegistry;
 	}
 
 	public void registerShutdownHooks(Object component) {
 		Set<AutoCloseable> closeables = findShutdownHooks(component);
 		if (!closeables.isEmpty())
-			applicationShutdownHookRegistry.registerShutdownHooks(component, closeables);
+			shutdownHookRegistry.registerShutdownHooks(component, closeables);
 	}
 
 	private Set<AutoCloseable> findShutdownHooks(Object component) {
@@ -33,7 +33,7 @@ public class ApplicationShutdownHookRegistrar {
 
 	private Set<Method> findMethods(Class<?> type) {
 		return Arrays.stream(type.getDeclaredMethods())//
-				.filter(method -> method.isAnnotationPresent(ShutdownHook.class))//
+				.filter(method -> method.isAnnotationPresent(SystemShutdownHook.class))//
 				.collect(Collectors.toSet());
 	}
 

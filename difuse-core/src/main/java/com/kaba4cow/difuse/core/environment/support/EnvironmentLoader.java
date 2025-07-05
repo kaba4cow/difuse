@@ -8,22 +8,22 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.reader.ConfigSourceReader;
 import com.kaba4cow.difuse.core.environment.config.reader.impl.PropertiesFileConfigSourceReader;
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-@CoreComponent
+@SystemComponent
 public class EnvironmentLoader {
 
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentLoader");
 
 	private final Map<String, ConfigSourceReader> readers = new HashMap<>();
 
-	@CoreDependency
+	@SystemDependency
 	private Environment environment;
 
 	public void loadEnvironment() {

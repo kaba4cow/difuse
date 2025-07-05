@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeSet;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
 
-@CoreComponent
+@SystemComponent
 public class Environment {
 
 	private final Deque<ConfigSource> sources = new LinkedList<>();

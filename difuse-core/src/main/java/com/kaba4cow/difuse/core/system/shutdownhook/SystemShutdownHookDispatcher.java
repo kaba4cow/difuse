@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.application.shutdownhook;
+package com.kaba4cow.difuse.core.system.shutdownhook;
 
 import java.util.Map;
 import java.util.Set;
@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-public class ApplicationShutdownHookDispatcher extends Thread {
+public class SystemShutdownHookDispatcher extends Thread {
 
-	private static final Logger log = LoggerFactory.getLogger("ApplicationShutdownHookDispatcher");
+	private static final Logger log = LoggerFactory.getLogger("SystemShutdownHookDispatcher");
 
-	private final ApplicationShutdownHookRegistry registry;
+	private final SystemShutdownHookRegistry registry;
 
-	public ApplicationShutdownHookDispatcher(ApplicationShutdownHookRegistry registry) {
-		super("ApplicationShutdownHookDispatcher");
+	public SystemShutdownHookDispatcher(SystemShutdownHookRegistry registry) {
+		super("SystemShutdownHookDispatcher");
 		this.registry = registry;
 	}
 

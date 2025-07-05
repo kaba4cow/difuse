@@ -3,29 +3,29 @@ package com.kaba4cow.difuse.core.bean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.processor.support.BeanProcessorInitializer;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderInitializer;
 import com.kaba4cow.difuse.core.bean.source.support.BeanSourceInitializer;
 import com.kaba4cow.difuse.core.bean.source.validator.support.BeanSourceValidatorInitializer;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-@CoreComponent
+@SystemComponent
 public class BeanInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("BeanInitializer");
 
-	@CoreDependency
+	@SystemDependency
 	private BeanSourceValidatorInitializer beanSourceValidatorInitializer;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanProcessorInitializer beanProcessorInitializer;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanSourceInitializer beanSourceInitializer;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanProviderInitializer beanProviderInitializer;
 
 	public void initializeBeans() {

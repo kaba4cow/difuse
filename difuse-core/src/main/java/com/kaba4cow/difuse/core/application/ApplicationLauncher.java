@@ -3,32 +3,32 @@ package com.kaba4cow.difuse.core.application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
-import com.kaba4cow.difuse.core.application.shutdownhook.ApplicationShutdownHookDispatcher;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.BeanInitializer;
 import com.kaba4cow.difuse.core.context.ContextInitializer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.dependency.provider.impl.DelegatingDependencyProvider;
 import com.kaba4cow.difuse.core.environment.support.EnvironmentInitializer;
+import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookDispatcher;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
 public class ApplicationLauncher {
 
 	private static final Logger log = LoggerFactory.getLogger("ApplicationLauncher");
 
-	@CoreDependency
+	@SystemDependency
 	private ContextInitializer contextInitializer;
 
-	@CoreDependency
+	@SystemDependency
 	private EnvironmentInitializer environmentInitializer;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanInitializer beanInitializer;
 
-	@CoreDependency
-	private ApplicationShutdownHookDispatcher shutdownHookDispatcher;
+	@SystemDependency
+	private SystemShutdownHookDispatcher shutdownHookDispatcher;
 
-	@CoreDependency
+	@SystemDependency
 	private DelegatingDependencyProvider dependencyProvider;
 
 	public DependencyProvider launch() {

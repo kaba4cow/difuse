@@ -5,9 +5,9 @@ import java.lang.reflect.Modifier;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
@@ -16,16 +16,16 @@ import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.scope.support.ScopeHandlerRegistry;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
-@CoreComponent
+@SystemComponent
 public class BeanSourceFactory {
 
-	@CoreDependency
+	@SystemDependency
 	private BeanSourceRegistry beanSourceRegistry;
 
-	@CoreDependency
+	@SystemDependency
 	private ScopeHandlerRegistry scopeHandlerRegistry;
 
-	@CoreDependency
+	@SystemDependency
 	private BeanProtectorFactory beanProtectorFactory;
 
 	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {

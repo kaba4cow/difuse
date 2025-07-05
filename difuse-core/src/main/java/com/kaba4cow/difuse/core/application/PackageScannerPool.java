@@ -3,10 +3,10 @@ package com.kaba4cow.difuse.core.application;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
-@CoreComponent
+@SystemComponent
 public class PackageScannerPool {
 
 	private final Map<Class<?>, PackageScanner> pool = new ConcurrentHashMap<>();

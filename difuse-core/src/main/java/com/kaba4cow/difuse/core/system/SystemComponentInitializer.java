@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.application.component;
+package com.kaba4cow.difuse.core.system;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -7,18 +7,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.DifuseException;
-import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
+import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 
-public class CoreComponentInitializer {
+public class SystemComponentInitializer {
 
-	private final CoreComponentRegistry coreComponentRegistry;
+	private final SystemComponentRegistry componentRegistry;
 
-	public CoreComponentInitializer(CoreComponentRegistry coreComponentRegistry) {
-		this.coreComponentRegistry = coreComponentRegistry;
+	public SystemComponentInitializer(SystemComponentRegistry componentRegistry) {
+		this.componentRegistry = componentRegistry;
 	}
 
 	public void initializeComponents() {
-		Collection<Object> components = coreComponentRegistry.getAllComponents();
+		Collection<Object> components = componentRegistry.getAllComponents();
 		for (Object component : components)
 			initializeComponent(component);
 	}
@@ -27,18 +27,18 @@ public class CoreComponentInitializer {
 		Class<?> type = component.getClass();
 		for (Field field : findDependencyFields(type))
 			try {
-				Object dependency = coreComponentRegistry.getComponent(field.getType());
+				Object dependency = componentRegistry.getComponent(field.getType());
 				field.setAccessible(true);
 				field.set(component, dependency);
 			} catch (Exception exception) {
-				throw new DifuseException(String.format("Could not provide dependency for CoreComponent of type %s", type),
+				throw new DifuseException(String.format("Could not provide dependency for SystemComponent %s", type),
 						exception);
 			}
 	}
 
 	private Set<Field> findDependencyFields(Class<?> type) {
 		return Arrays.stream(type.getDeclaredFields())//
-				.filter(field -> field.isAnnotationPresent(CoreDependency.class))//
+				.filter(field -> field.isAnnotationPresent(SystemDependency.class))//
 				.collect(Collectors.toSet());
 	}
 
