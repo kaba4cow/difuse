@@ -1,7 +1,7 @@
 package com.kaba4cow.difuse.core.bean.preprocessor.support;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.preprocessor.BeanPreProcessor;
 import com.kaba4cow.difuse.core.bean.preprocessor.BeanPreProcessorException;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
@@ -9,7 +9,7 @@ import com.kaba4cow.difuse.core.bean.source.BeanSource;
 @SystemBean
 public class GlobalBeanPreProcessor {
 
-	@SystemDependency
+	@Provided
 	private BeanPreProcessorRegistry beanPreProcessorRegistry;
 
 	public boolean process(BeanSource<?> beanSource) {

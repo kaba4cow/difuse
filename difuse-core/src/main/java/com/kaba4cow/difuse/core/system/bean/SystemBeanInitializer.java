@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.DifuseException;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 
 public class SystemBeanInitializer {
 
@@ -37,7 +37,7 @@ public class SystemBeanInitializer {
 
 	private Set<Field> findDependencyFields(Class<?> type) {
 		return Arrays.stream(type.getDeclaredFields())//
-				.filter(field -> field.isAnnotationPresent(SystemDependency.class))//
+				.filter(field -> field.isAnnotationPresent(Provided.class))//
 				.collect(Collectors.toSet());
 	}
 

@@ -5,8 +5,8 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
@@ -20,16 +20,16 @@ public class EnvironmentInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentInitializer");
 
-	@SystemDependency
+	@Provided
 	private ContextSourceRegistry contextSourceRegistry;
 
-	@SystemDependency
+	@Provided
 	private Environment environment;
 
-	@SystemDependency
+	@Provided
 	private EnvironmentLoader environmentLoader;
 
-	@SystemDependency
+	@Provided
 	private SystemParameters systemParameters;
 
 	public void initializeEnvironment() {

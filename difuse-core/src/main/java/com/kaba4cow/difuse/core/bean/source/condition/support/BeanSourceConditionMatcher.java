@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import com.kaba4cow.difuse.core.annotation.conditional.Conditional;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.bean.source.condition.BeanSourceCondition;
 import com.kaba4cow.difuse.core.bean.source.support.BeanSourceRegistry;
@@ -16,13 +16,13 @@ import com.kaba4cow.difuse.core.environment.Environment;
 @SystemBean
 public class BeanSourceConditionMatcher {
 
-	@SystemDependency
+	@Provided
 	private BeanSourceRegistry beanSourceRegistry;
 
-	@SystemDependency
+	@Provided
 	private Environment environment;
 
-	@SystemDependency
+	@Provided
 	private BeanSourceConditionFactory beanSourceConditionFactory;
 
 	public boolean matchesCondition(BeanSource<?> beanSource) {

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.condition.support.BeanSourceConditionMatcher;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
@@ -24,7 +24,7 @@ public class ContextSourceRegistry {
 
 	private final Map<Class<?>, ContextSource> registry = new ConcurrentHashMap<>();
 
-	@SystemDependency
+	@Provided
 	private BeanSourceConditionMatcher beanSourceConditionMatcher;
 
 	public ContextSourceRegistry() {}

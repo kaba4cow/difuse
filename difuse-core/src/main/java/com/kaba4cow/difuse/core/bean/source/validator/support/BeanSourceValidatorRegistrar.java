@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.DifuseException;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidator;
 import com.kaba4cow.difuse.core.system.PackageScannerPool;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
@@ -17,10 +17,10 @@ public class BeanSourceValidatorRegistrar {
 
 	private static final Logger log = LoggerFactory.getLogger("BeanSourceValidatorRegistrar");
 
-	@SystemDependency
+	@Provided
 	private PackageScannerPool packageScannerPool;
 
-	@SystemDependency
+	@Provided
 	private BeanSourceValidatorRegistry beanSourceValidatorRegistry;
 
 	public void registerBeanSourceValidators(Class<?> sourceClass) {

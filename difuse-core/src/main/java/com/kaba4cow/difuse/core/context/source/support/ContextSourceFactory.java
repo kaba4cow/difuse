@@ -2,8 +2,8 @@ package com.kaba4cow.difuse.core.context.source.support;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.ContextSourceBuilder;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
@@ -12,7 +12,7 @@ import com.kaba4cow.difuse.core.context.source.configuration.builder.SourceClass
 @SystemBean
 public class ContextSourceFactory {
 
-	@SystemDependency
+	@Provided
 	private ContextSourceRegistry contextSourceRegistry;
 
 	public void createContextSource(Class<?> sourceClass) {

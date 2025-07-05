@@ -4,18 +4,18 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Type;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 
 @SystemBean
 public class GlobalDependencyProvider implements DependencyProvider {
 
-	@SystemDependency
+	@Provided
 	private PropertyDependencyProvider propertyDependencyProvider;
 
-	@SystemDependency
+	@Provided
 	private BeanDependencyProvider beanDependencyProvider;
 
 	@Override

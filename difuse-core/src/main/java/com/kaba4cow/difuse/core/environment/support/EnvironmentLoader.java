@@ -8,8 +8,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.reader.ConfigSourceReader;
 import com.kaba4cow.difuse.core.environment.config.reader.impl.PropertiesFileConfigSourceReader;
@@ -23,7 +23,7 @@ public class EnvironmentLoader {
 
 	private final Map<String, ConfigSourceReader> readers = new HashMap<>();
 
-	@SystemDependency
+	@Provided
 	private Environment environment;
 
 	public void loadEnvironment() {

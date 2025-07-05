@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.bean.Named;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderRegistry;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
@@ -22,10 +22,10 @@ import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistry;
 @SystemBean
 public class BeanDependencyProvider implements DependencyProvider {
 
-	@SystemDependency
+	@Provided
 	private SystemBeanRegistry systemBeanRegistry;
 
-	@SystemDependency
+	@Provided
 	private BeanProviderRegistry beanProviderRegistry;
 
 	@Override

@@ -3,8 +3,8 @@ package com.kaba4cow.difuse.core.bean.support;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.postprocessor.support.BeanPostProcessorInitializer;
 import com.kaba4cow.difuse.core.bean.preprocessor.support.BeanPreProcessorInitializer;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderInitializer;
@@ -17,19 +17,19 @@ public class BeanInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("BeanInitializer");
 
-	@SystemDependency
+	@Provided
 	private BeanSourceValidatorInitializer beanSourceValidatorInitializer;
 
-	@SystemDependency
+	@Provided
 	private BeanPreProcessorInitializer beanPreProcessorInitializer;
 
-	@SystemDependency
+	@Provided
 	private BeanPostProcessorInitializer beanPostProcessorInitializer;
 
-	@SystemDependency
+	@Provided
 	private BeanSourceInitializer beanSourceInitializer;
 
-	@SystemDependency
+	@Provided
 	private BeanProviderInitializer beanProviderInitializer;
 
 	public void initializeBeans() {

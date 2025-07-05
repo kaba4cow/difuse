@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.core.system;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.support.BeanInitializer;
 import com.kaba4cow.difuse.core.context.ContextInitializer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
@@ -16,19 +16,19 @@ public class SystemLauncher {
 
 	private static final Logger log = LoggerFactory.getLogger("SystemLauncher");
 
-	@SystemDependency
+	@Provided
 	private ContextInitializer contextInitializer;
 
-	@SystemDependency
+	@Provided
 	private EnvironmentInitializer environmentInitializer;
 
-	@SystemDependency
+	@Provided
 	private BeanInitializer beanInitializer;
 
-	@SystemDependency
+	@Provided
 	private SystemShutdownHookDispatcher shutdownHookDispatcher;
 
-	@SystemDependency
+	@Provided
 	private GlobalDependencyProvider dependencyProvider;
 
 	public DependencyProvider launch() {

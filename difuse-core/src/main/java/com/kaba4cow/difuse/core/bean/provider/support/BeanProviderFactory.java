@@ -1,7 +1,7 @@
 package com.kaba4cow.difuse.core.bean.provider.support;
 
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.postprocessor.support.GlobalBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
@@ -12,13 +12,13 @@ import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvide
 @SystemBean
 public class BeanProviderFactory {
 
-	@SystemDependency
+	@Provided
 	private BeanProviderRegistry beanProviderRegistry;
 
-	@SystemDependency
+	@Provided
 	private GlobalBeanPostProcessor globalBeanPostProcessor;
 
-	@SystemDependency
+	@Provided
 	private GlobalDependencyProvider dependencyProvider;
 
 	public void createClassBeanProvider(ClassBeanSource classBeanSource) {
