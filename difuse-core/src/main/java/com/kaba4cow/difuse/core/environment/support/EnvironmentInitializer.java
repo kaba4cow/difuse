@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
-import com.kaba4cow.difuse.core.application.ApplicationParameters;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.source.impl.CliConfigSource;
 import com.kaba4cow.difuse.core.environment.config.source.impl.EnvConfigSource;
+import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
 @SystemComponent
@@ -30,7 +30,7 @@ public class EnvironmentInitializer {
 	private EnvironmentLoader environmentLoader;
 
 	@SystemDependency
-	private ApplicationParameters bootstrapStartupParameters;
+	private SystemParameters bootstrapStartupParameters;
 
 	public void initializeEnvironment() {
 		log.info("Initializing environment...");

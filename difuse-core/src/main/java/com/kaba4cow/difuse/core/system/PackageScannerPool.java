@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.application;
+package com.kaba4cow.difuse.core.system;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

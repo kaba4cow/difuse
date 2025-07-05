@@ -1,8 +1,8 @@
-package com.kaba4cow.difuse.core.application;
+package com.kaba4cow.difuse.core.system;
 
 import java.util.Optional;
 
-public class ApplicationParameters {
+public class SystemParameters {
 
 	private final Class<?> sourceClass;
 
@@ -10,7 +10,7 @@ public class ApplicationParameters {
 
 	private final Class<?> testClass;
 
-	public ApplicationParameters(Class<?> sourceClass, String[] commandLineArgs, Class<?> testClass) {
+	public SystemParameters(Class<?> sourceClass, String[] commandLineArgs, Class<?> testClass) {
 		this.sourceClass = sourceClass;
 		this.commandLineArgs = commandLineArgs;
 		this.testClass = testClass;

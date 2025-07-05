@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.system;
+package com.kaba4cow.difuse.core.system.component;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

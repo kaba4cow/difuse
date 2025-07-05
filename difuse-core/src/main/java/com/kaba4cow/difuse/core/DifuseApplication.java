@@ -3,10 +3,10 @@ package com.kaba4cow.difuse.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.application.ApplicationInitializer;
-import com.kaba4cow.difuse.core.application.ApplicationLauncher;
-import com.kaba4cow.difuse.core.application.ApplicationParameters;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
+import com.kaba4cow.difuse.core.system.SystemInitializer;
+import com.kaba4cow.difuse.core.system.SystemLauncher;
+import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.Assert;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
@@ -34,8 +34,8 @@ public class DifuseApplication {
 		log.info("Starting application {}...", sourceClass.getName());
 		ExecutionTimer timer = new ExecutionTimer().start();
 
-		ApplicationParameters parameters = new ApplicationParameters(sourceClass, args, testClass);
-		ApplicationLauncher launcher = new ApplicationInitializer().initialize(parameters);
+		SystemParameters parameters = new SystemParameters(sourceClass, args, testClass);
+		SystemLauncher launcher = new SystemInitializer().initialize(parameters);
 		DependencyProvider dependencyProvider = launcher.launch();
 
 		log.info("Application startup took {} ms", timer.finish().getExecutionMillis());

@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
-import com.kaba4cow.difuse.core.application.ApplicationParameters;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceFactory;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
 @SystemComponent
@@ -22,7 +22,7 @@ public class ContextInitializer {
 	private ContextSourceFactory contextSourceFactory;
 
 	@SystemDependency
-	private ApplicationParameters bootstrapStartupParameters;
+	private SystemParameters bootstrapStartupParameters;
 
 	public void initializeContexts() {
 		log.info("Initializing contexts...");

@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.application;
+package com.kaba4cow.difuse.core.system;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,9 @@ import com.kaba4cow.difuse.core.environment.support.EnvironmentInitializer;
 import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookDispatcher;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-public class ApplicationLauncher {
+public class SystemLauncher {
 
-	private static final Logger log = LoggerFactory.getLogger("ApplicationLauncher");
+	private static final Logger log = LoggerFactory.getLogger("SystemLauncher");
 
 	@SystemDependency
 	private ContextInitializer contextInitializer;
@@ -32,7 +32,7 @@ public class ApplicationLauncher {
 	private DelegatingDependencyProvider dependencyProvider;
 
 	public DependencyProvider launch() {
-		log.info("Launching application...");
+		log.info("Launching system...");
 		ExecutionTimer timer = new ExecutionTimer().start();
 
 		contextInitializer.initializeContexts();
@@ -41,7 +41,7 @@ public class ApplicationLauncher {
 
 		Runtime.getRuntime().addShutdownHook(shutdownHookDispatcher);
 
-		log.info("Application launch took {} ms", timer.finish().getExecutionMillis());
+		log.info("System launch took {} ms", timer.finish().getExecutionMillis());
 
 		return dependencyProvider;
 	}

@@ -4,22 +4,22 @@ import java.lang.reflect.AnnotatedElement;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
-import com.kaba4cow.difuse.core.application.ApplicationParameters;
+import com.kaba4cow.difuse.core.system.SystemParameters;
 
 @SystemComponent
 public class BeanProtectorFactory {
 
 	@SystemDependency
-	private ApplicationParameters applicationParameters;
+	private SystemParameters systemParameters;
 
 	public BeanProtector createBeanProtector(AnnotatedElement... elements) {
-		return applicationParameters.getTestClass().isPresent()//
+		return systemParameters.getTestClass().isPresent()//
 				? createTestBeanProtector(elements)//
 				: createDefaultBeanProtector(elements);
 	}
 
 	private BeanProtector createTestBeanProtector(AnnotatedElement... elements) {
-		return new TestBeanProtector(applicationParameters.getSourceClass(), elements);
+		return new TestBeanProtector(systemParameters.getSourceClass(), elements);
 	}
 
 	private BeanProtector createDefaultBeanProtector(AnnotatedElement... elements) {
