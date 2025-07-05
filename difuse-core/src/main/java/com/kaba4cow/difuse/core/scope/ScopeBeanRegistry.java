@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.scope.handler;
+package com.kaba4cow.difuse.core.scope;
 
 import java.util.ArrayList;
 import java.util.List;

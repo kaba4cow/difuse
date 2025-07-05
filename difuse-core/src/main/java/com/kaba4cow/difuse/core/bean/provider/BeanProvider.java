@@ -1,7 +1,8 @@
 package com.kaba4cow.difuse.core.bean.provider;
 
 import com.kaba4cow.difuse.core.DifuseException;
-import com.kaba4cow.difuse.core.bean.BeanDestroyHookRegistry;
+import com.kaba4cow.difuse.core.bean.destroyhook.BeanDestroyHook;
+import com.kaba4cow.difuse.core.bean.destroyhook.BeanDestroyHookRegistry;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
@@ -27,7 +28,7 @@ public abstract class BeanProvider<T extends BeanSource<?>> {
 		return createBean(session);
 	}
 
-	public void addDestroyHook(Object bean, Runnable destroyHook) {
+	public void addDestroyHook(Object bean, BeanDestroyHook destroyHook) {
 		beanHookRegistry.registerDestroyHook(bean, destroyHook);
 	}
 

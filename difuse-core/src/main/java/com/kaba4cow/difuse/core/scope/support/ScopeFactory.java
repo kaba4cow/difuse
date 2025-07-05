@@ -2,7 +2,7 @@ package com.kaba4cow.difuse.core.scope.support;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
-import com.kaba4cow.difuse.core.scope.handler.Scope;
+import com.kaba4cow.difuse.core.scope.Scope;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
 @SystemComponent

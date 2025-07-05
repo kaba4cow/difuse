@@ -1,7 +1,7 @@
-package com.kaba4cow.difuse.core.scope.handler.impl;
+package com.kaba4cow.difuse.core.scope.impl;
 
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.scope.handler.Scope;
+import com.kaba4cow.difuse.core.scope.Scope;
 
 public class PrototypeScope extends Scope {
 

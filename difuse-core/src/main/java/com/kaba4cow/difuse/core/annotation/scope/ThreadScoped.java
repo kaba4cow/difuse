@@ -8,7 +8,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.scope.handler.impl.ThreadScope;
+import com.kaba4cow.difuse.core.scope.impl.ThreadScope;
 
 @Documented
 @Retention(RUNTIME)

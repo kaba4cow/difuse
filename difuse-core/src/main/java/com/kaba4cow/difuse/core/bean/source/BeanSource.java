@@ -7,7 +7,7 @@ import com.kaba4cow.difuse.core.annotation.bean.Named;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
-import com.kaba4cow.difuse.core.scope.handler.Scope;
+import com.kaba4cow.difuse.core.scope.Scope;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 
 public abstract class BeanSource<T extends AnnotatedElement> implements DependencyConsumer {
