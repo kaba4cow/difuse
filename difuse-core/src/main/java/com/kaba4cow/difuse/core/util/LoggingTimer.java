@@ -20,6 +20,10 @@ public class LoggingTimer implements AutoCloseable {
 		this.log.info(message, args);
 	}
 
+	public LoggingTimer(Logger log) {
+		this(log, "Started...");
+	}
+
 	@Override
 	public void close() {
 		if (finished)
