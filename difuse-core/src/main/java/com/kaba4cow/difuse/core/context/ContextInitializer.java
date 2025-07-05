@@ -22,13 +22,13 @@ public class ContextInitializer {
 	private ContextSourceFactory contextSourceFactory;
 
 	@SystemDependency
-	private SystemParameters bootstrapStartupParameters;
+	private SystemParameters systemParameters;
 
 	public void initializeContexts() {
 		log.info("Initializing contexts...");
 		ExecutionTimer timer = new ExecutionTimer().start();
 
-		contextSourceFactory.createContextSource(bootstrapStartupParameters.getSourceClass());
+		contextSourceFactory.createContextSource(systemParameters.getSourceClass());
 
 		log.info("Context initialization took {} ms", timer.finish().getExecutionMillis());
 	}
