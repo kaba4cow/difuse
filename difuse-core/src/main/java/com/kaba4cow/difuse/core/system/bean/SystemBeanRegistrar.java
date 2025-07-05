@@ -21,6 +21,7 @@ public class SystemBeanRegistrar {
 	}
 
 	public void registerBeans() {
+		registerBean(beanRegistry);
 		Set<Class<?>> beanClasses = PackageScanner.of(DifuseApplication.class).searchClassesAnnotatedWith(SystemBean.class);
 		for (Class<?> beanClass : beanClasses)
 			registerBean(beanClass);

@@ -17,9 +17,13 @@ import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderRegistry;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
+import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistry;
 
 @SystemBean
 public class BeanDependencyProvider implements DependencyProvider {
+
+	@SystemDependency
+	private SystemBeanRegistry systemBeanRegistry;
 
 	@SystemDependency
 	private BeanProviderRegistry beanProviderRegistry;
@@ -28,6 +32,8 @@ public class BeanDependencyProvider implements DependencyProvider {
 	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {
 		if (type instanceof Class<?>) {
 			Class<?> dependencyClass = (Class<?>) type;
+			if (systemBeanRegistry.containsBean(dependencyClass))
+				return systemBeanRegistry.getBean((Class<?>) type);
 			return provideSingleDependency(element, dependencyClass, dependencyConsumer);
 		} else if (type instanceof ParameterizedType) {
 			ParameterizedType parameterizedType = (ParameterizedType) type;

@@ -17,6 +17,10 @@ public class SystemBeanRegistry {
 		return type.cast(registry.get(type));
 	}
 
+	public boolean containsBean(Class<?> type) {
+		return registry.containsKey(type);
+	}
+
 	public Collection<Object> getAllBeans() {
 		return Collections.unmodifiableCollection(registry.values());
 	}
