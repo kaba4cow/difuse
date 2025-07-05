@@ -3,11 +3,11 @@ package com.kaba4cow.difuse.core.bean.postprocessor.support;
 import java.lang.reflect.Constructor;
 
 import com.kaba4cow.difuse.core.DifuseException;
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
-@SystemComponent
+@SystemBean
 public class BeanPostProcessorFactory {
 
 	public BeanPostProcessor createBeanPostProcessor(Class<? extends BeanPostProcessor> type) {

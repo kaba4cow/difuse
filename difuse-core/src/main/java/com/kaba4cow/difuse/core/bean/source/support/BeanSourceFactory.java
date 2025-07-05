@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.preprocessor.support.GlobalBeanPreProcessor;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
@@ -17,7 +17,7 @@ import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
-@SystemComponent
+@SystemBean
 public class BeanSourceFactory {
 
 	@SystemDependency

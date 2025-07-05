@@ -2,13 +2,13 @@ package com.kaba4cow.difuse.core.bean.source.validator.support;
 
 import java.util.Set;
 
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidationException;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidator;
 
-@SystemComponent
+@SystemBean
 public class GlobalBeanSourceValidator {
 
 	@SystemDependency

@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.system.component;
+package com.kaba4cow.difuse.core.system.bean;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -9,30 +9,29 @@ import java.util.stream.Collectors;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 
-public class SystemComponentInitializer {
+public class SystemBeanInitializer {
 
-	private final SystemComponentRegistry componentRegistry;
+	private final SystemBeanRegistry beanRegistry;
 
-	public SystemComponentInitializer(SystemComponentRegistry componentRegistry) {
-		this.componentRegistry = componentRegistry;
+	public SystemBeanInitializer(SystemBeanRegistry beanRegistry) {
+		this.beanRegistry = beanRegistry;
 	}
 
-	public void initializeComponents() {
-		Collection<Object> components = componentRegistry.getAllComponents();
+	public void initializeBeans() {
+		Collection<Object> components = beanRegistry.getAllBeans();
 		for (Object component : components)
-			initializeComponent(component);
+			initializeBean(component);
 	}
 
-	private void initializeComponent(Object component) {
+	private void initializeBean(Object component) {
 		Class<?> type = component.getClass();
 		for (Field field : findDependencyFields(type))
 			try {
-				Object dependency = componentRegistry.getComponent(field.getType());
+				Object dependency = beanRegistry.getBean(field.getType());
 				field.setAccessible(true);
 				field.set(component, dependency);
 			} catch (Exception exception) {
-				throw new DifuseException(String.format("Could not provide dependency for SystemComponent %s", type),
-						exception);
+				throw new DifuseException(String.format("Could not provide dependency for SystemBean %s", type), exception);
 			}
 	}
 

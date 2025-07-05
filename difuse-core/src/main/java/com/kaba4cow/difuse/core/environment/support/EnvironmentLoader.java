@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.reader.ConfigSourceReader;
@@ -16,7 +16,7 @@ import com.kaba4cow.difuse.core.environment.config.reader.impl.PropertiesFileCon
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
 import com.kaba4cow.difuse.core.util.ExecutionTimer;
 
-@SystemComponent
+@SystemBean
 public class EnvironmentLoader {
 
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentLoader");

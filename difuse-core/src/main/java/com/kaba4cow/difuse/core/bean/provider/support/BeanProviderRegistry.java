@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 
-@SystemComponent
+@SystemBean
 public class BeanProviderRegistry {
 
 	private static final Logger log = LoggerFactory.getLogger("BeanProviderRegistry");

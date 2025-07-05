@@ -3,11 +3,11 @@ package com.kaba4cow.difuse.core.bean.preprocessor.support;
 import java.lang.reflect.Constructor;
 
 import com.kaba4cow.difuse.core.DifuseException;
-import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
+import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.preprocessor.BeanPreProcessor;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
-@SystemComponent
+@SystemBean
 public class BeanPreProcessorFactory {
 
 	public BeanPreProcessor createBeanPreProcessor(Class<? extends BeanPreProcessor> type) {
