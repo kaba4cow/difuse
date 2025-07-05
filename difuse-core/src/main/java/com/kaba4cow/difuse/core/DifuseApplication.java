@@ -32,7 +32,8 @@ public class DifuseApplication {
 		try (LoggingTimer timer = new LoggingTimer(log, "Starting application {}...", sourceClass.getName())) {
 			Assert.notNull(args, "Args must not be null");
 			SystemParameters parameters = new SystemParameters(sourceClass, args, testClass);
-			SystemLauncher launcher = new SystemInitializer().initialize(parameters);
+			SystemInitializer initializer = new SystemInitializer();
+			SystemLauncher launcher = initializer.initialize(parameters);
 			DependencyProvider dependencyProvider = launcher.launch();
 			return dependencyProvider;
 		}

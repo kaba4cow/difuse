@@ -17,25 +17,22 @@ import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderRegistry;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
-import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistry;
+import com.kaba4cow.difuse.core.system.bean.registry.impl.AccessibleSystemBeanRegistry;
 
 @SystemBean
 public class BeanDependencyProvider implements DependencyProvider {
 
 	@Provided
-	private SystemBeanRegistry systemBeanRegistry;
+	private AccessibleSystemBeanRegistry systemBeanRegistry;
 
 	@Provided
 	private BeanProviderRegistry beanProviderRegistry;
 
 	@Override
 	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {
-		if (type instanceof Class<?>) {
-			Class<?> dependencyClass = (Class<?>) type;
-			if (systemBeanRegistry.containsAccessibleBean(dependencyClass))
-				return systemBeanRegistry.getAccessibleBean((Class<?>) type);
-			return provideSingleDependency(element, dependencyClass, dependencyConsumer);
-		} else if (type instanceof ParameterizedType) {
+		if (type instanceof Class<?>)
+			return provideSingleDependency(element, (Class<?>) type, dependencyConsumer);
+		else if (type instanceof ParameterizedType) {
 			ParameterizedType parameterizedType = (ParameterizedType) type;
 			Type rawType = parameterizedType.getRawType();
 			if (rawType == List.class)
@@ -47,6 +44,8 @@ public class BeanDependencyProvider implements DependencyProvider {
 	}
 
 	private Object provideSingleDependency(AnnotatedElement element, Class<?> type, DependencyConsumer dependencyConsumer) {
+		if (systemBeanRegistry.containsBean(type))
+			return systemBeanRegistry.getBean(type);
 		if (element.isAnnotationPresent(Named.class)) {
 			String targetName = element.getAnnotation(Named.class).value();
 			List<BeanProvider<?>> namedBeanProviders = beanProviderRegistry.findByNameAndClass(targetName, type);
