@@ -1,9 +1,9 @@
 package com.kaba4cow.difuse.core.environment.support;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class EnvironmentLoader {
 
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentLoader");
 
-	private final Map<String, ConfigSourceReader> readers = new TreeMap<>();
+	private final Map<String, ConfigSourceReader> readers = new HashMap<>();
 
 	@CoreDependency
 	private Environment environment;

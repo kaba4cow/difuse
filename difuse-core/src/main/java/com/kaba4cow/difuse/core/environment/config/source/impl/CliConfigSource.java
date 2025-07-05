@@ -1,13 +1,13 @@
 package com.kaba4cow.difuse.core.environment.config.source.impl;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
 
 public class CliConfigSource extends ConfigSource {
 
-	private final Map<String, String> map = new TreeMap<>();
+	private final Map<String, String> map = new HashMap<>();
 
 	public CliConfigSource(String name, String[] args) {
 		super(name);
