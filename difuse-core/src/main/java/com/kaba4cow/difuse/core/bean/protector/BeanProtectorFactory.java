@@ -1,7 +1,6 @@
 package com.kaba4cow.difuse.core.bean.protector;
 
 import java.lang.reflect.AnnotatedElement;
-import java.util.Arrays;
 
 import com.kaba4cow.difuse.core.annotation.application.CoreComponent;
 import com.kaba4cow.difuse.core.annotation.application.CoreDependency;
@@ -20,11 +19,11 @@ public class BeanProtectorFactory {
 	}
 
 	private BeanProtector createTestBeanProtector(AnnotatedElement... elements) {
-		return new TestBeanProtector(applicationParameters.getSourceClass(), Arrays.asList(elements));
+		return new TestBeanProtector(applicationParameters.getSourceClass(), elements);
 	}
 
 	private BeanProtector createDefaultBeanProtector(AnnotatedElement... elements) {
-		return new BeanProtector(Arrays.asList(elements));
+		return new BeanProtector(elements);
 	}
 
 }

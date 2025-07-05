@@ -2,7 +2,6 @@ package com.kaba4cow.difuse.core.bean.protector;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +25,7 @@ public class BeanProtector {
 
 	private boolean restricting = false;
 
-	BeanProtector(Collection<AnnotatedElement> elements) {
+	BeanProtector(AnnotatedElement... elements) {
 		for (AnnotatedElement element : elements)
 			readAnnotations(element);
 	}
