@@ -25,7 +25,7 @@ public class BeanPostProcessorRegistry {
 
 	public void registerBeanPostProcessor(Class<? extends BeanPostProcessor> type) {
 		registry.computeIfAbsent(type, beanPostProcessorFactory::createBeanPostProcessor);
-		log.debug("Registered BeanPostProcessor {}", type);
+		log.debug("Registered BeanPostProcessor {} [{}]", type.getName(), registry.get(type).getLifecyclePhase());
 	}
 
 	public List<BeanPostProcessor> getBeanPostProcessors() {
