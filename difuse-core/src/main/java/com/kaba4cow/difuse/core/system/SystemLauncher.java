@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
-import com.kaba4cow.difuse.core.bean.BeanInitializer;
+import com.kaba4cow.difuse.core.bean.support.BeanInitializer;
 import com.kaba4cow.difuse.core.context.ContextInitializer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvider;
