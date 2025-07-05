@@ -1,4 +1,4 @@
-package org.difuse.validation;
+package com.kaba4cow.difuse.validation;
 
 import java.lang.reflect.Method;
 import java.util.Set;

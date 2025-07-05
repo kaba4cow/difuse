@@ -1,12 +1,11 @@
-package org.difuse.validation.parameter;
+package com.kaba4cow.difuse.validation.parameter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.difuse.validation.annotation.Validated;
-
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
+import com.kaba4cow.difuse.validation.annotation.Validated;
 
 @Validated
 @Bean

@@ -1,8 +1,7 @@
-package org.difuse.validation.parameter;
+package com.kaba4cow.difuse.validation.parameter;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import org.difuse.validation.MethodValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -11,6 +10,7 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.test.DifuseTestExtension;
 import com.kaba4cow.difuse.core.test.annotation.AssertThrows;
 import com.kaba4cow.difuse.core.test.annotation.TestContext;
+import com.kaba4cow.difuse.validation.MethodValidationException;
 
 @DifuseContext
 @TestContext(ParameterValidationTest.class)
