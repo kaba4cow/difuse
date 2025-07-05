@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
-import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
@@ -40,10 +39,7 @@ public class LazyFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	private Set<Field> findLazyFields(BeanSource<?> beanSource) {
-		return BeanPostProcessorReflections.findFields(beanSource, //
-				field -> field.isAnnotationPresent(Lazy.class), //
-				field -> field.isAnnotationPresent(Provided.class)//
-		);
+		return BeanPostProcessorReflections.findFields(beanSource, field -> field.isAnnotationPresent(Lazy.class));
 	}
 
 }
