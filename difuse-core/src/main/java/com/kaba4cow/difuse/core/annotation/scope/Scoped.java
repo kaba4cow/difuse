@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.scope.handler.ScopeHandler;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-public @interface Scope {
+public @interface Scoped {
 
 	Class<? extends ScopeHandler> value();
 

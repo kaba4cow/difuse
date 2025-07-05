@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.scope.handler.impl.SingletonScopeHandler;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Scope(SingletonScopeHandler.class)
-public @interface SingletonScope {
+@Scoped(SingletonScopeHandler.class)
+public @interface SingletonScoped {
 
 }

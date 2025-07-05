@@ -8,12 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.scope.handler.impl.ThreadScopeHandler;
+import com.kaba4cow.difuse.core.scope.handler.impl.PrototypeScopeHandler;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Scope(ThreadScopeHandler.class)
-public @interface ThreadScope {
+@Scoped(PrototypeScopeHandler.class)
+public @interface PrototypeScoped {
 
 }

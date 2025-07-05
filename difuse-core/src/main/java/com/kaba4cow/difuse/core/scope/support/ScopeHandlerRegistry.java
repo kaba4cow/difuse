@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.scope.Scope;
+import com.kaba4cow.difuse.core.annotation.scope.Scoped;
 import com.kaba4cow.difuse.core.annotation.system.SystemComponent;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
@@ -35,18 +35,18 @@ public class ScopeHandlerRegistry {
 
 	public ScopeHandler getScopeHandler(BeanSource<?> beanSource) {
 		return findScopeAnnotation(beanSource.getSourceElement())//
-				.map(Scope::value)//
+				.map(Scoped::value)//
 				.map(this::getScopeHandler)//
 				.orElseGet(this::getDefaultScopeHandler);
 	}
 
-	private static Optional<Scope> findScopeAnnotation(AnnotatedElement element) {
-		return element.isAnnotationPresent(Scope.class)//
-				? Optional.of(element.getAnnotation(Scope.class))//
+	private static Optional<Scoped> findScopeAnnotation(AnnotatedElement element) {
+		return element.isAnnotationPresent(Scoped.class)//
+				? Optional.of(element.getAnnotation(Scoped.class))//
 				: Arrays.stream(element.getDeclaredAnnotations())//
 						.map(Annotation::annotationType)//
-						.filter(annotation -> annotation.isAnnotationPresent(Scope.class))//
-						.map(annotation -> annotation.getAnnotation(Scope.class))//
+						.filter(annotation -> annotation.isAnnotationPresent(Scoped.class))//
+						.map(annotation -> annotation.getAnnotation(Scoped.class))//
 						.findFirst();
 	}
 
