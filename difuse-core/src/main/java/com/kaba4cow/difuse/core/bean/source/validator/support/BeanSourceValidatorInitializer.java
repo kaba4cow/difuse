@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanSourceValidatorInitializer {
@@ -22,14 +22,11 @@ public class BeanSourceValidatorInitializer {
 	private BeanSourceValidatorRegistrar beanSourceValidatorRegistrar;
 
 	public void initializeBeanSourceValidators() {
-		log.info("Initializing BeanSourceValidators...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		beanSourceValidatorRegistrar.registerBeanSourceValidators(DifuseApplication.class);
-		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-			beanSourceValidatorRegistrar.registerBeanSourceValidators(contextSource.getSourceClass());
-
-		log.info("BeanSourceValidator initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing BeanSourceValidators...")) {
+			beanSourceValidatorRegistrar.registerBeanSourceValidators(DifuseApplication.class);
+			for (ContextSource contextSource : contextSourceRegistry.getContextSources())
+				beanSourceValidatorRegistrar.registerBeanSourceValidators(contextSource.getSourceClass());
+		}
 	}
 
 }

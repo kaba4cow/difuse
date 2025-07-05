@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.system.SystemInitializer;
 import com.kaba4cow.difuse.core.system.SystemLauncher;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.Assert;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 public class DifuseApplication {
 
@@ -29,18 +29,13 @@ public class DifuseApplication {
 	}
 
 	public DependencyProvider run(String[] args) {
-		Assert.notNull(args, "Args must not be null");
-
-		log.info("Starting application {}...", sourceClass.getName());
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		SystemParameters parameters = new SystemParameters(sourceClass, args, testClass);
-		SystemLauncher launcher = new SystemInitializer().initialize(parameters);
-		DependencyProvider dependencyProvider = launcher.launch();
-
-		log.info("Application startup took {} ms", timer.finish().getExecutionMillis());
-
-		return dependencyProvider;
+		try (LoggingTimer timer = new LoggingTimer(log, "Starting application {}...", sourceClass.getName())) {
+			Assert.notNull(args, "Args must not be null");
+			SystemParameters parameters = new SystemParameters(sourceClass, args, testClass);
+			SystemLauncher launcher = new SystemInitializer().initialize(parameters);
+			DependencyProvider dependencyProvider = launcher.launch();
+			return dependencyProvider;
+		}
 	}
 
 	public DependencyProvider run() {

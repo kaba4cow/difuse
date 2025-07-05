@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanPostProcessorInitializer {
@@ -22,14 +22,11 @@ public class BeanPostProcessorInitializer {
 	private BeanPostProcessorRegistrar beanPostProcessorRegistrar;
 
 	public void initializeBeanPostProcessors() {
-		log.info("Initializing BeanPostProcessors...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		beanPostProcessorRegistrar.registerBeanPostProcessors(DifuseApplication.class);
-		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-			beanPostProcessorRegistrar.registerBeanPostProcessors(contextSource.getSourceClass());
-
-		log.info("BeanPostProcessor initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing BeanPostProcessors...")) {
+			beanPostProcessorRegistrar.registerBeanPostProcessors(DifuseApplication.class);
+			for (ContextSource contextSource : contextSourceRegistry.getContextSources())
+				beanPostProcessorRegistrar.registerBeanPostProcessors(contextSource.getSourceClass());
+		}
 	}
 
 }

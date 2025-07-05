@@ -7,7 +7,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanSourceInitializer {
@@ -21,13 +21,10 @@ public class BeanSourceInitializer {
 	private BeanSourceRegistrar beanSourceRegistrar;
 
 	public void initializeBeanSources() {
-		log.info("Initializing BeanSources...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-			beanSourceRegistrar.registerBeanSources(contextSource);
-
-		log.info("BeanSource initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing BeanSources...")) {
+			for (ContextSource contextSource : contextSourceRegistry.getContextSources())
+				beanSourceRegistrar.registerBeanSources(contextSource);
+		}
 	}
 
 }

@@ -14,7 +14,7 @@ import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.reader.ConfigSourceReader;
 import com.kaba4cow.difuse.core.environment.config.reader.impl.PropertiesFileConfigSourceReader;
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class EnvironmentLoader {
@@ -27,20 +27,16 @@ public class EnvironmentLoader {
 	private Environment environment;
 
 	public void loadEnvironment() {
-		log.info("Loading environment...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		initializeReaders();
-
-		for (Map.Entry<String, ConfigSourceReader> entry : readers.entrySet()) {
-			String extension = entry.getKey();
-			ConfigSourceReader reader = entry.getValue();
-			tryLoadConfig(String.format("application.%s", extension), reader);
-			for (String profile : environment.getProfiles())
-				tryLoadConfig(String.format("application-%s.%s", profile, extension), reader);
+		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
+			initializeReaders();
+			for (Map.Entry<String, ConfigSourceReader> entry : readers.entrySet()) {
+				String extension = entry.getKey();
+				ConfigSourceReader reader = entry.getValue();
+				tryLoadConfig(String.format("application.%s", extension), reader);
+				for (String profile : environment.getProfiles())
+					tryLoadConfig(String.format("application-%s.%s", profile, extension), reader);
+			}
 		}
-
-		log.info("Environment loading took {} ms", timer.finish().getExecutionMillis());
 	}
 
 	private void initializeReaders() {

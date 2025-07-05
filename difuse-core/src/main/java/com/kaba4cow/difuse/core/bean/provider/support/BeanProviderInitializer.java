@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanProviderInitializer {
@@ -22,16 +22,13 @@ public class BeanProviderInitializer {
 	private BeanProviderRegistrar beanProviderRegistrar;
 
 	public void initializeBeanProviders() {
-		log.info("Initializing BeanProviders...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		beanProviderRegistrar.registerBeanProviders();
-		beanProviderRegistry.findEagerBeanProviders(MethodBeanProvider.class)//
-				.forEach(BeanProvider::provideBean);
-		beanProviderRegistry.findEagerBeanProviders(ClassBeanProvider.class)//
-				.forEach(BeanProvider::provideBean);
-
-		log.info("BeanProvider initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing BeanProviders...")) {
+			beanProviderRegistrar.registerBeanProviders();
+			beanProviderRegistry.findEagerBeanProviders(MethodBeanProvider.class)//
+					.forEach(BeanProvider::provideBean);
+			beanProviderRegistry.findEagerBeanProviders(ClassBeanProvider.class)//
+					.forEach(BeanProvider::provideBean);
+		}
 	}
 
 }

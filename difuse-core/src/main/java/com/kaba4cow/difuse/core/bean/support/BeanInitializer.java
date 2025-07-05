@@ -10,7 +10,7 @@ import com.kaba4cow.difuse.core.bean.preprocessor.support.BeanPreProcessorInitia
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderInitializer;
 import com.kaba4cow.difuse.core.bean.source.support.BeanSourceInitializer;
 import com.kaba4cow.difuse.core.bean.source.validator.support.BeanSourceValidatorInitializer;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanInitializer {
@@ -33,16 +33,13 @@ public class BeanInitializer {
 	private BeanProviderInitializer beanProviderInitializer;
 
 	public void initializeBeans() {
-		log.info("Initializing beans...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		beanSourceValidatorInitializer.initializeBeanSourceValidators();
-		beanPreProcessorInitializer.initializeBeanPreProcessors();
-		beanPostProcessorInitializer.initializeBeanPostProcessors();
-		beanSourceInitializer.initializeBeanSources();
-		beanProviderInitializer.initializeBeanProviders();
-
-		log.info("Bean initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing beans...")) {
+			beanSourceValidatorInitializer.initializeBeanSourceValidators();
+			beanPreProcessorInitializer.initializeBeanPreProcessors();
+			beanPostProcessorInitializer.initializeBeanPostProcessors();
+			beanSourceInitializer.initializeBeanSources();
+			beanProviderInitializer.initializeBeanProviders();
+		}
 	}
 
 }

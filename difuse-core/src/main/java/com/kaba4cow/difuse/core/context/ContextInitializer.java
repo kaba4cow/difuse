@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceFactory;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.system.SystemParameters;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class ContextInitializer {
@@ -25,12 +25,9 @@ public class ContextInitializer {
 	private SystemParameters systemParameters;
 
 	public void initializeContexts() {
-		log.info("Initializing contexts...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		contextSourceFactory.createContextSource(systemParameters.getSourceClass());
-
-		log.info("Context initialization took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing contexts...")) {
+			contextSourceFactory.createContextSource(systemParameters.getSourceClass());
+		}
 	}
 
 }

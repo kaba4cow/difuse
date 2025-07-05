@@ -9,7 +9,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.preprocessor.BeanPreProcessor;
 import com.kaba4cow.difuse.core.system.PackageScannerPool;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
 @SystemBean
@@ -24,15 +24,13 @@ public class BeanPreProcessorRegistrar {
 	private BeanPreProcessorRegistry beanPreProcessorRegistry;
 
 	public void registerBeanPreProcessors(Class<?> sourceClass) {
-		log.info("Registering BeanPreProcessors for {}...", sourceClass);
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		PackageScanner packageScanner = packageScannerPool.getPackageScanner(sourceClass);
-		Set<Class<? extends BeanPreProcessor>> beanProcessorClasses = packageScanner.searchClassesOf(BeanPreProcessor.class);
-		for (Class<? extends BeanPreProcessor> beanProcessorClass : beanProcessorClasses)
-			beanPreProcessorRegistry.registerBeanPreProcessor(beanProcessorClass);
-
-		log.info("BeanPreProcessor registration took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanPreProcessors for {}...", sourceClass)) {
+			PackageScanner packageScanner = packageScannerPool.getPackageScanner(sourceClass);
+			Set<Class<? extends BeanPreProcessor>> beanProcessorClasses = packageScanner
+					.searchClassesOf(BeanPreProcessor.class);
+			for (Class<? extends BeanPreProcessor> beanProcessorClass : beanProcessorClasses)
+				beanPreProcessorRegistry.registerBeanPreProcessor(beanProcessorClass);
+		}
 	}
 
 }

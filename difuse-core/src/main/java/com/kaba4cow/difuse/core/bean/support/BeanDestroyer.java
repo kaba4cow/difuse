@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.annotation.system.SystemShutdownHook;
 import com.kaba4cow.difuse.core.scope.Scope;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanDestroyer {
@@ -20,15 +20,12 @@ public class BeanDestroyer {
 
 	@SystemShutdownHook
 	public void destroyAllBeans() {
-		log.info("Destroying beans...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		long totalBeansDestroyed = scopeRegistry.getAllScopes().stream()//
-				.mapToLong(Scope::destroyBeans)//
-				.sum();
-
-		log.info("Bean destroying took {} ms", timer.finish().getExecutionMillis());
-		log.debug("Total beans destroyed: {}", totalBeansDestroyed);
+		try (LoggingTimer timer = new LoggingTimer(log, "Destroying beans...")) {
+			long totalBeansDestroyed = scopeRegistry.getAllScopes().stream()//
+					.mapToLong(Scope::destroyBeans)//
+					.sum();
+			log.debug("Total beans destroyed: {}", totalBeansDestroyed);
+		}
 	}
 
 }

@@ -9,7 +9,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.support.BeanSourceRegistry;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class BeanProviderRegistrar {
@@ -23,14 +23,11 @@ public class BeanProviderRegistrar {
 	private BeanSourceRegistry beanSourceRegistry;
 
 	public void registerBeanProviders() {
-		log.info("Registering BeanProviders...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		Set<ClassBeanSource> classBeanSources = beanSourceRegistry.getBeanSources(ClassBeanSource.class);
-		for (ClassBeanSource beanSource : classBeanSources)
-			beanProviderFactory.createClassBeanProvider(beanSource);
-
-		log.info("BeanProvider registration took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanProviders...")) {
+			Set<ClassBeanSource> classBeanSources = beanSourceRegistry.getBeanSources(ClassBeanSource.class);
+			for (ClassBeanSource beanSource : classBeanSources)
+				beanProviderFactory.createClassBeanProvider(beanSource);
+		}
 	}
 
 }

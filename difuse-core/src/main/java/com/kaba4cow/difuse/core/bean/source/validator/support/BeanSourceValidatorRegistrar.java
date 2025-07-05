@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.annotation.system.SystemDependency;
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidator;
 import com.kaba4cow.difuse.core.system.PackageScannerPool;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
@@ -24,15 +24,12 @@ public class BeanSourceValidatorRegistrar {
 	private BeanSourceValidatorRegistry beanSourceValidatorRegistry;
 
 	public void registerBeanSourceValidators(Class<?> sourceClass) {
-		log.info("Registering BeanSourceValidators...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		PackageScanner packageScanner = packageScannerPool.getPackageScanner(sourceClass);
-		packageScanner.searchClassesOf(BeanSourceValidator.class).stream()//
-				.map(this::createBeanSourceValidator)//
-				.forEach(beanSourceValidatorRegistry::registerValidator);
-
-		log.info("BeanSourceValidator registration took {} ms", timer.finish().getExecutionMillis());
+		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanSourceValidators...")) {
+			PackageScanner packageScanner = packageScannerPool.getPackageScanner(sourceClass);
+			packageScanner.searchClassesOf(BeanSourceValidator.class).stream()//
+					.map(this::createBeanSourceValidator)//
+					.forEach(beanSourceValidatorRegistry::registerValidator);
+		}
 	}
 
 	private <T extends BeanSourceValidator> T createBeanSourceValidator(Class<T> type) {

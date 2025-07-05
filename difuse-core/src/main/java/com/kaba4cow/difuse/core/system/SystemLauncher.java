@@ -10,7 +10,7 @@ import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvider;
 import com.kaba4cow.difuse.core.environment.support.EnvironmentInitializer;
 import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookDispatcher;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 public class SystemLauncher {
 
@@ -32,18 +32,13 @@ public class SystemLauncher {
 	private GlobalDependencyProvider dependencyProvider;
 
 	public DependencyProvider launch() {
-		log.info("Launching system...");
-		ExecutionTimer timer = new ExecutionTimer().start();
-
-		contextInitializer.initializeContexts();
-		environmentInitializer.initializeEnvironment();
-		beanInitializer.initializeBeans();
-
-		Runtime.getRuntime().addShutdownHook(shutdownHookDispatcher);
-
-		log.info("System launch took {} ms", timer.finish().getExecutionMillis());
-
-		return dependencyProvider;
+		try (LoggingTimer timer = new LoggingTimer(log, "Launching system...")) {
+			contextInitializer.initializeContexts();
+			environmentInitializer.initializeEnvironment();
+			beanInitializer.initializeBeans();
+			Runtime.getRuntime().addShutdownHook(shutdownHookDispatcher);
+			return dependencyProvider;
+		}
 	}
 
 }

@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.config.source.impl.CliConfigSource;
 import com.kaba4cow.difuse.core.environment.config.source.impl.EnvConfigSource;
 import com.kaba4cow.difuse.core.system.SystemParameters;
-import com.kaba4cow.difuse.core.util.ExecutionTimer;
+import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
 public class EnvironmentInitializer {
@@ -30,27 +30,24 @@ public class EnvironmentInitializer {
 	private EnvironmentLoader environmentLoader;
 
 	@SystemDependency
-	private SystemParameters bootstrapStartupParameters;
+	private SystemParameters systemParameters;
 
 	public void initializeEnvironment() {
-		log.info("Initializing environment...");
-		ExecutionTimer timer = new ExecutionTimer().start();
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing environment...")) {
+			String[] args = systemParameters.getCommandLineArgs();
 
-		String[] args = bootstrapStartupParameters.getCommandLineArgs();
+			log.debug("Command line args: {}", Arrays.asList(args));
+			log.debug("Active profiles: {}", environment.getProfiles());
 
-		log.debug("Command line args: {}", Arrays.asList(args));
-		log.debug("Active profiles: {}", environment.getProfiles());
+			environment.addPropertySource(new CliConfigSource("cli", args));
+			environment.addPropertySource(new EnvConfigSource("env"));
 
-		environment.addPropertySource(new CliConfigSource("cli", args));
-		environment.addPropertySource(new EnvConfigSource("env"));
+			contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
+					.forEach(environment::includeProfile);
 
-		contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
-				.forEach(environment::includeProfile);
-
-		contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs);
-		environmentLoader.loadEnvironment();
-
-		log.info("Environment initialization took {} ms", timer.finish().getExecutionMillis());
+			contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs);
+			environmentLoader.loadEnvironment();
+		}
 	}
 
 }
