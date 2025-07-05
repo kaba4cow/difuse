@@ -32,8 +32,8 @@ public class BeanDependencyProvider implements DependencyProvider {
 	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {
 		if (type instanceof Class<?>) {
 			Class<?> dependencyClass = (Class<?>) type;
-			if (systemBeanRegistry.containsBean(dependencyClass))
-				return systemBeanRegistry.getBean((Class<?>) type);
+			if (systemBeanRegistry.containsAccessibleBean(dependencyClass))
+				return systemBeanRegistry.getAccessibleBean((Class<?>) type);
 			return provideSingleDependency(element, dependencyClass, dependencyConsumer);
 		} else if (type instanceof ParameterizedType) {
 			ParameterizedType parameterizedType = (ParameterizedType) type;

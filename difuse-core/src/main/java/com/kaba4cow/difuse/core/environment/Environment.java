@@ -7,9 +7,11 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeSet;
 
+import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
 
+@Accessible
 @SystemBean
 public class Environment {
 

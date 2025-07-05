@@ -18,7 +18,7 @@ public class SystemBeanInitializer {
 	}
 
 	public void initializeBeans() {
-		Collection<Object> components = beanRegistry.getAllBeans();
+		Collection<Object> components = beanRegistry.getInternalBeans();
 		for (Object component : components)
 			initializeBean(component);
 	}
@@ -27,7 +27,7 @@ public class SystemBeanInitializer {
 		Class<?> type = component.getClass();
 		for (Field field : findDependencyFields(type))
 			try {
-				Object dependency = beanRegistry.getBean(field.getType());
+				Object dependency = beanRegistry.getInternalBean(field.getType());
 				field.setAccessible(true);
 				field.set(component, dependency);
 			} catch (Exception exception) {
