@@ -28,6 +28,7 @@ import com.kaba4cow.difuse.core.annotation.dependency.Property;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
+import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.test.annotation.AssertThrows;
 import com.kaba4cow.difuse.core.test.annotation.SeparateThread;
 import com.kaba4cow.difuse.core.test.annotation.TestContext;
@@ -49,7 +50,8 @@ public class DifuseTestExtension implements //
 		Class<?> sourceClass = testClass.getAnnotation(TestContext.class).value();
 		DependencyConsumer dependencyConsumer = new TestDependencyConsumer(testClass);
 		DependencyProvider dependencyProvider = new DifuseApplication(sourceClass).asTest(testClass).run();
-		dependencySupplier = (field, type) -> dependencyProvider.provideDependency(field, type, dependencyConsumer);
+		DependencyProviderSession session = new DependencyProviderSession(dependencyProvider, dependencyConsumer);
+		dependencySupplier = session::provideDependency;
 	}
 
 	@Override
