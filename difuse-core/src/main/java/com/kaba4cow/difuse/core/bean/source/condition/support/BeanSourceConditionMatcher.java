@@ -10,17 +10,9 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.bean.source.condition.BeanSourceCondition;
-import com.kaba4cow.difuse.core.bean.source.support.BeanSourceRegistry;
-import com.kaba4cow.difuse.core.environment.Environment;
 
 @SystemBean
 public class BeanSourceConditionMatcher {
-
-	@Provided
-	private BeanSourceRegistry beanSourceRegistry;
-
-	@Provided
-	private Environment environment;
 
 	@Provided
 	private BeanSourceConditionRegistry beanSourceConditionRegistry;
@@ -28,7 +20,7 @@ public class BeanSourceConditionMatcher {
 	public boolean matchesCondition(BeanSource<?> beanSource) {
 		return findConditionClass(beanSource.getSourceElement())//
 				.map(beanSourceConditionRegistry::getCondition)//
-				.map(condition -> condition.matches(beanSource, beanSourceRegistry, environment))//
+				.map(condition -> condition.matches(beanSource))//
 				.orElse(true);
 	}
 
