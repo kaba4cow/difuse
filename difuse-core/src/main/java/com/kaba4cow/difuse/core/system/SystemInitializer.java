@@ -3,6 +3,8 @@ package com.kaba4cow.difuse.core.system;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.context.ContextInitializer;
+import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInitializer;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistrar;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.AccessibleSystemBeanRegistry;
@@ -18,22 +20,33 @@ public class SystemInitializer {
 
 	public SystemLauncher initialize(SystemParameters systemParameters) {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing system...")) {
-			SystemShutdownHookRegistry shutdownHookRegistry = new SystemShutdownHookRegistry();
-			SystemShutdownHookRegistrar shutdownHookRegistrar = new SystemShutdownHookRegistrar(shutdownHookRegistry);
-			SystemShutdownHookDispatcher shutdownHookDispatcher = new SystemShutdownHookDispatcher(shutdownHookRegistry);
+			PackageScannerPool packageScannerPool = new PackageScannerPool();
+
+			ContextInitializer contextInitializer = new ContextInitializer(systemParameters);
+			ContextSourceRegistry contextSourceRegistry = contextInitializer.initializeContexts();
 
 			InternalSystemBeanRegistry internalBeanRegistry = new InternalSystemBeanRegistry();
 			AccessibleSystemBeanRegistry accessibleBeanRegistry = new AccessibleSystemBeanRegistry();
 
-			SystemBeanRegistrar beanRegistrar = new SystemBeanRegistrar(internalBeanRegistry, shutdownHookRegistrar);
+			SystemShutdownHookRegistry shutdownHookRegistry = new SystemShutdownHookRegistry();
+			SystemShutdownHookRegistrar shutdownHookRegistrar = new SystemShutdownHookRegistrar(shutdownHookRegistry);
+			SystemShutdownHookDispatcher shutdownHookDispatcher = new SystemShutdownHookDispatcher(shutdownHookRegistry);
 
-			SystemBeanInitializer beanInitializer = new SystemBeanInitializer(internalBeanRegistry);
+			SystemBeanRegistrar beanRegistrar = new SystemBeanRegistrar(//
+					packageScannerPool, //
+					contextSourceRegistry, //
+					internalBeanRegistry, //
+					shutdownHookRegistrar);
 
 			beanRegistrar.registerBean(systemParameters);
+			beanRegistrar.registerBean(packageScannerPool);
+			beanRegistrar.registerBean(contextSourceRegistry);
 			beanRegistrar.registerBean(internalBeanRegistry);
 			beanRegistrar.registerBean(accessibleBeanRegistry);
 			beanRegistrar.registerBean(shutdownHookDispatcher);
 			SystemLauncher launcher = beanRegistrar.registerBean(SystemLauncher.class);
+
+			SystemBeanInitializer beanInitializer = new SystemBeanInitializer(internalBeanRegistry);
 
 			beanRegistrar.registerBeans();
 			beanInitializer.initializeBeans();

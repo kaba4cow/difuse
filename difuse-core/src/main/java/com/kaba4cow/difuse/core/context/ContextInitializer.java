@@ -3,30 +3,27 @@ package com.kaba4cow.difuse.core.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceFactory;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
-@SystemBean
 public class ContextInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("ContextInitializer");
 
-	@Provided
-	private ContextSourceRegistry contextSourceRegistry;
+	private final SystemParameters systemParameters;
 
-	@Provided
-	private ContextSourceFactory contextSourceFactory;
+	public ContextInitializer(SystemParameters systemParameters) {
+		this.systemParameters = systemParameters;
+	}
 
-	@Provided
-	private SystemParameters systemParameters;
-
-	public void initializeContexts() {
+	public ContextSourceRegistry initializeContexts() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing contexts...")) {
+			ContextSourceRegistry contextSourceRegistry = new ContextSourceRegistry();
+			ContextSourceFactory contextSourceFactory = new ContextSourceFactory(contextSourceRegistry);
 			contextSourceFactory.createContextSource(systemParameters.getSourceClass());
+			return contextSourceRegistry;
 		}
 	}
 

@@ -5,25 +5,40 @@ import java.util.Set;
 import com.kaba4cow.difuse.core.DifuseApplication;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
+import com.kaba4cow.difuse.core.context.source.ContextSource;
+import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.system.PackageScannerPool;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.InternalSystemBeanRegistry;
 import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookRegistrar;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
-import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
 public class SystemBeanRegistrar {
+
+	private final PackageScannerPool packageScannerPool;
+
+	private final ContextSourceRegistry contextSourceRegistry;
 
 	private final InternalSystemBeanRegistry internalBeanRegistry;
 
 	private final SystemShutdownHookRegistrar shutdownHookRegistrar;
 
-	public SystemBeanRegistrar(InternalSystemBeanRegistry internalBeanRegistry,
-			SystemShutdownHookRegistrar shutdownHookRegistrar) {
+	public SystemBeanRegistrar(PackageScannerPool packageScannerPool, ContextSourceRegistry contextSourceRegistry,
+			InternalSystemBeanRegistry internalBeanRegistry, SystemShutdownHookRegistrar shutdownHookRegistrar) {
+		this.packageScannerPool = packageScannerPool;
+		this.contextSourceRegistry = contextSourceRegistry;
 		this.internalBeanRegistry = internalBeanRegistry;
 		this.shutdownHookRegistrar = shutdownHookRegistrar;
 	}
 
 	public void registerBeans() {
-		Set<Class<?>> beanClasses = PackageScanner.of(DifuseApplication.class).searchClassesAnnotatedWith(SystemBean.class);
+		registerBeans(DifuseApplication.class);
+		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
+			registerBeans(contextSource.getSourceClass());
+	}
+
+	private void registerBeans(Class<?> sourceClass) {
+		Set<Class<?>> beanClasses = packageScannerPool.getPackageScanner(sourceClass)
+				.searchClassesAnnotatedWith(SystemBean.class);
 		for (Class<?> beanClass : beanClasses)
 			registerBean(beanClass);
 	}
