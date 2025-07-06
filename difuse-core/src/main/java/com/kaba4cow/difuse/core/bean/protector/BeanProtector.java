@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 
-import com.kaba4cow.difuse.core.annotation.access.ForAnnotations;
-import com.kaba4cow.difuse.core.annotation.access.ForClasses;
-import com.kaba4cow.difuse.core.annotation.access.ForContexts;
-import com.kaba4cow.difuse.core.annotation.access.ForPackages;
+import com.kaba4cow.difuse.core.annotation.access.AllowAnnotations;
+import com.kaba4cow.difuse.core.annotation.access.AllowClasses;
+import com.kaba4cow.difuse.core.annotation.access.AllowContexts;
+import com.kaba4cow.difuse.core.annotation.access.AllowPackages;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public class BeanProtector {
@@ -31,10 +31,10 @@ public class BeanProtector {
 	}
 
 	private void readAnnotations(AnnotatedElement element) {
-		readAnnotation(element, ForClasses.class, ForClasses::value, allowedClasses);
-		readAnnotation(element, ForContexts.class, ForContexts::value, allowedContexts);
-		readAnnotation(element, ForPackages.class, ForPackages::value, allowedPackages);
-		readAnnotation(element, ForAnnotations.class, ForAnnotations::value, allowedAnnotations);
+		readAnnotation(element, AllowClasses.class, AllowClasses::value, allowedClasses);
+		readAnnotation(element, AllowContexts.class, AllowContexts::value, allowedContexts);
+		readAnnotation(element, AllowPackages.class, AllowPackages::value, allowedPackages);
+		readAnnotation(element, AllowAnnotations.class, AllowAnnotations::value, allowedAnnotations);
 	}
 
 	private <T, S extends Annotation> void readAnnotation(AnnotatedElement element, Class<S> annotationClass,

@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-public @interface ForContexts {
+public @interface AllowPackages {
 
-	Class<?>[] value();
+	String[] value();
 
 }
