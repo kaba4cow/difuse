@@ -10,7 +10,6 @@ import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
-import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.scheduling.annotation.task.CronScheduled;
@@ -41,7 +40,7 @@ public class ScheduledBeanPostProcessor implements BeanPostProcessor {
 
 	private <T extends Annotation> void processScheduledMethods(//
 			Object bean, //
-			BeanSource<?> beanSource, //
+			ClassBeanSource beanSource, //
 			DependencyProviderSession session, //
 			Class<T> annotationType, //
 			BiFunction<ScheduledExecutorService, MethodTask<T>, Runnable> taskSupplier) {

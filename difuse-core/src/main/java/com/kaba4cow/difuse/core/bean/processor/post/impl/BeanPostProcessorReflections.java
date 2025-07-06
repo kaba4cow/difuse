@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.kaba4cow.difuse.core.bean.source.BeanSource;
+import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.util.reflections.FieldScanner;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
@@ -18,7 +18,7 @@ public class BeanPostProcessorReflections {
 
 	private BeanPostProcessorReflections() {}
 
-	public static void invokeAnnotatedMethods(Object bean, BeanSource<?> beanSource, Class<? extends Annotation> annotation,
+	public static void invokeAnnotatedMethods(Object bean, ClassBeanSource beanSource, Class<? extends Annotation> annotation,
 			Function<Method, Object[]> function) {
 		for (Method method : findAnnotatedMethods(beanSource, annotation))
 			try {
@@ -30,7 +30,7 @@ public class BeanPostProcessorReflections {
 			}
 	}
 
-	public static Set<Method> findAnnotatedMethods(BeanSource<?> beanSource, Class<? extends Annotation> annotation) {
+	public static Set<Method> findAnnotatedMethods(ClassBeanSource beanSource, Class<? extends Annotation> annotation) {
 		return MethodScanner.of(beanSource.getBeanClass()).findMethods().stream()//
 				.filter(method -> !Modifier.isStatic(method.getModifiers()))//
 				.filter(method -> method.isAnnotationPresent(annotation))//
@@ -38,7 +38,7 @@ public class BeanPostProcessorReflections {
 	}
 
 	@SafeVarargs
-	public static Set<Field> findFields(BeanSource<?> beanSource, Predicate<Field>... predicates) {
+	public static Set<Field> findFields(ClassBeanSource beanSource, Predicate<Field>... predicates) {
 		return FieldScanner.of(beanSource.getBeanClass()).findFields().stream()//
 				.filter(field -> !Modifier.isStatic(field.getModifiers()))//
 				.filter(field -> !Modifier.isFinal(field.getModifiers()))//
