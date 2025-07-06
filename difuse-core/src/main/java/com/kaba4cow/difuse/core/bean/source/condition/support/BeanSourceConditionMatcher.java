@@ -23,11 +23,11 @@ public class BeanSourceConditionMatcher {
 	private Environment environment;
 
 	@Provided
-	private BeanSourceConditionFactory beanSourceConditionFactory;
+	private BeanSourceConditionRegistry beanSourceConditionRegistry;
 
 	public boolean matchesCondition(BeanSource<?> beanSource) {
 		return findConditionClass(beanSource.getSourceElement())//
-				.map(beanSourceConditionFactory::createCondition)//
+				.map(beanSourceConditionRegistry::getCondition)//
 				.map(condition -> condition.matches(beanSource, beanSourceRegistry, environment))//
 				.orElse(true);
 	}

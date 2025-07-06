@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.bean.source.condition.support.BeanSourceConditionMatcher;
 import com.kaba4cow.difuse.core.bean.source.validator.support.GlobalBeanSourceValidator;
 
 @SystemBean
@@ -22,17 +21,12 @@ public class BeanSourceRegistry {
 	private final Map<Class<?>, Set<BeanSource<?>>> registry = new ConcurrentHashMap<>();
 
 	@Provided
-	private BeanSourceConditionMatcher beanSourceConditionMatcher;
-
-	@Provided
 	private GlobalBeanSourceValidator globalBeanSourceValidator;
 
 	public void register(BeanSource<?> beanSource) {
 		globalBeanSourceValidator.validate(beanSource);
-		if (beanSourceConditionMatcher.matchesCondition(beanSource)) {
-			registry.computeIfAbsent(beanSource.getClass(), key -> ConcurrentHashMap.newKeySet()).add(beanSource);
-			log.debug("Registered {}", beanSource);
-		}
+		registry.computeIfAbsent(beanSource.getClass(), key -> ConcurrentHashMap.newKeySet()).add(beanSource);
+		log.debug("Registered {}", beanSource);
 	}
 
 	@SuppressWarnings("unchecked")
