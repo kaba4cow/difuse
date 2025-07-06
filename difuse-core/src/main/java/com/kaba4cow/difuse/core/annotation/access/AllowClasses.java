@@ -8,9 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.kaba4cow.difuse.core.bean.access.provider.impl.ClassesBeanAccessProvider;
+
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
+@AccessProvider(ClassesBeanAccessProvider.class)
 public @interface AllowClasses {
 
 	Class<?>[] value();

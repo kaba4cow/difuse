@@ -8,9 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.kaba4cow.difuse.core.bean.access.provider.impl.PackagesBeanAccessProvider;
+
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
+@AccessProvider(PackagesBeanAccessProvider.class)
 public @interface AllowPackages {
 
 	String[] value();
