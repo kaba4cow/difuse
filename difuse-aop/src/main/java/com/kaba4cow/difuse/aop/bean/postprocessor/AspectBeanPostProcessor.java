@@ -5,8 +5,7 @@ import com.kaba4cow.difuse.aop.advisor.support.AdvisorWrapper;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
+import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 public class AspectBeanPostProcessor implements BeanPostProcessor {
@@ -28,8 +27,8 @@ public class AspectBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		return advisorWrapper.wrapBean(bean, (ClassBeanSource) beanProvider.getBeanSource());
+	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+		return advisorWrapper.wrapBean(bean, beanProvider.getBeanSource());
 	}
 
 }

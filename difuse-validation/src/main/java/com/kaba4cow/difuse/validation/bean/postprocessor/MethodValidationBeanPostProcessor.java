@@ -10,7 +10,7 @@ import javax.validation.executable.ExecutableValidator;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
+import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 import com.kaba4cow.difuse.validation.MethodValidationException;
@@ -26,7 +26,7 @@ public class MethodValidationBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
+	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		Class<?> beanClass = beanProvider.getBeanSource().getBeanClass();
 		return beanClass.isAnnotationPresent(Validated.class)//
 				? createBeanProxy(bean, beanClass)//

@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl;
 import com.kaba4cow.difuse.core.annotation.lifecycle.PostConstruct;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
+import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 public class PostConstructBeanPostProcessor implements BeanPostProcessor {
@@ -14,12 +14,12 @@ public class PostConstructBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
+	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		invokePostConstructMethods(bean, beanProvider);
 		return bean;
 	}
 
-	private void invokePostConstructMethods(Object bean, BeanProvider<?> beanProvider) {
+	private void invokePostConstructMethods(Object bean, ClassBeanProvider beanProvider) {
 		BeanPostProcessorReflections.invokeAnnotatedMethods(//
 				bean, //
 				beanProvider.getBeanSource(), //

@@ -9,8 +9,9 @@ import java.util.function.BiFunction;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
-import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
+import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
+import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.scheduling.annotation.task.CronScheduled;
 import com.kaba4cow.difuse.scheduling.annotation.task.FixedDelayScheduled;
@@ -30,8 +31,8 @@ public class ScheduledBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		BeanSource<?> beanSource = beanProvider.getBeanSource();
+	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+		ClassBeanSource beanSource = beanProvider.getBeanSource();
 		processScheduledMethods(bean, beanSource, session, CronScheduled.class, TaskFactory::createCronTask);
 		processScheduledMethods(bean, beanSource, session, FixedDelayScheduled.class, TaskFactory::createFixedDelayTask);
 		processScheduledMethods(bean, beanSource, session, FixedRateScheduled.class, TaskFactory::createFixedRateTask);

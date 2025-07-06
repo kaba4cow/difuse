@@ -8,8 +8,8 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
-import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
-import com.kaba4cow.difuse.core.bean.source.BeanSource;
+import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
+import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 
@@ -21,15 +21,15 @@ public class LazyFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		BeanSource<?> beanSource = beanProvider.getBeanSource();
+	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+		ClassBeanSource beanSource = beanProvider.getBeanSource();
 		findLazyFields(beanSource).forEach(field -> {
 			try {
 				field.setAccessible(true);
 				field.set(bean, createProxy(field, session));
 			} catch (Exception exception) {
 				throw new BeanPostProcessorException(String.format("Could not initialize lazy field %s for bean of type %s",
-						field.getName(), beanSource.getBeanClass().getClass()), exception);
+						field.getName(), beanSource.getBeanClass().getName()), exception);
 			}
 		});
 		return bean;
@@ -39,7 +39,7 @@ public class LazyFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 		return ProxyFactory.createLazyProxy(field.getType(), () -> session.provideDependency(field, field.getGenericType()));
 	}
 
-	private Set<Field> findLazyFields(BeanSource<?> beanSource) {
+	private Set<Field> findLazyFields(ClassBeanSource beanSource) {
 		return BeanPostProcessorReflections.findFields(beanSource, //
 				field -> field.isAnnotationPresent(Lazy.class), //
 				field -> field.isAnnotationPresent(Provided.class)//
