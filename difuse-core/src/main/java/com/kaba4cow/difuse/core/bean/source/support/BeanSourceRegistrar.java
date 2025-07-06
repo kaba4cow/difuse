@@ -26,7 +26,7 @@ public class BeanSourceRegistrar {
 
 	public void registerBeanSources(ContextSource contextSource) {
 		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanSources for {}...", contextSource)) {
-			PackageScanner packageScanner = contextScanner.getScanner(contextSource.getSourceClass());
+			PackageScanner packageScanner = contextScanner.getScanner(contextSource);
 			Set<Class<?>> beanClasses = packageScanner.searchClassesAnnotatedWith(Bean.class);
 			for (Class<?> beanClass : beanClasses)
 				beanSourceFactory.createClassBeanSource(contextSource, beanClass);
