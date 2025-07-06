@@ -7,6 +7,7 @@ import com.kaba4cow.difuse.core.context.ContextInitializer;
 import com.kaba4cow.difuse.core.context.ContextScanner;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInitializer;
+import com.kaba4cow.difuse.core.system.bean.SystemBeanInjector;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistrar;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.AccessibleSystemBeanRegistry;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.InternalSystemBeanRegistry;
@@ -39,15 +40,18 @@ public class SystemInitializer {
 					internalBeanRegistry, //
 					shutdownHookRegistrar);
 
+			SystemBeanInjector beanInjector = new SystemBeanInjector(internalBeanRegistry);
+
 			beanRegistrar.registerBean(systemParameters);
 			beanRegistrar.registerBean(contextScanner);
 			beanRegistrar.registerBean(contextSourceRegistry);
 			beanRegistrar.registerBean(internalBeanRegistry);
 			beanRegistrar.registerBean(accessibleBeanRegistry);
 			beanRegistrar.registerBean(shutdownHookDispatcher);
+			beanRegistrar.registerBean(beanInjector);
 			SystemLauncher launcher = beanRegistrar.registerBean(SystemLauncher.class);
 
-			SystemBeanInitializer beanInitializer = new SystemBeanInitializer(internalBeanRegistry);
+			SystemBeanInitializer beanInitializer = new SystemBeanInitializer(internalBeanRegistry, beanInjector);
 
 			beanRegistrar.registerBeans();
 			beanInitializer.initializeBeans();
