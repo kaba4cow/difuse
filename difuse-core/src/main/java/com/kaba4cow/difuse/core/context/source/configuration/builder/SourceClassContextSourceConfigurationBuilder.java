@@ -4,9 +4,12 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
 import com.kaba4cow.difuse.core.annotation.context.WithConfigs;
 import com.kaba4cow.difuse.core.annotation.context.WithContexts;
 import com.kaba4cow.difuse.core.annotation.context.WithProfiles;
@@ -26,6 +29,7 @@ public class SourceClassContextSourceConfigurationBuilder implements ContextSour
 		includeValueSet(WithConfigs.class, WithConfigs::value, builder::includeConfig);
 		includeValueSet(WithProfiles.class, WithProfiles::value, builder::includeProfile);
 		includeValueSet(WithContexts.class, WithContexts::value, builder::includeContext);
+		findContextAnnotations().forEach(builder::includeContext);
 		return builder.build();
 	}
 
@@ -40,6 +44,14 @@ public class SourceClassContextSourceConfigurationBuilder implements ContextSour
 
 	private <T extends Annotation> Optional<T> findAnnotation(Class<T> annotation) {
 		return Optional.ofNullable(sourceClass.getAnnotation(annotation));
+	}
+
+	private Set<Class<? extends Annotation>> findContextAnnotations() {
+		return Arrays.stream(sourceClass.getAnnotations())//
+				.map(Annotation::annotationType)//
+				.filter(annotation -> annotation.isAnnotationPresent(DifuseContext.class))//
+				.distinct()//
+				.collect(Collectors.toSet());
 	}
 
 }
