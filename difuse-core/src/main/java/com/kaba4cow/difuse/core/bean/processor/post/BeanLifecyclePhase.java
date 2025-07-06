@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean;
+package com.kaba4cow.difuse.core.bean.processor.post;
 
 public enum BeanLifecyclePhase {
 

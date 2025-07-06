@@ -8,7 +8,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.executable.ExecutableValidator;
 
-import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;

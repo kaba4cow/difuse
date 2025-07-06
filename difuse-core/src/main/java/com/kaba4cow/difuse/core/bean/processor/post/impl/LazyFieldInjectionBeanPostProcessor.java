@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;

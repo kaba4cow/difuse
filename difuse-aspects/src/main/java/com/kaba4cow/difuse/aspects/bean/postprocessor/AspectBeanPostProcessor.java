@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.aspects.bean.postprocessor;
 import com.kaba4cow.difuse.aspects.advisor.support.AdvisorRegistry;
 import com.kaba4cow.difuse.aspects.advisor.support.AdvisorWrapper;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;

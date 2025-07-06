@@ -1,7 +1,7 @@
 package com.kaba4cow.difuse.core.bean.processor.post.impl;
 
 import com.kaba4cow.difuse.core.annotation.lifecycle.PostConstruct;
-import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
