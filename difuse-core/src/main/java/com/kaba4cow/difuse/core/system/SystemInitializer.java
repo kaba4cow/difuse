@@ -20,7 +20,7 @@ public class SystemInitializer {
 
 	public SystemLauncher initialize(SystemParameters systemParameters) {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing system...")) {
-			PackageScannerPool packageScannerPool = new PackageScannerPool();
+			ContextScanner contextScanner = new ContextScanner();
 
 			ContextInitializer contextInitializer = new ContextInitializer(systemParameters);
 			ContextSourceRegistry contextSourceRegistry = contextInitializer.initializeContexts();
@@ -33,13 +33,13 @@ public class SystemInitializer {
 			SystemShutdownHookDispatcher shutdownHookDispatcher = new SystemShutdownHookDispatcher(shutdownHookRegistry);
 
 			SystemBeanRegistrar beanRegistrar = new SystemBeanRegistrar(//
-					packageScannerPool, //
+					contextScanner, //
 					contextSourceRegistry, //
 					internalBeanRegistry, //
 					shutdownHookRegistrar);
 
 			beanRegistrar.registerBean(systemParameters);
-			beanRegistrar.registerBean(packageScannerPool);
+			beanRegistrar.registerBean(contextScanner);
 			beanRegistrar.registerBean(contextSourceRegistry);
 			beanRegistrar.registerBean(internalBeanRegistry);
 			beanRegistrar.registerBean(accessibleBeanRegistry);

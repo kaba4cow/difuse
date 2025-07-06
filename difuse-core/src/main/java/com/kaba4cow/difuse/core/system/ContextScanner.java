@@ -7,7 +7,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
 @SystemBean
-public class PackageScannerPool {
+public class ContextScanner {
 
 	private final Map<Class<?>, PackageScanner> pool = new ConcurrentHashMap<>();
 
