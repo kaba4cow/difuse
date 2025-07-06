@@ -7,9 +7,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.kaba4cow.difuse.core.annotation.bean.Bean;
+
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)
+@Bean
 public @interface Aspect {
 
 }
