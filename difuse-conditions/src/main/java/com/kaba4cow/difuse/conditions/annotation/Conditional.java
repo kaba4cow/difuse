@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.annotation.conditional;
+package com.kaba4cow.difuse.conditions.annotation;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -8,14 +8,13 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.bean.source.condition.impl.ProfileBeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.BeanSourceCondition;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Conditional(ProfileBeanSourceCondition.class)
-public @interface Profile {
+public @interface Conditional {
 
-	String[] value();
+	Class<? extends BeanSourceCondition> value();
 
 }

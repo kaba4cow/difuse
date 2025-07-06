@@ -1,7 +1,7 @@
-package com.kaba4cow.difuse.core.bean.source.condition.impl;
+package com.kaba4cow.difuse.conditions.condition.impl;
 
+import com.kaba4cow.difuse.conditions.condition.BeanSourceCondition;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.bean.source.condition.BeanSourceCondition;
 
 public class DisabledBeanSourceCondition implements BeanSourceCondition {
 

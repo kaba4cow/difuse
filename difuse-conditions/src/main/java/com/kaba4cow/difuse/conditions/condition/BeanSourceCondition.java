@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.source.condition;
+package com.kaba4cow.difuse.conditions.condition;
 
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 
