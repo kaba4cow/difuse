@@ -31,35 +31,46 @@ public class ScheduledBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
-		ClassBeanSource beanSource = beanProvider.getBeanSource();
-		processScheduledMethods(bean, beanSource, session, CronScheduled.class, TaskFactory::createCronTask);
-		processScheduledMethods(bean, beanSource, session, FixedDelayScheduled.class, TaskFactory::createFixedDelayTask);
-		processScheduledMethods(bean, beanSource, session, FixedRateScheduled.class, TaskFactory::createFixedRateTask);
+		ScheduledMethodProcessor methodProcessor = new ScheduledMethodProcessor(bean, beanProvider, session);
+		methodProcessor.processMethods(CronScheduled.class, TaskFactory::createCronTask);
+		methodProcessor.processMethods(FixedDelayScheduled.class, TaskFactory::createFixedDelayTask);
+		methodProcessor.processMethods(FixedRateScheduled.class, TaskFactory::createFixedRateTask);
 		return bean;
 	}
 
-	private <T extends Annotation> void processScheduledMethods(//
-			Object bean, //
-			ClassBeanSource beanSource, //
-			DependencyProviderSession session, //
-			Class<T> annotationType, //
-			BiFunction<ScheduledExecutorService, MethodTask<T>, Runnable> taskSupplier) {
-		BeanPostProcessorReflections.findAnnotatedMethods(beanSource, annotationType).stream()//
-				.map(method -> createMethodTask(annotationType, method, bean, session))//
-				.map(methodTask -> taskSupplier.apply(scheduler, methodTask))//
-				.forEach(Runnable::run);
-	}
+	private class ScheduledMethodProcessor {
 
-	private <T extends Annotation> MethodTask<T> createMethodTask(//
-			Class<T> annotationType, //
-			Method method, //
-			Object bean, //
-			DependencyProviderSession session) {
-		return new MethodTask<>(//
-				method.getAnnotation(annotationType), //
-				() -> method.invoke(bean, session.provideDependencies(method)), //
-				FailBehaviorFactory.createFailBehavior(method)//
-		);
+		private final Object bean;
+
+		private final ClassBeanSource beanSource;
+
+		private final DependencyProviderSession session;
+
+		private ScheduledMethodProcessor(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+			this.bean = bean;
+			this.beanSource = beanProvider.getBeanSource();
+			this.session = session;
+		}
+
+		private <T extends Annotation> void processMethods(//
+				Class<T> annotationType, //
+				BiFunction<ScheduledExecutorService, MethodTask<T>, Runnable> taskSupplier) {
+			BeanPostProcessorReflections.findAnnotatedMethods(beanSource, annotationType).stream()//
+					.map(method -> createMethodTask(annotationType, method))//
+					.map(task -> taskSupplier.apply(scheduler, task))//
+					.forEach(Runnable::run);
+		}
+
+		private <T extends Annotation> MethodTask<T> createMethodTask(//
+				Class<T> annotationType, //
+				Method method) {
+			return new MethodTask<>(//
+					method.getAnnotation(annotationType), //
+					() -> method.invoke(bean, session.provideDependencies(method)), //
+					FailBehaviorFactory.createFailBehavior(method)//
+			);
+		}
+
 	}
 
 }
