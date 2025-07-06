@@ -13,7 +13,7 @@ public class GlobalBeanPreProcessor {
 	private BeanPreProcessorRegistry beanPreProcessorRegistry;
 
 	public boolean process(BeanSource<?> beanSource) {
-		for (BeanPreProcessor beanPreProcessor : beanPreProcessorRegistry.getBeanPreProcessors())
+		for (BeanPreProcessor beanPreProcessor : beanPreProcessorRegistry.getActiveBeanPreProcessors())
 			try {
 				if (!beanPreProcessor.process(beanSource))
 					return false;

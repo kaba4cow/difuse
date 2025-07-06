@@ -14,7 +14,7 @@ public class GlobalBeanPostProcessor {
 	private BeanPostProcessorRegistry beanPostProcessorRegistry;
 
 	public Object process(Object bean, BeanProvider<?> beanProvider, DependencyProviderSession session) {
-		for (BeanPostProcessor beanPostProcessor : beanPostProcessorRegistry.getBeanPostProcessors())
+		for (BeanPostProcessor beanPostProcessor : beanPostProcessorRegistry.getActiveBeanPostProcessors())
 			try {
 				bean = beanPostProcessor.process(bean, beanProvider, session);
 			} catch (Exception exception) {

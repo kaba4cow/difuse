@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
+import com.kaba4cow.difuse.core.bean.processor.BeanProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 
 @SystemBean
@@ -30,6 +31,13 @@ public class BeanPostProcessorRegistry {
 
 	public List<BeanPostProcessor> getBeanPostProcessors() {
 		return registry.values().stream()//
+				.sorted(Comparator.comparing(BeanPostProcessor::getLifecyclePhase))//
+				.collect(Collectors.toList());
+	}
+
+	public List<BeanPostProcessor> getActiveBeanPostProcessors() {
+		return registry.values().stream()//
+				.filter(BeanProcessor::isActive)//
 				.sorted(Comparator.comparing(BeanPostProcessor::getLifecyclePhase))//
 				.collect(Collectors.toList());
 	}
