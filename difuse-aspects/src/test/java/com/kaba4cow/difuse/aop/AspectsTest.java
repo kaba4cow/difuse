@@ -15,9 +15,9 @@ import com.kaba4cow.difuse.core.test.DifuseTestExtension;
 import com.kaba4cow.difuse.core.test.annotation.TestContext;
 
 @DifuseContext
-@TestContext(AopTest.class)
+@TestContext(AspectsTest.class)
 @ExtendWith(DifuseTestExtension.class)
-public class AopTest {
+public class AspectsTest {
 
 	@Test
 	public void methodsInvoked(TestBean bean, CallHistory callHistory) {
