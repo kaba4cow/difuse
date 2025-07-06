@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.conditions;
+package com.kaba4cow.difuse.aop;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -13,4 +13,4 @@ import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
 @Retention(RUNTIME)
 @Target(TYPE)
 @DifuseContext
-public @interface EnableConditions {}
+public @interface EnableAspects {}
