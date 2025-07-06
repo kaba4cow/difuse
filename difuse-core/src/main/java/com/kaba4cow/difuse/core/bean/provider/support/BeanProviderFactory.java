@@ -2,7 +2,7 @@ package com.kaba4cow.difuse.core.bean.provider.support;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.postprocessor.support.GlobalBeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.support.GlobalBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
 
 public class MethodValidationException extends BeanPostProcessorException {
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.postprocessor.support.GlobalBeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.support.GlobalBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.BeanProviderException;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;

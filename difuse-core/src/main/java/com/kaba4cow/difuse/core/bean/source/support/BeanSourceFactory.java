@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.preprocessor.support.GlobalBeanPreProcessor;
+import com.kaba4cow.difuse.core.bean.processor.pre.support.GlobalBeanPreProcessor;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;

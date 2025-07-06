@@ -1,12 +1,12 @@
-package com.kaba4cow.difuse.core.bean.postprocessor.impl;
+package com.kaba4cow.difuse.core.bean.processor.post.impl;
 
 import java.lang.reflect.Field;
 import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;

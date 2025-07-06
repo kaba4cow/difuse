@@ -1,9 +1,9 @@
-package com.kaba4cow.difuse.core.bean.postprocessor.support;
+package com.kaba4cow.difuse.core.bean.processor.post.support;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessorException;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 

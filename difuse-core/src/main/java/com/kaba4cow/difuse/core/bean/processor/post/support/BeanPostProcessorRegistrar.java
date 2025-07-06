@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.postprocessor.support;
+package com.kaba4cow.difuse.core.bean.processor.post.support;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.context.ContextScanner;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;

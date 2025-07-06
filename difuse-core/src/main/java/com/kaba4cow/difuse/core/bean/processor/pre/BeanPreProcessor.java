@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.preprocessor;
+package com.kaba4cow.difuse.core.bean.processor.pre;
 
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 

@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.postprocessor.support;
+package com.kaba4cow.difuse.core.bean.processor.post.support;
 
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 
 @SystemBean
 public class BeanPostProcessorRegistry {

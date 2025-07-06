@@ -9,7 +9,7 @@ import javax.validation.Validation;
 import javax.validation.executable.ExecutableValidator;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;

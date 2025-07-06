@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.postprocessor.support.BeanPostProcessorInitializer;
-import com.kaba4cow.difuse.core.bean.preprocessor.support.BeanPreProcessorInitializer;
+import com.kaba4cow.difuse.core.bean.processor.post.support.BeanPostProcessorInitializer;
+import com.kaba4cow.difuse.core.bean.processor.pre.support.BeanPreProcessorInitializer;
 import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderInitializer;
 import com.kaba4cow.difuse.core.bean.source.support.BeanSourceInitializer;
 import com.kaba4cow.difuse.core.bean.source.validator.support.BeanSourceValidatorInitializer;

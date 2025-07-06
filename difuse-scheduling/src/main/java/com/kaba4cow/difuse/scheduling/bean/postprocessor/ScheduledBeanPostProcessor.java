@@ -7,8 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.BiFunction;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.postprocessor.BeanPostProcessor;
-import com.kaba4cow.difuse.core.bean.postprocessor.impl.BeanPostProcessorReflections;
+import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;

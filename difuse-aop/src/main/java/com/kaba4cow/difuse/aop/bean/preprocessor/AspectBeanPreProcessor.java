@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.aop.bean.preprocessor;
 import com.kaba4cow.difuse.aop.advisor.support.AdvisorFactory;
 import com.kaba4cow.difuse.aop.annotation.Aspect;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.preprocessor.BeanPreProcessor;
+import com.kaba4cow.difuse.core.bean.processor.pre.BeanPreProcessor;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 

@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.postprocessor;
+package com.kaba4cow.difuse.core.bean.processor.post;
 
 import com.kaba4cow.difuse.core.bean.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;

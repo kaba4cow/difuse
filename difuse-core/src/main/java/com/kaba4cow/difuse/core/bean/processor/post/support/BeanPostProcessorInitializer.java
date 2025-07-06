@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.postprocessor.support;
+package com.kaba4cow.difuse.core.bean.processor.post.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
