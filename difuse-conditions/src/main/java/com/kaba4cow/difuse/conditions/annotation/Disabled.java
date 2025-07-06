@@ -8,12 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.conditions.condition.impl.DisabledBeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.impl.DisabledBeanCondition;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Conditional(DisabledBeanSourceCondition.class)
+@Conditional(DisabledBeanCondition.class)
 public @interface Disabled {
 
 }

@@ -6,16 +6,16 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import com.kaba4cow.difuse.conditions.annotation.Conditional;
-import com.kaba4cow.difuse.conditions.condition.BeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.BeanCondition;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 
 @SystemBean
-public class BeanSourceConditionMatcher {
+public class BeanConditionMatcher {
 
 	@Provided
-	private BeanSourceConditionRegistry beanSourceConditionRegistry;
+	private BeanConditionRegistry beanSourceConditionRegistry;
 
 	public boolean matchesCondition(BeanSource<?> beanSource) {
 		return findConditionClass(beanSource.getSourceElement())//
@@ -24,7 +24,7 @@ public class BeanSourceConditionMatcher {
 				.orElse(true);
 	}
 
-	private static Optional<Class<? extends BeanSourceCondition>> findConditionClass(AnnotatedElement element) {
+	private static Optional<Class<? extends BeanCondition>> findConditionClass(AnnotatedElement element) {
 		return findConditionalAnnotation(element)//
 				.map(Conditional::value);
 	}

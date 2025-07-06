@@ -8,13 +8,13 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.conditions.condition.BeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.BeanCondition;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
 public @interface Conditional {
 
-	Class<? extends BeanSourceCondition> value();
+	Class<? extends BeanCondition> value();
 
 }

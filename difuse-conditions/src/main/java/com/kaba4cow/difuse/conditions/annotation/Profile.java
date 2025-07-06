@@ -8,12 +8,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.conditions.condition.impl.ProfileBeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.impl.ProfileBeanCondition;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@Conditional(ProfileBeanSourceCondition.class)
+@Conditional(ProfileBeanCondition.class)
 public @interface Profile {
 
 	String[] value();

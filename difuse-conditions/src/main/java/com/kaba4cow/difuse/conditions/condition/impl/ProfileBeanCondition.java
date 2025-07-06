@@ -1,12 +1,12 @@
 package com.kaba4cow.difuse.conditions.condition.impl;
 
 import com.kaba4cow.difuse.conditions.annotation.Profile;
-import com.kaba4cow.difuse.conditions.condition.BeanSourceCondition;
+import com.kaba4cow.difuse.conditions.condition.BeanCondition;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 import com.kaba4cow.difuse.core.environment.Environment;
 
-public class ProfileBeanSourceCondition implements BeanSourceCondition {
+public class ProfileBeanCondition implements BeanCondition {
 
 	@Provided
 	private Environment environment;
