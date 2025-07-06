@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 
-import com.kaba4cow.difuse.aop.annotation.pointcut.OnAnnotations;
-import com.kaba4cow.difuse.aop.annotation.pointcut.OnClasses;
-import com.kaba4cow.difuse.aop.annotation.pointcut.OnContexts;
-import com.kaba4cow.difuse.aop.annotation.pointcut.OnPackages;
+import com.kaba4cow.difuse.aop.annotation.filter.OnAnnotations;
+import com.kaba4cow.difuse.aop.annotation.filter.OnClasses;
+import com.kaba4cow.difuse.aop.annotation.filter.OnContexts;
+import com.kaba4cow.difuse.aop.annotation.filter.OnPackages;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 
 public class MethodFilter {

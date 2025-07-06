@@ -1,10 +1,9 @@
-package com.kaba4cow.difuse.aop.annotation.pointcut;
+package com.kaba4cow.difuse.aop.annotation.filter;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -12,8 +11,8 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-public @interface OnAnnotations {
+public @interface OnContexts {
 
-	Class<? extends Annotation>[] value();
+	Class<?>[] value();
 
 }

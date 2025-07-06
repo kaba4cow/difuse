@@ -15,10 +15,10 @@ public class AspectBeanPreProcessor implements BeanPreProcessor {
 	@Override
 	public boolean process(BeanSource<?> beanSource) {
 		if (beanSource instanceof ClassBeanSource && beanSource.getSourceElement().isAnnotationPresent(Aspect.class)) {
-			advisorFactory.createAdvisor(beanSource);
+			advisorFactory.createAdvisor((ClassBeanSource) beanSource);
 			return false;
-		}
-		return true;
+		} else
+			return true;
 	}
 
 }
