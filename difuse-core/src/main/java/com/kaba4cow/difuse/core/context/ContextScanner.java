@@ -11,7 +11,7 @@ public class ContextScanner {
 
 	private final Map<Class<?>, PackageScanner> pool = new ConcurrentHashMap<>();
 
-	public PackageScanner getPackageScanner(Class<?> sourceClass) {
+	public PackageScanner getScanner(Class<?> sourceClass) {
 		return pool.computeIfAbsent(sourceClass, PackageScanner::of);
 	}
 

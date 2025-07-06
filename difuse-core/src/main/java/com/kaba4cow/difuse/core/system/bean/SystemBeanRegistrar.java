@@ -37,7 +37,7 @@ public class SystemBeanRegistrar {
 	}
 
 	private void registerBeans(Class<?> sourceClass) {
-		Set<Class<?>> beanClasses = contextScanner.getPackageScanner(sourceClass).searchClassesAnnotatedWith(SystemBean.class);
+		Set<Class<?>> beanClasses = contextScanner.getScanner(sourceClass).searchClassesAnnotatedWith(SystemBean.class);
 		for (Class<?> beanClass : beanClasses)
 			registerBean(beanClass);
 	}

@@ -25,7 +25,7 @@ public class BeanSourceValidatorRegistrar {
 
 	public void registerBeanSourceValidators(Class<?> sourceClass) {
 		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanSourceValidators...")) {
-			PackageScanner packageScanner = contextScanner.getPackageScanner(sourceClass);
+			PackageScanner packageScanner = contextScanner.getScanner(sourceClass);
 			packageScanner.searchClassesOf(BeanSourceValidator.class).stream()//
 					.map(this::createBeanSourceValidator)//
 					.forEach(beanSourceValidatorRegistry::registerValidator);
