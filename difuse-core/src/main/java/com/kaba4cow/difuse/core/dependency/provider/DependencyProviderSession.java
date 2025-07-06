@@ -22,13 +22,23 @@ public class DependencyProviderSession {
 	}
 
 	public Object provideDependency(AnnotatedElement element, Type type) {
-		Object dependency = dependencyProvider.provideDependency(element, type, dependencyConsumer);
-		if (Objects.nonNull(dependency))
-			return dependency;
-		else if (element.isAnnotationPresent(NonRequired.class))
+		try {
+			Object dependency = dependencyProvider.provideDependency(element, type, dependencyConsumer);
+			if (Objects.nonNull(dependency))
+				return dependency;
+		} catch (Exception exception) {
+			return handleMissingDependency(element, type, exception);
+		}
+		return handleMissingDependency(element, type, null);
+	}
+
+	private Object handleMissingDependency(AnnotatedElement element, Type type, Throwable cause) {
+		if (element.isAnnotationPresent(NonRequired.class))
 			return null;
 		else
-			throw new DifuseException(String.format("Could not provide dependency of type %s", type));
+			throw Objects.nonNull(cause)//
+					? new DifuseException(String.format("Failed to provide dependency of type %s", type), cause)//
+					: new DifuseException(String.format("Could not provide dependency of type %s", type));
 	}
 
 	public Object[] provideDependencies(Executable executable) {
