@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.context.ContextInitializer;
+import com.kaba4cow.difuse.core.context.ContextScanner;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInitializer;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistrar;
