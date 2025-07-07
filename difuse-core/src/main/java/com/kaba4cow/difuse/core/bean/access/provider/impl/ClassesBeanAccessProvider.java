@@ -7,6 +7,11 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 public class ClassesBeanAccessProvider implements BeanAccessProvider<AllowClasses> {
 
 	@Override
+	public boolean isApplicable(AllowClasses annotation) {
+		return annotation.value().length > 0;
+	}
+
+	@Override
 	public boolean allowsAccess(AllowClasses annotation, DependencyConsumer consumer) {
 		Class<?> consumerClass = consumer.getConsumerClass();
 		Class<?>[] allowedClasses = annotation.value();

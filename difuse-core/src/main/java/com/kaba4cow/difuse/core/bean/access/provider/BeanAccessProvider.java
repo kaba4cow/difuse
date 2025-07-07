@@ -6,6 +6,8 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public interface BeanAccessProvider<T extends Annotation> {
 
+	boolean isApplicable(T annotation);
+
 	boolean allowsAccess(T annotation, DependencyConsumer consumer);
 
 	Class<T> getTargetAnnotation();

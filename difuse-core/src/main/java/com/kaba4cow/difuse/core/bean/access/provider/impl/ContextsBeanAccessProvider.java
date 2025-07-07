@@ -7,6 +7,11 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 public class ContextsBeanAccessProvider implements BeanAccessProvider<AllowContexts> {
 
 	@Override
+	public boolean isApplicable(AllowContexts annotation) {
+		return annotation.value().length > 0;
+	}
+
+	@Override
 	public boolean allowsAccess(AllowContexts annotation, DependencyConsumer consumer) {
 		Class<?> consumerContext = consumer.getContextSource().getSourceClass();
 		Class<?>[] allowedContexts = annotation.value();

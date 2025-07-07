@@ -9,6 +9,11 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 public class AnnotationsBeanAccessProvider implements BeanAccessProvider<AllowAnnotations> {
 
 	@Override
+	public boolean isApplicable(AllowAnnotations annotation) {
+		return annotation.value().length > 0;
+	}
+
+	@Override
 	public boolean allowsAccess(AllowAnnotations annotation, DependencyConsumer consumer) {
 		Class<?> consumerClass = consumer.getConsumerClass();
 		Class<? extends Annotation>[] allowedAnnotations = annotation.value();
