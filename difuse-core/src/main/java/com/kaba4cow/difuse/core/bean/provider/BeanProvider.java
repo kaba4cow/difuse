@@ -37,7 +37,7 @@ public abstract class BeanProvider<T extends BeanSource<?>> {
 	}
 
 	public Object provideProtectedBean(DependencyConsumer dependencyConsumer) {
-		if (!beanSource.getBeanProtector().canBeAccessedBy(dependencyConsumer))
+		if (!beanSource.getBeanProtector().allowsAccess(dependencyConsumer))
 			throw new DifuseException(String.format("DependencyConsumer %s cannot access protected bean %s",
 					dependencyConsumer.getConsumerClass().getName(), beanSource.getBeanClass().getName()));
 		else

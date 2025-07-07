@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.annotation.access;
+package com.kaba4cow.difuse.core.annotation.access.provider;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

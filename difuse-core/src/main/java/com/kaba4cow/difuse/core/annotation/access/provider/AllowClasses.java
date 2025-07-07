@@ -1,22 +1,21 @@
-package com.kaba4cow.difuse.core.annotation.access;
+package com.kaba4cow.difuse.core.annotation.access.provider;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.kaba4cow.difuse.core.bean.access.provider.impl.AnnotationsBeanAccessProvider;
+import com.kaba4cow.difuse.core.bean.access.provider.impl.ClassesBeanAccessProvider;
 
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
-@AccessProvider(AnnotationsBeanAccessProvider.class)
-public @interface AllowAnnotations {
+@AccessProvider(ClassesBeanAccessProvider.class)
+public @interface AllowClasses {
 
-	Class<? extends Annotation>[] value();
+	Class<?>[] value();
 
 }

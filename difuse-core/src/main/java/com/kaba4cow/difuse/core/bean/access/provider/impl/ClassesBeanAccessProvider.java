@@ -1,10 +1,15 @@
 package com.kaba4cow.difuse.core.bean.access.provider.impl;
 
-import com.kaba4cow.difuse.core.annotation.access.AllowClasses;
+import com.kaba4cow.difuse.core.annotation.access.provider.AllowClasses;
 import com.kaba4cow.difuse.core.bean.access.provider.BeanAccessProvider;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public class ClassesBeanAccessProvider implements BeanAccessProvider<AllowClasses> {
+
+	@Override
+	public boolean isApplicable(AllowClasses annotation) {
+		return annotation.value().length > 0;
+	}
 
 	@Override
 	public boolean allowsAccess(AllowClasses annotation, DependencyConsumer consumer) {
@@ -14,11 +19,6 @@ public class ClassesBeanAccessProvider implements BeanAccessProvider<AllowClasse
 			if (allowedClass.isAssignableFrom(consumerClass))
 				return true;
 		return false;
-	}
-
-	@Override
-	public Class<AllowClasses> getTargetAnnotation() {
-		return AllowClasses.class;
 	}
 
 }
