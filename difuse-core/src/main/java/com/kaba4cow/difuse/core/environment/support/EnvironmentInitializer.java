@@ -48,10 +48,13 @@ public class EnvironmentInitializer {
 
 			configSourceReaderInitializer.initializeReaders();
 
-			contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
+			contextSourceRegistry//
+					.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
 					.forEach(environment::includeProfile);
+			contextSourceRegistry//
+					.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs)//
+					.forEach(environment::includeConfig);
 
-			contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs);
 			environmentLoader.loadEnvironment();
 		}
 	}

@@ -20,6 +20,8 @@ public class Environment {
 
 	private final Set<String> profiles = new HashSet<>();
 
+	private final Set<String> configs = new HashSet<>();
+
 	public String getProperty(String key) {
 		for (ConfigSource source : sources) {
 			String value = source.getProperty(key);
@@ -54,6 +56,18 @@ public class Environment {
 
 	public Set<String> getProfiles() {
 		return Collections.unmodifiableSet(profiles);
+	}
+
+	public void includeConfig(String config) {
+		configs.add(config);
+	}
+
+	public boolean hasConfig(String config) {
+		return configs.contains(config);
+	}
+
+	public Set<String> getConfigs() {
+		return Collections.unmodifiableSet(configs);
 	}
 
 }
