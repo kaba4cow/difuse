@@ -25,7 +25,8 @@ public class PropertyDependencyProvider implements DependencyProvider {
 		String key = element.getAnnotation(Property.class).value();
 		if (!environment.hasProperty(key))
 			return null;
-		return environment.getProperty(key);
+		String value = environment.getProperty(key);
+		return converter.convert(value, (Class<?>) type);
 	}
 
 }
