@@ -10,6 +10,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
+import com.kaba4cow.difuse.core.environment.config.reader.support.ConfigSourceReaderInitializer;
 import com.kaba4cow.difuse.core.environment.config.source.impl.CliConfigSource;
 import com.kaba4cow.difuse.core.environment.config.source.impl.EnvConfigSource;
 import com.kaba4cow.difuse.core.system.SystemParameters;
@@ -19,6 +20,9 @@ import com.kaba4cow.difuse.core.util.LoggingTimer;
 public class EnvironmentInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentInitializer");
+
+	@Provided
+	private ConfigSourceReaderInitializer configSourceReaderInitializer;
 
 	@Provided
 	private ContextSourceRegistry contextSourceRegistry;
@@ -41,6 +45,8 @@ public class EnvironmentInitializer {
 
 			environment.addPropertySource(new CliConfigSource("cli", args));
 			environment.addPropertySource(new EnvConfigSource("env"));
+
+			configSourceReaderInitializer.initializeReaders();
 
 			contextSourceRegistry.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
 					.forEach(environment::includeProfile);

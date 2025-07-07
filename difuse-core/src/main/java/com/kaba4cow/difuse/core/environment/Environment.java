@@ -3,9 +3,10 @@ package com.kaba4cow.difuse.core.environment;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
-import java.util.TreeSet;
+import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
@@ -17,9 +18,7 @@ public class Environment {
 
 	private final Deque<ConfigSource> sources = new LinkedList<>();
 
-	private final Collection<String> profiles = new TreeSet<>();
-
-	public Environment() {}
+	private final Set<String> profiles = new HashSet<>();
 
 	public String getProperty(String key) {
 		for (ConfigSource source : sources) {
@@ -53,8 +52,8 @@ public class Environment {
 		return profiles.contains(profile);
 	}
 
-	public Collection<String> getProfiles() {
-		return Collections.unmodifiableCollection(profiles);
+	public Set<String> getProfiles() {
+		return Collections.unmodifiableSet(profiles);
 	}
 
 }
