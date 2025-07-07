@@ -1,6 +1,12 @@
 package com.kaba4cow.difuse.core.environment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.DayOfWeek;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +29,19 @@ public class PropertyConversionTest {
 	public void unsupportedThrows(@Property("unsupported") Thread value) {}
 
 	@Test
+	public void convertsEnum(@Property("enum") DayOfWeek enumValue) {
+		assertEquals(DayOfWeek.THURSDAY, enumValue);
+	}
+
+	@Test
 	public void convertsString(@Property("string") String stringValue) {
 		assertEquals("Hello World", stringValue);
+	}
+
+	@Test
+	public void convertsOptionalString(@Property("string") Optional<String> stringValue) {
+		assertTrue(stringValue.isPresent());
+		assertEquals("Hello World", stringValue.get());
 	}
 
 	@Test
@@ -45,6 +62,11 @@ public class PropertyConversionTest {
 	@Test
 	public void convertsChar(@Property("char") char charValue) {
 		assertEquals('c', charValue);
+	}
+
+	@Test
+	public void convertsList(@Property("list") List<Integer> intList) {
+		assertEquals(Arrays.asList(1, 3, 5, 7, 11), intList);
 	}
 
 }
