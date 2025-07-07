@@ -18,6 +18,11 @@ public class EnvPropertySource extends PropertySource {
 		return map.get(transformKey(key));
 	}
 
+	@Override
+	public boolean hasProperty(String key) {
+		return map.containsKey(transformKey(key));
+	}
+
 	private String transformKey(String key) {
 		return key.toUpperCase().replace('.', '_');
 	}

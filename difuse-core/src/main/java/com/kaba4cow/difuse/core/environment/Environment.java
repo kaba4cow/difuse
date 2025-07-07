@@ -22,9 +22,9 @@ public class Environment {
 
 	private final Set<String> configs = new HashSet<>();
 
-	public String getProperty(String key) {
+	public Object getProperty(String key) {
 		for (PropertySource source : sources) {
-			String value = source.getProperty(key);
+			Object value = source.getProperty(key);
 			if (Objects.nonNull(value))
 				return value;
 		}

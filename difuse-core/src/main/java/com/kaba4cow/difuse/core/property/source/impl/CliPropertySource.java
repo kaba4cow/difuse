@@ -24,4 +24,9 @@ public class CliPropertySource extends PropertySource {
 		return map.get(key);
 	}
 
+	@Override
+	public boolean hasProperty(String key) {
+		return map.containsKey(key);
+	}
+
 }

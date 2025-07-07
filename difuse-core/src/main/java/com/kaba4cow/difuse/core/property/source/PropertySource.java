@@ -1,7 +1,5 @@
 package com.kaba4cow.difuse.core.property.source;
 
-import java.util.Objects;
-
 public abstract class PropertySource {
 
 	private final String name;
@@ -10,11 +8,9 @@ public abstract class PropertySource {
 		this.name = name;
 	}
 
-	public abstract String getProperty(String key);
+	public abstract Object getProperty(String key);
 
-	public boolean hasProperty(String key) {
-		return Objects.nonNull(getProperty(key));
-	}
+	public abstract boolean hasProperty(String key);
 
 	public String getName() {
 		return name;
