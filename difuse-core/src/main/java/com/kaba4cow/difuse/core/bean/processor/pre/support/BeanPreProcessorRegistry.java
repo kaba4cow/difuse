@@ -27,7 +27,7 @@ public class BeanPreProcessorRegistry {
 
 	public void registerBeanPreProcessor(Class<? extends BeanPreProcessor> type) {
 		registry.computeIfAbsent(type, beanPreProcessorFactory::createBeanPreProcessor);
-		log.debug("Registered BeanPreProcessor {}", type);
+		log.debug("Registered BeanPreProcessor {}", type.getName());
 	}
 
 	public Collection<BeanPreProcessor> getBeanPreProcessors() {

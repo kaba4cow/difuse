@@ -18,7 +18,7 @@ public class SystemShutdownHookRegistry {
 
 	public void registerShutdownHooks(Object component, Set<AutoCloseable> shutdownHooks) {
 		registry.put(component, shutdownHooks);
-		log.debug("Registered {} shutdown hooks for {}", shutdownHooks.size(), component.getClass());
+		log.debug("Registered {} shutdown hooks for {}", shutdownHooks.size(), component.getClass().getName());
 	}
 
 	public Set<Map.Entry<Object, Set<AutoCloseable>>> getAllShutdownHooks() {
