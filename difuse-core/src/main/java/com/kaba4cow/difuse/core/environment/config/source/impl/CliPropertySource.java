@@ -3,13 +3,13 @@ package com.kaba4cow.difuse.core.environment.config.source.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
+import com.kaba4cow.difuse.core.environment.config.source.PropertySource;
 
-public class CliConfigSource extends ConfigSource {
+public class CliPropertySource extends PropertySource {
 
 	private final Map<String, String> map = new HashMap<>();
 
-	public CliConfigSource(String name, String[] args) {
+	public CliPropertySource(String name, String[] args) {
 		super(name);
 		for (String arg : args)
 			if (arg.startsWith("--")) {

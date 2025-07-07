@@ -10,13 +10,13 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.ContextScanner;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
-import com.kaba4cow.difuse.core.environment.config.reader.ConfigSourceReader;
+import com.kaba4cow.difuse.core.environment.config.reader.PropertySourceReader;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
-public class ConfigSourceReaderInitializer {
+public class PropertySourceReaderInitializer {
 
-	private static final Logger log = LoggerFactory.getLogger("ConfigSourceReaderInitializer");
+	private static final Logger log = LoggerFactory.getLogger("PropertySourceReaderInitializer");
 
 	@Provided
 	private ContextScanner contextScanner;
@@ -25,18 +25,18 @@ public class ConfigSourceReaderInitializer {
 	private ContextSourceRegistry contextSourceRegistry;
 
 	@Provided
-	private ConfigSourceReaderRegistrar configSourceReaderRegistrar;
+	private PropertySourceReaderRegistrar configSourceReaderRegistrar;
 
 	public void initializeReaders() {
-		try (LoggingTimer timer = new LoggingTimer(log, "Initializing ConfigSourceReaders...")) {
+		try (LoggingTimer timer = new LoggingTimer(log, "Initializing PropertySourceReaders...")) {
 			findReaderTypes().forEach(configSourceReaderRegistrar::register);
 		}
 	}
 
-	private Set<Class<? extends ConfigSourceReader>> findReaderTypes() {
+	private Set<Class<? extends PropertySourceReader>> findReaderTypes() {
 		return contextSourceRegistry.getSourceClasses().stream()//
 				.map(contextScanner::getScanner)//
-				.map(packageScanner -> packageScanner.searchSubTypesOf(ConfigSourceReader.class))//
+				.map(packageScanner -> packageScanner.searchSubTypesOf(PropertySourceReader.class))//
 				.flatMap(Set::stream)//
 				.collect(Collectors.toSet());
 	}

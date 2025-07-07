@@ -2,11 +2,11 @@ package com.kaba4cow.difuse.core.environment.config.source;
 
 import java.util.Objects;
 
-public abstract class ConfigSource {
+public abstract class PropertySource {
 
 	private final String name;
 
-	public ConfigSource(String name) {
+	public PropertySource(String name) {
 		this.name = name;
 	}
 

@@ -2,13 +2,13 @@ package com.kaba4cow.difuse.core.environment.config.source.impl;
 
 import java.util.Map;
 
-import com.kaba4cow.difuse.core.environment.config.source.ConfigSource;
+import com.kaba4cow.difuse.core.environment.config.source.PropertySource;
 
-public class EnvConfigSource extends ConfigSource {
+public class EnvPropertySource extends PropertySource {
 
 	private final Map<String, String> map;
 
-	public EnvConfigSource(String name) {
+	public EnvPropertySource(String name) {
 		super(name);
 		this.map = System.getenv();
 	}
