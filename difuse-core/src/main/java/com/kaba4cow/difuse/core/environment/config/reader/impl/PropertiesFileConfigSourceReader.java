@@ -18,4 +18,9 @@ public class PropertiesFileConfigSourceReader implements ConfigSourceReader {
 		return new MapConfigSource(name, (Map) properties);
 	}
 
+	@Override
+	public String getSuffix() {
+		return "properties";
+	}
+
 }
