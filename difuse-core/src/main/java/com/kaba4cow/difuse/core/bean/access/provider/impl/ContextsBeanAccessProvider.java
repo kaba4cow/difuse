@@ -21,9 +21,4 @@ public class ContextsBeanAccessProvider implements BeanAccessProvider<AllowConte
 		return false;
 	}
 
-	@Override
-	public Class<AllowContexts> getTargetAnnotation() {
-		return AllowContexts.class;
-	}
-
 }

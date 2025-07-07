@@ -21,9 +21,4 @@ public class PackagesBeanAccessProvider implements BeanAccessProvider<AllowPacka
 		return false;
 	}
 
-	@Override
-	public Class<AllowPackages> getTargetAnnotation() {
-		return AllowPackages.class;
-	}
-
 }

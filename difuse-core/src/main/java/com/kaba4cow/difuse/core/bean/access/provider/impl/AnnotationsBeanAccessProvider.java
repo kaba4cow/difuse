@@ -23,9 +23,4 @@ public class AnnotationsBeanAccessProvider implements BeanAccessProvider<AllowAn
 		return false;
 	}
 
-	@Override
-	public Class<AllowAnnotations> getTargetAnnotation() {
-		return AllowAnnotations.class;
-	}
-
 }
