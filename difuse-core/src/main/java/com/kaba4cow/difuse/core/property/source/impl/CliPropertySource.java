@@ -1,9 +1,9 @@
-package com.kaba4cow.difuse.core.environment.property.source.impl;
+package com.kaba4cow.difuse.core.property.source.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
+import com.kaba4cow.difuse.core.property.source.PropertySource;
 
 public class CliPropertySource extends PropertySource {
 

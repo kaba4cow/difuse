@@ -13,9 +13,9 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.EnvironmentException;
-import com.kaba4cow.difuse.core.environment.property.reader.PropertyReader;
-import com.kaba4cow.difuse.core.environment.property.reader.support.PropertyReaderRegistry;
-import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
+import com.kaba4cow.difuse.core.property.reader.PropertyReader;
+import com.kaba4cow.difuse.core.property.reader.support.PropertyReaderRegistry;
+import com.kaba4cow.difuse.core.property.source.PropertySource;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean

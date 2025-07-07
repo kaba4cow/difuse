@@ -1,11 +1,11 @@
-package com.kaba4cow.difuse.core.environment.property.reader.support;
+package com.kaba4cow.difuse.core.property.reader.support;
 
 import java.lang.reflect.Constructor;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.environment.property.reader.PropertyReader;
+import com.kaba4cow.difuse.core.property.reader.PropertyReader;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
 @SystemBean

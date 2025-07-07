@@ -1,8 +1,8 @@
-package com.kaba4cow.difuse.core.environment.property.reader;
+package com.kaba4cow.difuse.core.property.reader;
 
 import java.io.InputStream;
 
-import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
+import com.kaba4cow.difuse.core.property.source.PropertySource;
 
 public interface PropertyReader {
 

@@ -10,9 +10,9 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
-import com.kaba4cow.difuse.core.environment.property.reader.support.PropertyReaderInitializer;
-import com.kaba4cow.difuse.core.environment.property.source.impl.CliPropertySource;
-import com.kaba4cow.difuse.core.environment.property.source.impl.EnvPropertySource;
+import com.kaba4cow.difuse.core.property.reader.support.PropertyReaderInitializer;
+import com.kaba4cow.difuse.core.property.source.impl.CliPropertySource;
+import com.kaba4cow.difuse.core.property.source.impl.EnvPropertySource;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 

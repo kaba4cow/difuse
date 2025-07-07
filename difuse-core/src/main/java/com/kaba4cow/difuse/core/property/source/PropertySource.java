@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.environment.property.source;
+package com.kaba4cow.difuse.core.property.source;
 
 import java.util.Objects;
 

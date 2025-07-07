@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.environment.property.reader.support;
+package com.kaba4cow.difuse.core.property.reader.support;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.environment.property.reader.PropertyReader;
+import com.kaba4cow.difuse.core.property.reader.PropertyReader;
 
 @SystemBean
 public class PropertyReaderRegistry {
