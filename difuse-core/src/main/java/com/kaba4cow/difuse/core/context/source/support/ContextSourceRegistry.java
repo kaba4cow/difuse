@@ -2,6 +2,7 @@ package com.kaba4cow.difuse.core.context.source.support;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kaba4cow.difuse.core.DifuseApplication;
 import com.kaba4cow.difuse.core.context.source.ContextSource;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 
@@ -33,6 +35,12 @@ public class ContextSourceRegistry {
 
 	public Collection<ContextSource> getContextSources() {
 		return Collections.unmodifiableCollection(registry.values());
+	}
+
+	public Set<Class<?>> getSourceClasses() {
+		Set<Class<?>> sourceClasses = new HashSet<>(registry.keySet());
+		sourceClasses.add(DifuseApplication.class);
+		return Collections.unmodifiableSet(sourceClasses);
 	}
 
 	public <T> Set<T> collectConfigurations(Function<ContextSourceConfiguration, Set<T>> supplier) {
