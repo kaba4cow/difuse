@@ -1,0 +1,23 @@
+package com.kaba4cow.difuse.core.property.converter.impl.primitive;
+
+import com.kaba4cow.difuse.core.property.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.property.converter.PropertyConverterException;
+
+public class CharPropertyConverter implements PropertyConverter<Character> {
+
+	@Override
+	public Class<Character> getTargetType() {
+		return Character.class;
+	}
+
+	@Override
+	public Character convert(String raw) {
+		if (raw.isEmpty())
+			throw new PropertyConverterException("Cannot convert empty string to char");
+		else if (raw.length() > 1)
+			throw new PropertyConverterException(String.format("String is too long to convert to char: '%s'", raw));
+		else
+			return raw.charAt(0);
+	}
+
+}
