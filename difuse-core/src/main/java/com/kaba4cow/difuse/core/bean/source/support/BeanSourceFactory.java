@@ -33,7 +33,7 @@ public class BeanSourceFactory {
 	private GlobalBeanPreProcessor globalBeanPreProcessor;
 
 	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {
-		BeanProtector classBeanProtector = beanProtectorFactory.createBeanProtector(beanClass);
+		BeanProtector classBeanProtector = beanProtectorFactory.createBeanProtector();
 		ClassBeanSource classBeanSource = new ClassBeanSource(//
 				contextSource, //
 				beanClass, //
@@ -51,7 +51,7 @@ public class BeanSourceFactory {
 	}
 
 	private void createMethodBeanSource(ContextSource contextSource, Method beanMethod, ClassBeanSource ownerBeanSource) {
-		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector(ownerBeanSource.getBeanClass(), beanMethod);
+		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
 		MethodBeanSource methodBeanSource = new MethodBeanSource(//
 				contextSource, //
 				beanMethod, //
