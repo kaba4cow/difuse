@@ -1,5 +1,6 @@
 package com.kaba4cow.difuse.core.property.converter.support;
 
+import java.lang.reflect.Type;
 import java.util.Objects;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
@@ -14,8 +15,8 @@ public class GlobalPropertyConverter {
 	@Provided
 	private PropertyConverterRegistry registry;
 
-	public Object convert(String raw, Class<?> targetType) {
-		Class<?> normalizedType = PrimitiveTypeWrapper.wrapIfPrimitive(targetType);
+	public Object convert(String raw, Type type) {
+		Class<?> normalizedType = PrimitiveTypeWrapper.wrapIfPrimitive((Class<?>) type);
 		try {
 			PropertyConverter<?> converter = registry.getConverter(normalizedType);
 			if (Objects.isNull(converter))
