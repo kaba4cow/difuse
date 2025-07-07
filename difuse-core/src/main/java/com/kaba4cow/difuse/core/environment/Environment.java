@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
@@ -23,11 +22,9 @@ public class Environment {
 	private final Set<String> configs = new HashSet<>();
 
 	public Object getProperty(String key) {
-		for (PropertySource source : sources) {
-			Object value = source.getProperty(key);
-			if (Objects.nonNull(value))
-				return value;
-		}
+		for (PropertySource source : sources)
+			if (source.hasProperty(key))
+				return source.getProperty(key);
 		return null;
 	}
 
