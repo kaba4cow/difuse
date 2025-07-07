@@ -8,7 +8,7 @@ public abstract class PropertySource {
 		this.name = name;
 	}
 
-	public abstract Object getProperty(String key);
+	public abstract String getProperty(String key);
 
 	public abstract boolean hasProperty(String key);
 

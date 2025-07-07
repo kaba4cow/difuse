@@ -6,15 +6,15 @@ import com.kaba4cow.difuse.core.property.source.PropertySource;
 
 public class MapPropertySource extends PropertySource {
 
-	private final Map<String, Object> map;
+	private final Map<String, String> map;
 
-	public MapPropertySource(String name, Map<String, Object> map) {
+	public MapPropertySource(String name, Map<String, String> map) {
 		super(name);
 		this.map = map;
 	}
 
 	@Override
-	public Object getProperty(String key) {
+	public String getProperty(String key) {
 		return map.get(key);
 	}
 
