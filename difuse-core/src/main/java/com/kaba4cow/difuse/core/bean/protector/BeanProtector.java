@@ -15,7 +15,7 @@ public class BeanProtector {
 
 	BeanProtector() {}
 
-	public boolean canBeAccessedBy(DependencyConsumer consumer) {
+	public boolean allowsAccess(DependencyConsumer consumer) {
 		boolean restricting = false;
 		for (AccessProviderEntry<?> entry : entries)
 			if (entry.isApplicable()) {

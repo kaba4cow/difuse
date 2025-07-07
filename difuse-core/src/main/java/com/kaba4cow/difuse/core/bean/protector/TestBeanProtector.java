@@ -11,8 +11,8 @@ public class TestBeanProtector extends BeanProtector {
 	}
 
 	@Override
-	public boolean canBeAccessedBy(DependencyConsumer consumer) {
-		return testClass == consumer.getContextSource().getSourceClass() || super.canBeAccessedBy(consumer);
+	public boolean allowsAccess(DependencyConsumer consumer) {
+		return testClass == consumer.getContextSource().getSourceClass() || super.allowsAccess(consumer);
 	}
 
 }
