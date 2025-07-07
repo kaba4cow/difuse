@@ -10,6 +10,4 @@ public interface BeanAccessProvider<T extends Annotation> {
 
 	boolean allowsAccess(T annotation, DependencyConsumer consumer);
 
-	Class<T> getTargetAnnotation();
-
 }
