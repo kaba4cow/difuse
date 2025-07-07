@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.core.bean.access.provider.support;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 
-import com.kaba4cow.difuse.core.annotation.access.AccessProvider;
+import com.kaba4cow.difuse.core.annotation.access.provider.AccessProvider;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.access.provider.BeanAccessProvider;

@@ -1,6 +1,6 @@
 package com.kaba4cow.difuse.core.bean.access.provider.impl;
 
-import com.kaba4cow.difuse.core.annotation.access.AllowPackages;
+import com.kaba4cow.difuse.core.annotation.access.provider.AllowPackages;
 import com.kaba4cow.difuse.core.bean.access.provider.BeanAccessProvider;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 

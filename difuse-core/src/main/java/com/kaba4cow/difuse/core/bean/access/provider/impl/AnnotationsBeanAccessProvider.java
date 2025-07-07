@@ -2,7 +2,7 @@ package com.kaba4cow.difuse.core.bean.access.provider.impl;
 
 import java.lang.annotation.Annotation;
 
-import com.kaba4cow.difuse.core.annotation.access.AllowAnnotations;
+import com.kaba4cow.difuse.core.annotation.access.provider.AllowAnnotations;
 import com.kaba4cow.difuse.core.bean.access.provider.BeanAccessProvider;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.kaba4cow.difuse.core.annotation.access.AccessProvider;
+import com.kaba4cow.difuse.core.annotation.access.provider.AccessProvider;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.access.provider.BeanAccessProvider;
 import com.kaba4cow.difuse.core.bean.access.provider.support.BeanAccessProviderRegistry;
