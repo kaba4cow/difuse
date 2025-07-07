@@ -50,7 +50,6 @@ public class SourceClassContextSourceConfigurationBuilder implements ContextSour
 		return Arrays.stream(sourceClass.getAnnotations())//
 				.map(Annotation::annotationType)//
 				.filter(annotation -> annotation.isAnnotationPresent(DifuseContext.class))//
-				.distinct()//
 				.collect(Collectors.toSet());
 	}
 
