@@ -10,6 +10,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
+import com.kaba4cow.difuse.core.property.converter.support.PropertyConverterInitializer;
 import com.kaba4cow.difuse.core.property.reader.support.PropertyReaderInitializer;
 import com.kaba4cow.difuse.core.property.source.impl.CliPropertySource;
 import com.kaba4cow.difuse.core.property.source.impl.EnvPropertySource;
@@ -22,7 +23,10 @@ public class EnvironmentInitializer {
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentInitializer");
 
 	@Provided
-	private PropertyReaderInitializer propertySourceReaderInitializer;
+	private PropertyReaderInitializer propertyReaderInitializer;
+
+	@Provided
+	private PropertyConverterInitializer propertyConverterInitializer;
 
 	@Provided
 	private ContextSourceRegistry contextSourceRegistry;
@@ -40,13 +44,11 @@ public class EnvironmentInitializer {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing environment...")) {
 			String[] args = systemParameters.getCommandLineArgs();
 
-			log.debug("Command line args: {}", Arrays.asList(args));
-			log.debug("Active profiles: {}", environment.getProfiles());
-
 			environment.addPropertySource(new CliPropertySource("cli", args));
 			environment.addPropertySource(new EnvPropertySource("env"));
 
-			propertySourceReaderInitializer.initializeReaders();
+			propertyReaderInitializer.initializeReaders();
+			propertyConverterInitializer.initializeConverters();
 
 			contextSourceRegistry//
 					.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
@@ -54,6 +56,9 @@ public class EnvironmentInitializer {
 			contextSourceRegistry//
 					.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs)//
 					.forEach(environment::includeConfig);
+
+			log.debug("Command line args: {}", Arrays.asList(args));
+			log.debug("Active profiles: {}", environment.getProfiles());
 
 			environmentLoader.loadEnvironment();
 		}
