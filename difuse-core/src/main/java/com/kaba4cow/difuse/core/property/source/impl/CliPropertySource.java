@@ -20,7 +20,7 @@ public class CliPropertySource extends PropertySource {
 	}
 
 	@Override
-	public String getProperty(String key) {
+	public Object getProperty(String key) {
 		return map.get(key);
 	}
 

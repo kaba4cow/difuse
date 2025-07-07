@@ -21,7 +21,7 @@ public class Environment {
 
 	private final Set<String> configs = new HashSet<>();
 
-	public String getProperty(String key) {
+	public Object getProperty(String key) {
 		for (PropertySource source : sources)
 			if (source.hasProperty(key))
 				return source.getProperty(key);

@@ -14,7 +14,7 @@ public class EnvPropertySource extends PropertySource {
 	}
 
 	@Override
-	public String getProperty(String key) {
+	public Object getProperty(String key) {
 		return map.get(transformKey(key));
 	}
 
