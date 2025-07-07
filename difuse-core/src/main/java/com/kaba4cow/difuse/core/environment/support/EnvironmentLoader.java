@@ -13,9 +13,9 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.EnvironmentException;
-import com.kaba4cow.difuse.core.environment.config.reader.PropertySourceReader;
-import com.kaba4cow.difuse.core.environment.config.reader.support.PropertySourceReaderRegistry;
-import com.kaba4cow.difuse.core.environment.config.source.PropertySource;
+import com.kaba4cow.difuse.core.environment.property.reader.PropertyReader;
+import com.kaba4cow.difuse.core.environment.property.reader.support.PropertyReaderRegistry;
+import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
@@ -24,15 +24,15 @@ public class EnvironmentLoader {
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentLoader");
 
 	@Provided
-	private PropertySourceReaderRegistry configSourceReaderRegistry;
+	private PropertyReaderRegistry configSourceReaderRegistry;
 
 	@Provided
 	private Environment environment;
 
 	public void loadEnvironment() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
-			Collection<PropertySourceReader> readers = configSourceReaderRegistry.getReaders();
-			for (PropertySourceReader reader : readers) {
+			Collection<PropertyReader> readers = configSourceReaderRegistry.getReaders();
+			for (PropertyReader reader : readers) {
 				Set<String> locations = getConfigLocations(reader.getSuffix());
 				for (String location : locations)
 					loadConfig(location, reader);
@@ -60,7 +60,7 @@ public class EnvironmentLoader {
 		return String.format("%s-%s.%s", config, profile, suffix);
 	}
 
-	private void loadConfig(String location, PropertySourceReader reader) {
+	private void loadConfig(String location, PropertyReader reader) {
 		InputStream input = getClass().getClassLoader().getResourceAsStream(location);
 		if (Objects.nonNull(input))
 			try {

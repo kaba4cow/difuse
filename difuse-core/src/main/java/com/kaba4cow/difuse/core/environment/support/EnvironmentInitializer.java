@@ -10,9 +10,9 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
-import com.kaba4cow.difuse.core.environment.config.reader.support.PropertySourceReaderInitializer;
-import com.kaba4cow.difuse.core.environment.config.source.impl.CliPropertySource;
-import com.kaba4cow.difuse.core.environment.config.source.impl.EnvPropertySource;
+import com.kaba4cow.difuse.core.environment.property.reader.support.PropertyReaderInitializer;
+import com.kaba4cow.difuse.core.environment.property.source.impl.CliPropertySource;
+import com.kaba4cow.difuse.core.environment.property.source.impl.EnvPropertySource;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
@@ -22,7 +22,7 @@ public class EnvironmentInitializer {
 	private static final Logger log = LoggerFactory.getLogger("EnvironmentInitializer");
 
 	@Provided
-	private PropertySourceReaderInitializer propertySourceReaderInitializer;
+	private PropertyReaderInitializer propertySourceReaderInitializer;
 
 	@Provided
 	private ContextSourceRegistry contextSourceRegistry;

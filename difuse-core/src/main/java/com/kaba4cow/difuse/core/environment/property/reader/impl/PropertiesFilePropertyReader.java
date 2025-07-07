@@ -1,14 +1,14 @@
-package com.kaba4cow.difuse.core.environment.config.reader.impl;
+package com.kaba4cow.difuse.core.environment.property.reader.impl;
 
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
-import com.kaba4cow.difuse.core.environment.config.reader.PropertySourceReader;
-import com.kaba4cow.difuse.core.environment.config.source.PropertySource;
-import com.kaba4cow.difuse.core.environment.config.source.impl.MapPropertySource;
+import com.kaba4cow.difuse.core.environment.property.reader.PropertyReader;
+import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
+import com.kaba4cow.difuse.core.environment.property.source.impl.MapPropertySource;
 
-public class PropertiesFilePropertySourceReader implements PropertySourceReader {
+public class PropertiesFilePropertyReader implements PropertyReader {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override

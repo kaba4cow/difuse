@@ -10,7 +10,7 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.environment.config.source.PropertySource;
+import com.kaba4cow.difuse.core.environment.property.source.PropertySource;
 
 @Accessible
 @SystemBean
