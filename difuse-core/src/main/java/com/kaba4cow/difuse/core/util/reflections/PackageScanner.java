@@ -31,7 +31,7 @@ public class PackageScanner {
 		return new PackageScanner(reflections);
 	}
 
-	public <T> Set<Class<? extends T>> searchClassesOf(Class<T> type) {
+	public <T> Set<Class<? extends T>> searchSubTypesOf(Class<T> type) {
 		return reflections.getSubTypesOf(type).stream()//
 				.filter(t -> !Modifier.isAbstract(t.getModifiers()))//
 				.collect(Collectors.toSet());

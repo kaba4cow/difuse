@@ -27,7 +27,7 @@ public class BeanPostProcessorRegistrar {
 		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanPostProcessors for {}...", sourceClass)) {
 			PackageScanner packageScanner = contextScanner.getScanner(sourceClass);
 			Set<Class<? extends BeanPostProcessor>> beanProcessorClasses = packageScanner
-					.searchClassesOf(BeanPostProcessor.class);
+					.searchSubTypesOf(BeanPostProcessor.class);
 			for (Class<? extends BeanPostProcessor> beanProcessorClass : beanProcessorClasses)
 				beanPostProcessorRegistry.registerBeanPostProcessor(beanProcessorClass);
 		}
