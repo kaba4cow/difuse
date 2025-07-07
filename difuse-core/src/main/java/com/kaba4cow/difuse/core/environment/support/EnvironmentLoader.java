@@ -1,7 +1,10 @@
 package com.kaba4cow.difuse.core.environment.support;
 
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +31,33 @@ public class EnvironmentLoader {
 
 	public void loadEnvironment() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
-			
+			Collection<ConfigSourceReader> readers = configSourceReaderRegistry.getReaders();
+			for (ConfigSourceReader reader : readers) {
+				Set<String> locations = getConfigLocations(reader.getSuffix());
+				for (String location : locations)
+					loadConfig(location, reader);
+			}
 		}
+	}
+
+	private Set<String> getConfigLocations(String suffix) {
+		Set<String> profiles = environment.getProfiles();
+		Set<String> configs = environment.getConfigs();
+		Set<String> locations = new HashSet<>();
+		for (String config : configs) {
+			locations.add(buildConfigLocation(config, suffix));
+			for (String profile : profiles)
+				locations.add(buildConfigLocation(config, profile, suffix));
+		}
+		return locations;
+	}
+
+	private String buildConfigLocation(String config, String suffix) {
+		return String.format("%s.%s", config, suffix);
+	}
+
+	private String buildConfigLocation(String config, String profile, String suffix) {
+		return String.format("%s-%s.%s", config, profile, suffix);
 	}
 
 	private void loadConfig(String location, ConfigSourceReader reader) {
