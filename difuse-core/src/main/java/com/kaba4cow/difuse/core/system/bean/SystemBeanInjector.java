@@ -1,5 +1,6 @@
 package com.kaba4cow.difuse.core.system.bean;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.InternalSystemBeanRegistry;
+import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
 public class SystemBeanInjector {
 
@@ -15,6 +17,13 @@ public class SystemBeanInjector {
 
 	public SystemBeanInjector(InternalSystemBeanRegistry beanRegistry) {
 		this.beanRegistry = beanRegistry;
+	}
+
+	public <T> T createInstance(Class<T> type) throws Exception {
+		Constructor<T> constructor = ConstructorScanner.of(type).findNoArgsConstructor();
+		T instance = constructor.newInstance();
+		injectDependencies(instance);
+		return type.cast(instance);
 	}
 
 	public void injectDependencies(Object bean) {
