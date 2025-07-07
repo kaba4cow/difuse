@@ -16,7 +16,6 @@ import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInjector;
-import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
 @Accessible
@@ -55,9 +54,7 @@ public class AdvisorFactory {
 	private Object createAspectInstance(ClassBeanSource beanSource) {
 		Class<?> type = beanSource.getBeanClass();
 		try {
-			Object instance = ConstructorScanner.of(type).findNoArgsConstructor().newInstance();
-			beanInjector.injectDependencies(instance);
-			return instance;
+			return beanInjector.createInstance(type);
 		} catch (Exception exception) {
 			throw new AdvisorException(String.format("Could not create aspect instance of type %s", type.getName()), exception);
 		}
