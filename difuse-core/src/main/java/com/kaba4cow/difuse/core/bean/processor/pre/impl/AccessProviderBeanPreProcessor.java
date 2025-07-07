@@ -23,11 +23,16 @@ public class AccessProviderBeanPreProcessor implements BeanPreProcessor {
 	public boolean process(BeanSource<?> beanSource) {
 		BeanProtector protector = beanSource.getBeanProtector();
 		Set<Annotation> annotations = findAccessProviderAnnotations(beanSource.getSourceElement());
-		for (Annotation annotation : annotations) {
-			BeanAccessProvider<?> accessProvider = registry.getProvider(annotation.annotationType());
-			protector.addAccessProvider(annotation, accessProvider);
-		}
+		for (Annotation annotation : annotations)
+			addAccessProvider(annotation, protector);
 		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T extends Annotation> void addAccessProvider(T annotation, BeanProtector protector) {
+		Class<T> annotationType = (Class<T>) annotation.annotationType();
+		BeanAccessProvider<T> accessProvider = (BeanAccessProvider<T>) registry.getProvider(annotationType);
+		protector.addAccessProvider(annotation, accessProvider);
 	}
 
 	private Set<Annotation> findAccessProviderAnnotations(AnnotatedElement element) {
