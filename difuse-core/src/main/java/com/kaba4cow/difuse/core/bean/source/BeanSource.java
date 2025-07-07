@@ -40,6 +40,10 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 		this.scope = scopeRegistry.getScope(this);
 	}
 
+	public void finishProcessing() {
+		beanProtector.lock();
+	}
+
 	@Override
 	public ContextSource getContextSource() {
 		return contextSource;
