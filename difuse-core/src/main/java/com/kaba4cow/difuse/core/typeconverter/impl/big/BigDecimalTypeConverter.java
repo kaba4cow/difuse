@@ -1,8 +1,8 @@
-package com.kaba4cow.difuse.core.config.converter.impl.big;
+package com.kaba4cow.difuse.core.typeconverter.impl.big;
 
 import java.math.BigDecimal;
 
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 
 public class BigDecimalTypeConverter implements TypeConverter<BigDecimal> {
 

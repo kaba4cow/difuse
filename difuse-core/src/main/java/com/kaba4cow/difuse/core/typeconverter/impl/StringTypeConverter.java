@@ -1,6 +1,6 @@
-package com.kaba4cow.difuse.core.config.converter.impl;
+package com.kaba4cow.difuse.core.typeconverter.impl;
 
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 
 public class StringTypeConverter implements TypeConverter<String> {
 

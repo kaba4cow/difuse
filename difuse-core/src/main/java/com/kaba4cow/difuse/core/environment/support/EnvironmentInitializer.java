@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.support.TypeConverterInitializer;
 import com.kaba4cow.difuse.core.config.loader.support.ConfigLoaderInitializer;
 import com.kaba4cow.difuse.core.config.reader.support.ConfigReaderInitializer;
 import com.kaba4cow.difuse.core.config.source.impl.CliConfigSource;
@@ -16,6 +15,7 @@ import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfig
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.system.SystemParameters;
+import com.kaba4cow.difuse.core.typeconverter.support.TypeConverterInitializer;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean

@@ -1,10 +1,10 @@
-package com.kaba4cow.difuse.core.config.converter.support.converter;
+package com.kaba4cow.difuse.core.typeconverter.support.converter;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
-import com.kaba4cow.difuse.core.config.converter.support.GlobalTypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
+import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
 
 public class CollectionConverter {
 

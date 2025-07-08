@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.config.converter.support;
+package com.kaba4cow.difuse.core.typeconverter.support;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 import com.kaba4cow.difuse.core.context.ContextScanner;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean

@@ -1,11 +1,11 @@
-package com.kaba4cow.difuse.core.config.converter.support;
+package com.kaba4cow.difuse.core.typeconverter.support;
 
 import java.lang.reflect.Constructor;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
 @SystemBean

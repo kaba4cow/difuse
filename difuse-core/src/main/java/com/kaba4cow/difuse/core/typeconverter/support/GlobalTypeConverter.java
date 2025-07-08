@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.config.converter.support;
+package com.kaba4cow.difuse.core.typeconverter.support;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -12,12 +12,12 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
-import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
-import com.kaba4cow.difuse.core.config.converter.support.converter.CollectionConverter;
-import com.kaba4cow.difuse.core.config.converter.support.converter.EnumConverter;
-import com.kaba4cow.difuse.core.config.converter.support.converter.MapConverter;
-import com.kaba4cow.difuse.core.config.converter.support.converter.OptionalConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
+import com.kaba4cow.difuse.core.typeconverter.support.converter.CollectionConverter;
+import com.kaba4cow.difuse.core.typeconverter.support.converter.EnumConverter;
+import com.kaba4cow.difuse.core.typeconverter.support.converter.MapConverter;
+import com.kaba4cow.difuse.core.typeconverter.support.converter.OptionalConverter;
 
 @SystemBean
 public class GlobalTypeConverter {

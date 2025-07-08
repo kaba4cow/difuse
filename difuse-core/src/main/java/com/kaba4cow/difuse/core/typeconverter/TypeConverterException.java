@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.config.converter;
+package com.kaba4cow.difuse.core.typeconverter;
 
 import com.kaba4cow.difuse.core.DifuseException;
 

@@ -1,8 +1,8 @@
-package com.kaba4cow.difuse.core.config.converter.impl.primitive;
+package com.kaba4cow.difuse.core.typeconverter.impl.primitive;
 
-import com.kaba4cow.difuse.core.config.converter.PrimitiveTypeConverter;
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
-import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
+import com.kaba4cow.difuse.core.typeconverter.PrimitiveTypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
 
 public class CharTypeConverter implements TypeConverter<Character>, PrimitiveTypeConverter {
 

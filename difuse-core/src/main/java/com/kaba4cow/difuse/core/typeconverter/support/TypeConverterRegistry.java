@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.config.converter.support;
+package com.kaba4cow.difuse.core.typeconverter.support;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.PrimitiveTypeConverter;
-import com.kaba4cow.difuse.core.config.converter.TypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.PrimitiveTypeConverter;
+import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 
 @SystemBean
 public class TypeConverterRegistry {
