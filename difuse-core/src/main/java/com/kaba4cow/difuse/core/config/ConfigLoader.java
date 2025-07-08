@@ -4,6 +4,6 @@ import java.io.InputStream;
 
 public interface ConfigLoader {
 
-	InputStream getInputStream(String config) throws Exception;
+	InputStream getInputStream(String config);
 
 }
