@@ -1,6 +1,6 @@
 package com.kaba4cow.difuse.core.config.converter.support.converter;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverterException;
+import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
 
 public class EnumConverter {
 
@@ -9,7 +9,7 @@ public class EnumConverter {
 		try {
 			return Enum.valueOf((Class<T>) type, raw.trim().toUpperCase());
 		} catch (Exception exception) {
-			throw new PropertyConverterException(String.format("Invalid value '%s' for enum %s", raw, type.getName()),
+			throw new TypeConverterException(String.format("Invalid value '%s' for enum %s", raw, type.getName()),
 					exception);
 		}
 	}

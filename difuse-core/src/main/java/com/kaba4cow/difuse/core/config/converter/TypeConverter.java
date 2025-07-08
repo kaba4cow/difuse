@@ -1,6 +1,6 @@
 package com.kaba4cow.difuse.core.config.converter;
 
-public interface PropertyConverter<T> {
+public interface TypeConverter<T> {
 
 	Class<T> getTargetType();
 

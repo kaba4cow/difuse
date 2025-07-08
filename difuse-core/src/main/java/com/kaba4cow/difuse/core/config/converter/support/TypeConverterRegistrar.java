@@ -5,22 +5,22 @@ import java.lang.reflect.Constructor;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
 
 @SystemBean
-public class PropertyConverterRegistrar {
+public class TypeConverterRegistrar {
 
 	@Provided
-	private PropertyConverterRegistry registry;
+	private TypeConverterRegistry registry;
 
-	public void register(Class<? extends PropertyConverter<?>> type) {
+	public void register(Class<? extends TypeConverter<?>> type) {
 		try {
 			Constructor<?> constructor = ConstructorScanner.of(type).findNoArgsConstructor();
 			Object instance = constructor.newInstance();
 			registry.registerConverter(type.cast(instance));
 		} catch (Exception exception) {
-			throw new DifuseException(String.format("Could not instantiate PropertyConverter %s", type.getName()), exception);
+			throw new DifuseException(String.format("Could not instantiate TypeConverter %s", type.getName()), exception);
 		}
 	}
 

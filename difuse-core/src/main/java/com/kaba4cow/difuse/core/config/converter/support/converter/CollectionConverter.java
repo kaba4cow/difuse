@@ -3,14 +3,14 @@ package com.kaba4cow.difuse.core.config.converter.support.converter;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverterException;
-import com.kaba4cow.difuse.core.config.converter.support.GlobalPropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
+import com.kaba4cow.difuse.core.config.converter.support.GlobalTypeConverter;
 
 public class CollectionConverter {
 
-	private final GlobalPropertyConverter propertyConverter;
+	private final GlobalTypeConverter propertyConverter;
 
-	public CollectionConverter(GlobalPropertyConverter propertyConverter) {
+	public CollectionConverter(GlobalTypeConverter propertyConverter) {
 		this.propertyConverter = propertyConverter;
 	}
 
@@ -20,7 +20,7 @@ public class CollectionConverter {
 		else if (raw instanceof Collection<?>)
 			return convertFromCollection((Collection<?>) raw, itemType, collection);
 		else
-			throw new PropertyConverterException(
+			throw new TypeConverterException(
 					String.format("Expected string or collection for List<T>, got %s", raw.getClass().getName()));
 	}
 

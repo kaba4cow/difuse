@@ -1,8 +1,8 @@
 package com.kaba4cow.difuse.core.config.converter.impl;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 
-public class StringPropertyConverter implements PropertyConverter<String> {
+public class StringTypeConverter implements TypeConverter<String> {
 
 	@Override
 	public Class<String> getTargetType() {

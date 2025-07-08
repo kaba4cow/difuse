@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.support.PropertyConverterInitializer;
+import com.kaba4cow.difuse.core.config.converter.support.TypeConverterInitializer;
 import com.kaba4cow.difuse.core.config.loader.support.ConfigLoaderInitializer;
 import com.kaba4cow.difuse.core.config.reader.support.ConfigReaderInitializer;
 import com.kaba4cow.difuse.core.config.source.impl.CliConfigSource;
@@ -30,7 +30,7 @@ public class EnvironmentInitializer {
 	private ConfigReaderInitializer configReaderInitializer;
 
 	@Provided
-	private PropertyConverterInitializer propertyConverterInitializer;
+	private TypeConverterInitializer typeConverterInitializer;
 
 	@Provided
 	private ContextSourceRegistry contextSourceRegistry;
@@ -53,7 +53,7 @@ public class EnvironmentInitializer {
 
 			configLoaderInitializer.initializeLoaders();
 			configReaderInitializer.initializeReaders();
-			propertyConverterInitializer.initializeConverters();
+			typeConverterInitializer.initializeConverters();
 
 			contextSourceRegistry//
 					.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//

@@ -2,9 +2,9 @@ package com.kaba4cow.difuse.core.config.converter.impl.big;
 
 import java.math.BigInteger;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 
-public class BigIntegerPropertyConverter implements PropertyConverter<BigInteger> {
+public class BigIntegerTypeConverter implements TypeConverter<BigInteger> {
 
 	@Override
 	public Class<BigInteger> getTargetType() {

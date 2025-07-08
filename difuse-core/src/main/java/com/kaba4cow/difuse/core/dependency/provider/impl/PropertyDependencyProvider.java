@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.support.GlobalPropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.support.GlobalTypeConverter;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.environment.Environment;
@@ -18,7 +18,7 @@ public class PropertyDependencyProvider implements DependencyProvider {
 	private Environment environment;
 
 	@Provided
-	private GlobalPropertyConverter converter;
+	private GlobalTypeConverter converter;
 
 	@Override
 	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {

@@ -1,6 +1,6 @@
 package com.kaba4cow.difuse.core.config.converter;
 
-public interface PrimitivePropertyConverter {
+public interface PrimitiveTypeConverter {
 
 	Class<?> getPrimitiveTargetType();
 

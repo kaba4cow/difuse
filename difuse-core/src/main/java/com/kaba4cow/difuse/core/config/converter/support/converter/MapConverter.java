@@ -4,14 +4,14 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverterException;
-import com.kaba4cow.difuse.core.config.converter.support.GlobalPropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
+import com.kaba4cow.difuse.core.config.converter.support.GlobalTypeConverter;
 
 public class MapConverter {
 
-	private final GlobalPropertyConverter propertyConverter;
+	private final GlobalTypeConverter propertyConverter;
 
-	public MapConverter(GlobalPropertyConverter propertyConverter) {
+	public MapConverter(GlobalTypeConverter propertyConverter) {
 		this.propertyConverter = propertyConverter;
 	}
 
@@ -19,7 +19,7 @@ public class MapConverter {
 		if (raw instanceof Map<?, ?>)
 			return convertFromMap((Map<?, ?>) raw, valueType);
 		else
-			throw new PropertyConverterException(
+			throw new TypeConverterException(
 					String.format("Expected string or map for Map<String, V>, got %s", raw.getClass().getName()));
 	}
 
@@ -31,7 +31,7 @@ public class MapConverter {
 				Object value = propertyConverter.convert(entry.getValue(), valueType);
 				map.put((String) key, value);
 			} else
-				throw new PropertyConverterException(
+				throw new TypeConverterException(
 						String.format("Expected String as Map key, got %s", key.getClass().getName()));
 		}
 		return map;

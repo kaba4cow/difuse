@@ -2,9 +2,9 @@ package com.kaba4cow.difuse.core.config.converter.impl.big;
 
 import java.math.BigDecimal;
 
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 
-public class BigDecimalPropertyConverter implements PropertyConverter<BigDecimal> {
+public class BigDecimalTypeConverter implements TypeConverter<BigDecimal> {
 
 	@Override
 	public Class<BigDecimal> getTargetType() {

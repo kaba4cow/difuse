@@ -1,9 +1,9 @@
 package com.kaba4cow.difuse.core.config.converter.impl.primitive;
 
-import com.kaba4cow.difuse.core.config.converter.PrimitivePropertyConverter;
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.PrimitiveTypeConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
 
-public class DoublePropertyConverter implements PropertyConverter<Double>, PrimitivePropertyConverter {
+public class DoubleTypeConverter implements TypeConverter<Double>, PrimitiveTypeConverter {
 
 	@Override
 	public Class<?> getPrimitiveTargetType() {

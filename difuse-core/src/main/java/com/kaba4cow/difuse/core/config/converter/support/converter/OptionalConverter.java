@@ -4,13 +4,13 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.kaba4cow.difuse.core.config.converter.support.GlobalPropertyConverter;
+import com.kaba4cow.difuse.core.config.converter.support.GlobalTypeConverter;
 
 public class OptionalConverter {
 
-	private final GlobalPropertyConverter propertyConverter;
+	private final GlobalTypeConverter propertyConverter;
 
-	public OptionalConverter(GlobalPropertyConverter propertyConverter) {
+	public OptionalConverter(GlobalTypeConverter propertyConverter) {
 		this.propertyConverter = propertyConverter;
 	}
 

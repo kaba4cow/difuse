@@ -12,18 +12,18 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.converter.PropertyConverter;
-import com.kaba4cow.difuse.core.config.converter.PropertyConverterException;
+import com.kaba4cow.difuse.core.config.converter.TypeConverter;
+import com.kaba4cow.difuse.core.config.converter.TypeConverterException;
 import com.kaba4cow.difuse.core.config.converter.support.converter.CollectionConverter;
 import com.kaba4cow.difuse.core.config.converter.support.converter.EnumConverter;
 import com.kaba4cow.difuse.core.config.converter.support.converter.MapConverter;
 import com.kaba4cow.difuse.core.config.converter.support.converter.OptionalConverter;
 
 @SystemBean
-public class GlobalPropertyConverter {
+public class GlobalTypeConverter {
 
 	@Provided
-	private PropertyConverterRegistry registry;
+	private TypeConverterRegistry registry;
 
 	private final CollectionConverter collectionConverter = new CollectionConverter(this);
 
@@ -40,9 +40,9 @@ public class GlobalPropertyConverter {
 			else if (type instanceof ParameterizedType)
 				return convertToParameterizedType(raw, (ParameterizedType) type);
 			else
-				throw new PropertyConverterException(String.format("Unsupported type: %s", type));
+				throw new TypeConverterException(String.format("Unsupported type: %s", type));
 		} catch (Exception exception) {
-			throw new PropertyConverterException(String.format("Could not convert '%s' to %s", raw, type), exception);
+			throw new TypeConverterException(String.format("Could not convert '%s' to %s", raw, type), exception);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class GlobalPropertyConverter {
 			if (rawType == Map.class && keyType == String.class)
 				return mapConverter.convert(raw, valueType);
 		}
-		throw new PropertyConverterException(String.format("Unsupported parameterized type %s", type));
+		throw new TypeConverterException(String.format("Unsupported parameterized type %s", type));
 	}
 
 	private Object convertToClass(Object raw, Class<?> type) {
@@ -76,13 +76,13 @@ public class GlobalPropertyConverter {
 					? enumConverter.convert((String) raw, type)//
 					: convertFromString((String) raw, type);
 		else
-			throw new PropertyConverterException(String.format("Could not convert '%s' to %s", raw, type.getName()));
+			throw new TypeConverterException(String.format("Could not convert '%s' to %s", raw, type.getName()));
 	}
 
 	private Object convertFromString(String raw, Class<?> type) {
-		PropertyConverter<?> converter = registry.getConverter(type);
+		TypeConverter<?> converter = registry.getConverter(type);
 		if (Objects.isNull(converter))
-			throw new PropertyConverterException(String.format("Found no converter for %s", type.getName()));
+			throw new TypeConverterException(String.format("Found no converter for %s", type.getName()));
 		return converter.convert(raw);
 	}
 
