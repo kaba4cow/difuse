@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.conditions.bean.preprocessor;
+package com.kaba4cow.difuse.conditions.bean.processor.pre;
 
 import com.kaba4cow.difuse.conditions.condition.support.BeanConditionMatcher;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;

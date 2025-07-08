@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.aspects.bean.preprocessor;
+package com.kaba4cow.difuse.aspects.bean.processor.pre;
 
 import com.kaba4cow.difuse.aspects.advisor.support.AdvisorFactory;
 import com.kaba4cow.difuse.aspects.annotation.Aspect;

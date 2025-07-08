@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.aspects.bean.postprocessor;
+package com.kaba4cow.difuse.aspects.bean.processor.post;
 
 import com.kaba4cow.difuse.aspects.advisor.support.AdvisorRegistry;
 import com.kaba4cow.difuse.aspects.advisor.support.AdvisorWrapper;

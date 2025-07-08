@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.validation.bean.postprocessor;
+package com.kaba4cow.difuse.validation.bean.processor.post;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

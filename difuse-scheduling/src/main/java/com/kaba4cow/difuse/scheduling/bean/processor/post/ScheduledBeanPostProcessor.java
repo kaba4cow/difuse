@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.scheduling.bean.postprocessor;
+package com.kaba4cow.difuse.scheduling.bean.processor.post;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
