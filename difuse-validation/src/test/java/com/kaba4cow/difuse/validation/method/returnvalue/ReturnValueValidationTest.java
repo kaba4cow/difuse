@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.validation.returnvalue;
+package com.kaba4cow.difuse.validation.method.returnvalue;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
