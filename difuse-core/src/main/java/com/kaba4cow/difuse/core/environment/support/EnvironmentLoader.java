@@ -38,9 +38,13 @@ public class EnvironmentLoader {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
 			Collection<ConfigReader> readers = configReaderRegistry.getReaders();
 			for (ConfigReader reader : readers) {
-				Set<String> locations = getConfigLocations(reader.getExtension());
-				for (String location : locations)
-					loadConfig(location, reader);
+				reader.getExtensions().stream()//
+						.distinct()//
+						.forEach(extension -> {
+							Set<String> locations = getConfigLocations(extension);
+							for (String location : locations)
+								loadConfig(location, reader);
+						});
 			}
 		}
 	}

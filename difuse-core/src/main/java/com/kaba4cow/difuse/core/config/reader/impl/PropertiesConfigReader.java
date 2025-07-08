@@ -1,6 +1,8 @@
 package com.kaba4cow.difuse.core.config.reader.impl;
 
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -19,8 +21,8 @@ public class PropertiesConfigReader implements ConfigReader {
 	}
 
 	@Override
-	public String getExtension() {
-		return "properties";
+	public List<String> getExtensions() {
+		return Arrays.asList("properties");
 	}
 
 }

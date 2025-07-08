@@ -19,8 +19,12 @@ public class ConfigReaderRegistry {
 	private final Map<String, ConfigReader> registry = new ConcurrentHashMap<>();
 
 	void registerReader(ConfigReader reader) {
-		registry.put(reader.getExtension(), reader);
-		log.debug("Registered '{}' ConfigReader {}", reader.getExtension(), reader.getClass().getName());
+		reader.getExtensions().stream()//
+				.distinct()//
+				.forEach(extension -> {
+					registry.put(extension, reader);
+					log.debug("Registered ConfigReader {} for extension '{}'", reader.getClass().getName(), extension);
+				});
 	}
 
 	public Collection<ConfigReader> getReaders() {
