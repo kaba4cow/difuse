@@ -19,6 +19,14 @@ public class MethodSignature {
 		return new MethodSignature(method.getName(), method.getParameterTypes());
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public Class<?>[] getParameters() {
+		return Arrays.copyOf(parameters, parameters.length);
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, Arrays.hashCode(parameters));
