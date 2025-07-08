@@ -19,8 +19,8 @@ public class ConfigReaderRegistry {
 	private final Map<String, ConfigReader> registry = new ConcurrentHashMap<>();
 
 	void registerReader(ConfigReader reader) {
-		registry.put(reader.getSuffix(), reader);
-		log.debug("Registered '{}' ConfigReader {}", reader.getSuffix(), reader.getClass().getName());
+		registry.put(reader.getExtension(), reader);
+		log.debug("Registered '{}' ConfigReader {}", reader.getExtension(), reader.getClass().getName());
 	}
 
 	public Collection<ConfigReader> getReaders() {

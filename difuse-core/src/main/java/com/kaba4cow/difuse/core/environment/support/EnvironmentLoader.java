@@ -38,31 +38,31 @@ public class EnvironmentLoader {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
 			Collection<ConfigReader> readers = configReaderRegistry.getReaders();
 			for (ConfigReader reader : readers) {
-				Set<String> locations = getConfigLocations(reader.getSuffix());
+				Set<String> locations = getConfigLocations(reader.getExtension());
 				for (String location : locations)
 					loadConfig(location, reader);
 			}
 		}
 	}
 
-	private Set<String> getConfigLocations(String suffix) {
+	private Set<String> getConfigLocations(String extension) {
 		Set<String> profiles = environment.getProfiles();
 		Set<String> configs = environment.getConfigs();
 		Set<String> locations = new HashSet<>();
 		for (String config : configs) {
-			locations.add(buildConfigLocation(config, suffix));
+			locations.add(buildConfigLocation(config, extension));
 			for (String profile : profiles)
-				locations.add(buildConfigLocation(config, profile, suffix));
+				locations.add(buildConfigLocation(config, profile, extension));
 		}
 		return locations;
 	}
 
-	private String buildConfigLocation(String config, String suffix) {
-		return String.format("%s.%s", config, suffix);
+	private String buildConfigLocation(String config, String extension) {
+		return String.format("%s.%s", config, extension);
 	}
 
-	private String buildConfigLocation(String config, String profile, String suffix) {
-		return String.format("%s-%s.%s", config, profile, suffix);
+	private String buildConfigLocation(String config, String profile, String extension) {
+		return String.format("%s-%s.%s", config, profile, extension);
 	}
 
 	private void loadConfig(String config, ConfigReader reader) {

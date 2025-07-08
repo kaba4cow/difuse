@@ -8,6 +8,6 @@ public interface ConfigReader {
 
 	ConfigSource read(String name, InputStream input) throws Exception;
 
-	String getSuffix();
+	String getExtension();
 
 }

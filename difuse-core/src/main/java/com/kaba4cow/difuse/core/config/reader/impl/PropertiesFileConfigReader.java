@@ -19,7 +19,7 @@ public class PropertiesFileConfigReader implements ConfigReader {
 	}
 
 	@Override
-	public String getSuffix() {
+	public String getExtension() {
 		return "properties";
 	}
 
