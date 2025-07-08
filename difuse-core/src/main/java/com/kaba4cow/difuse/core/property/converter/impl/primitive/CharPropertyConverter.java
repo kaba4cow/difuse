@@ -1,9 +1,15 @@
 package com.kaba4cow.difuse.core.property.converter.impl.primitive;
 
+import com.kaba4cow.difuse.core.property.converter.PrimitivePropertyConverter;
 import com.kaba4cow.difuse.core.property.converter.PropertyConverter;
 import com.kaba4cow.difuse.core.property.converter.PropertyConverterException;
 
-public class CharPropertyConverter implements PropertyConverter<Character> {
+public class CharPropertyConverter implements PropertyConverter<Character>, PrimitivePropertyConverter {
+
+	@Override
+	public Class<?> getPrimitiveTargetType() {
+		return char.class;
+	}
 
 	@Override
 	public Class<Character> getTargetType() {
