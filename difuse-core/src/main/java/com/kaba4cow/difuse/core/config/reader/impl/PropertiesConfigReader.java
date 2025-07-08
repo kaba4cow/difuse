@@ -8,7 +8,7 @@ import com.kaba4cow.difuse.core.config.reader.ConfigReader;
 import com.kaba4cow.difuse.core.config.source.ConfigSource;
 import com.kaba4cow.difuse.core.config.source.impl.MapConfigSource;
 
-public class PropertiesFileConfigReader implements ConfigReader {
+public class PropertiesConfigReader implements ConfigReader {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
