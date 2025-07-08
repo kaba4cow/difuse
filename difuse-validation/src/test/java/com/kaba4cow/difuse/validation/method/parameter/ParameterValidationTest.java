@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.validation.parameter;
+package com.kaba4cow.difuse.validation.method.parameter;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 

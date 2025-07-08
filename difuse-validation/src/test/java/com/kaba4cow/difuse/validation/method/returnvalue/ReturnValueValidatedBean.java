@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.validation.returnvalue;
+package com.kaba4cow.difuse.validation.method.returnvalue;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
