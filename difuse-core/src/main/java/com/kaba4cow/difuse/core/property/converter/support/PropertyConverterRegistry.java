@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
+import com.kaba4cow.difuse.core.property.converter.PrimitivePropertyConverter;
 import com.kaba4cow.difuse.core.property.converter.PropertyConverter;
 
 @SystemBean
@@ -19,6 +20,10 @@ public class PropertyConverterRegistry {
 	void registerConverter(PropertyConverter<?> converter) {
 		Class<?> targetType = converter.getTargetType();
 		registry.put(targetType, converter);
+		if (converter instanceof PrimitivePropertyConverter) {
+			PrimitivePropertyConverter primitiveConverter = (PrimitivePropertyConverter) converter;
+			registry.put(primitiveConverter.getPrimitiveTargetType(), converter);
+		}
 		log.debug("Registered {} PropertyConverter {}", targetType.getName(), converter.getClass().getName());
 	}
 

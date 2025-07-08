@@ -18,7 +18,6 @@ import com.kaba4cow.difuse.core.property.converter.support.converter.CollectionC
 import com.kaba4cow.difuse.core.property.converter.support.converter.EnumConverter;
 import com.kaba4cow.difuse.core.property.converter.support.converter.MapConverter;
 import com.kaba4cow.difuse.core.property.converter.support.converter.OptionalConverter;
-import com.kaba4cow.difuse.core.util.PrimitiveTypeWrapper;
 
 @SystemBean
 public class GlobalPropertyConverter {
@@ -81,8 +80,7 @@ public class GlobalPropertyConverter {
 	}
 
 	private Object convertFromString(String raw, Class<?> type) {
-		Class<?> normalizedType = PrimitiveTypeWrapper.wrapIfPrimitive(type);
-		PropertyConverter<?> converter = registry.getConverter(normalizedType);
+		PropertyConverter<?> converter = registry.getConverter(type);
 		if (Objects.isNull(converter))
 			throw new PropertyConverterException(String.format("Found no converter for %s", type.getName()));
 		return converter.convert(raw);
