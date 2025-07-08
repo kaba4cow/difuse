@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.support.ConfigLoaderInitializer;
+import com.kaba4cow.difuse.core.config.converter.support.PropertyConverterInitializer;
+import com.kaba4cow.difuse.core.config.loader.support.ConfigLoaderInitializer;
+import com.kaba4cow.difuse.core.config.reader.support.ConfigReaderInitializer;
+import com.kaba4cow.difuse.core.config.source.impl.CliConfigSource;
+import com.kaba4cow.difuse.core.config.source.impl.EnvConfigSource;
 import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
-import com.kaba4cow.difuse.core.property.converter.support.PropertyConverterInitializer;
-import com.kaba4cow.difuse.core.property.reader.support.PropertyReaderInitializer;
-import com.kaba4cow.difuse.core.property.source.impl.CliPropertySource;
-import com.kaba4cow.difuse.core.property.source.impl.EnvPropertySource;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
@@ -27,7 +27,7 @@ public class EnvironmentInitializer {
 	private ConfigLoaderInitializer configLoaderInitializer;
 
 	@Provided
-	private PropertyReaderInitializer propertyReaderInitializer;
+	private ConfigReaderInitializer configReaderInitializer;
 
 	@Provided
 	private PropertyConverterInitializer propertyConverterInitializer;
@@ -48,11 +48,11 @@ public class EnvironmentInitializer {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing environment...")) {
 			String[] args = systemParameters.getCommandLineArgs();
 
-			environment.addPropertySource(new CliPropertySource("cli", args));
-			environment.addPropertySource(new EnvPropertySource("env"));
+			environment.addPropertySource(new CliConfigSource("cli", args));
+			environment.addPropertySource(new EnvConfigSource("env"));
 
 			configLoaderInitializer.initializeLoaders();
-			propertyReaderInitializer.initializeReaders();
+			configReaderInitializer.initializeReaders();
 			propertyConverterInitializer.initializeConverters();
 
 			contextSourceRegistry//

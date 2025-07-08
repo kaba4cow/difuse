@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.config.ConfigLoader;
-import com.kaba4cow.difuse.core.config.support.ConfigLoaderRegistry;
+import com.kaba4cow.difuse.core.config.loader.ConfigLoader;
+import com.kaba4cow.difuse.core.config.loader.support.ConfigLoaderRegistry;
+import com.kaba4cow.difuse.core.config.reader.ConfigReader;
+import com.kaba4cow.difuse.core.config.reader.support.ConfigReaderRegistry;
+import com.kaba4cow.difuse.core.config.source.ConfigSource;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.environment.EnvironmentException;
-import com.kaba4cow.difuse.core.property.reader.PropertyReader;
-import com.kaba4cow.difuse.core.property.reader.support.PropertyReaderRegistry;
-import com.kaba4cow.difuse.core.property.source.PropertySource;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
@@ -29,15 +29,15 @@ public class EnvironmentLoader {
 	private ConfigLoaderRegistry configLoaderRegistry;
 
 	@Provided
-	private PropertyReaderRegistry propertyReaderRegistry;
+	private ConfigReaderRegistry configReaderRegistry;
 
 	@Provided
 	private Environment environment;
 
 	public void loadEnvironment() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
-			Collection<PropertyReader> readers = propertyReaderRegistry.getReaders();
-			for (PropertyReader reader : readers) {
+			Collection<ConfigReader> readers = configReaderRegistry.getReaders();
+			for (ConfigReader reader : readers) {
 				Set<String> locations = getConfigLocations(reader.getSuffix());
 				for (String location : locations)
 					loadConfig(location, reader);
@@ -65,17 +65,17 @@ public class EnvironmentLoader {
 		return String.format("%s-%s.%s", config, profile, suffix);
 	}
 
-	private void loadConfig(String config, PropertyReader reader) {
+	private void loadConfig(String config, ConfigReader reader) {
 		Set<ConfigLoader> loaders = configLoaderRegistry.getLoaders();
 		for (ConfigLoader loader : loaders)
 			loadConfig(config, reader, loader);
 	}
 
-	private void loadConfig(String config, PropertyReader reader, ConfigLoader loader) {
+	private void loadConfig(String config, ConfigReader reader, ConfigLoader loader) {
 		InputStream input = loader.getInputStream(config);
 		if (Objects.nonNull(input))
 			try {
-				PropertySource source = reader.read(config, input);
+				ConfigSource source = reader.read(config, input);
 				environment.addPropertySource(source);
 				log.debug("Loaded config '{}' using {}", config, loader.getClass().getName());
 			} catch (Exception exception) {

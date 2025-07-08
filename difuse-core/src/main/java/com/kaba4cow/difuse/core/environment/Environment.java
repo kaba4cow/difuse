@@ -9,37 +9,37 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.property.source.PropertySource;
+import com.kaba4cow.difuse.core.config.source.ConfigSource;
 
 @Accessible
 @SystemBean
 public class Environment {
 
-	private final Deque<PropertySource> sources = new LinkedList<>();
+	private final Deque<ConfigSource> sources = new LinkedList<>();
 
 	private final Set<String> profiles = new HashSet<>();
 
 	private final Set<String> configs = new HashSet<>();
 
 	public Object getProperty(String key) {
-		for (PropertySource source : sources)
+		for (ConfigSource source : sources)
 			if (source.hasProperty(key))
 				return source.getProperty(key);
 		return null;
 	}
 
 	public boolean hasProperty(String key) {
-		for (PropertySource source : sources)
+		for (ConfigSource source : sources)
 			if (source.hasProperty(key))
 				return true;
 		return false;
 	}
 
-	public void addPropertySource(PropertySource source) {
+	public void addPropertySource(ConfigSource source) {
 		sources.addFirst(source);
 	}
 
-	public Collection<PropertySource> getPropertySources() {
+	public Collection<ConfigSource> getConfigSources() {
 		return Collections.unmodifiableCollection(sources);
 	}
 
