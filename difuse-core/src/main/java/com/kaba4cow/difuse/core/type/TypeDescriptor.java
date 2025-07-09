@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.type.descriptor;
+package com.kaba4cow.difuse.core.type;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;

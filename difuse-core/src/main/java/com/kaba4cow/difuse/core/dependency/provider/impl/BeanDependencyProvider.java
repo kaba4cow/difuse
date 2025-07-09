@@ -18,7 +18,7 @@ import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderRegistry;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.AccessibleSystemBeanRegistry;
-import com.kaba4cow.difuse.core.type.descriptor.TypeDescriptor;
+import com.kaba4cow.difuse.core.type.TypeDescriptor;
 
 @SystemBean
 public class BeanDependencyProvider implements DependencyProvider {
