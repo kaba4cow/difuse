@@ -1,5 +1,8 @@
 package com.kaba4cow.difuse.core.bean.processor.pre.support;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.processor.pre.BeanPreProcessor;
@@ -12,17 +15,18 @@ public class GlobalBeanPreProcessor {
 	@Provided
 	private BeanPreProcessorRegistry beanPreProcessorRegistry;
 
-	public boolean process(BeanSource<?> beanSource) {
+	public <T extends BeanSource<?>> Optional<T> process(T beanSource) {
 		for (BeanPreProcessor beanPreProcessor : beanPreProcessorRegistry.getActiveBeanPreProcessors())
 			try {
-				if (!beanPreProcessor.process(beanSource))
-					return false;
+				beanSource = beanPreProcessor.process(beanSource);
+				if (Objects.isNull(beanSource))
+					return Optional.empty();
 			} catch (Exception exception) {
 				throw new BeanPreProcessorException(String.format("BeanPreProcessor %s could not process %s",
 						beanPreProcessor.getClass().getName(), beanSource), exception);
 			}
 		beanSource.finishProcessing();
-		return true;
+		return Optional.ofNullable(beanSource);
 	}
 
 }

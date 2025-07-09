@@ -20,12 +20,12 @@ public class AccessProviderBeanPreProcessor implements BeanPreProcessor {
 	private BeanAccessProviderRegistry registry;
 
 	@Override
-	public boolean process(BeanSource<?> beanSource) {
+	public <T extends BeanSource<?>> T process(T beanSource) {
 		BeanProtector protector = beanSource.getBeanProtector();
 		Set<Annotation> annotations = findAccessProviderAnnotations(beanSource.getSourceElement());
 		for (Annotation annotation : annotations)
 			addAccessProvider(annotation, protector);
-		return true;
+		return beanSource;
 	}
 
 	@SuppressWarnings("unchecked")

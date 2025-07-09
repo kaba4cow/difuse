@@ -33,39 +33,45 @@ public class BeanSourceFactory {
 	private GlobalBeanPreProcessor globalBeanPreProcessor;
 
 	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {
-		BeanProtector classBeanProtector = beanProtectorFactory.createBeanProtector();
+		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
 		ClassBeanSource classBeanSource = new ClassBeanSource(//
 				contextSource, //
 				beanClass, //
-				classBeanProtector, //
+				beanProtector, //
 				scopeRegistry);
-		if (globalBeanPreProcessor.process(classBeanSource)) {
-			beanSourceRegistry.register(classBeanSource);
-			createMethodBeanSources(contextSource, classBeanSource);
-		}
+		globalBeanPreProcessor.process(classBeanSource)//
+				.ifPresent(this::registerClassBeanSource);
 	}
 
-	private void createMethodBeanSources(ContextSource contextSource, ClassBeanSource ownerBeanSource) {
-		for (Method beanMethod : findBeanMethods(ownerBeanSource.getDeclaringClass()))
-			createMethodBeanSource(contextSource, beanMethod, ownerBeanSource);
+	private void registerClassBeanSource(ClassBeanSource classBeanSource) {
+		beanSourceRegistry.register(classBeanSource);
+		createMethodBeanSources(classBeanSource.getContextSource(), classBeanSource);
 	}
 
-	private void createMethodBeanSource(ContextSource contextSource, Method beanMethod, ClassBeanSource ownerBeanSource) {
+	private void createMethodBeanSources(ContextSource contextSource, ClassBeanSource parentBeanSource) {
+		for (Method beanMethod : findBeanMethods(parentBeanSource))
+			createMethodBeanSource(contextSource, beanMethod, parentBeanSource);
+	}
+
+	private void createMethodBeanSource(ContextSource contextSource, Method beanMethod, ClassBeanSource parentBeanSource) {
 		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
 		MethodBeanSource methodBeanSource = new MethodBeanSource(//
 				contextSource, //
 				beanMethod, //
 				beanProtector, //
 				scopeRegistry, //
-				ownerBeanSource.getDeclaringClass());
-		if (globalBeanPreProcessor.process(methodBeanSource)) {
-			ownerBeanSource.addChildBeanSource(methodBeanSource);
-			beanSourceRegistry.register(methodBeanSource);
-		}
+				parentBeanSource);
+		globalBeanPreProcessor.process(methodBeanSource)//
+				.ifPresent(this::registerMethodBeanSource);
 	}
 
-	private Set<Method> findBeanMethods(Class<?> sourceClass) {
-		return MethodScanner.of(sourceClass).findMethods().stream()//
+	private void registerMethodBeanSource(MethodBeanSource methodBeanSource) {
+		methodBeanSource.getParentBeanSource().addChildBeanSource(methodBeanSource);
+		beanSourceRegistry.register(methodBeanSource);
+	}
+
+	private Set<Method> findBeanMethods(ClassBeanSource classBeanSource) {
+		return MethodScanner.of(classBeanSource.getDeclaringClass()).findMethods().stream()//
 				.filter(method -> !Modifier.isStatic(method.getModifiers()))//
 				.filter(method -> method.isAnnotationPresent(Bean.class))//
 				.collect(Collectors.toSet());
