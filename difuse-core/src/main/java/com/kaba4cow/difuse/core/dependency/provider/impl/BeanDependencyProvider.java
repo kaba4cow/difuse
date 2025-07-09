@@ -34,21 +34,16 @@ public class BeanDependencyProvider implements DependencyProvider {
 	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {
 		if (type instanceof GenericArrayType || (type instanceof Class<?> && ((Class<?>) type).isArray()))
 			return provideArrayDependency(type, dependencyConsumer);
-
-		if (type instanceof ParameterizedType) {
+		if (type instanceof ParameterizedType)
 			return provideParameterizedTypeDependency((ParameterizedType) type, dependencyConsumer);
-		}
-
 		if (type instanceof Class<?>)
 			return provideSingleDependency(element, (Class<?>) type, dependencyConsumer);
-
 		throw new DifuseException(String.format("Unsupported dependency type %s", type));
 	}
 
 	private Object provideSingleDependency(AnnotatedElement element, Class<?> type, DependencyConsumer dependencyConsumer) {
 		if (systemBeanRegistry.containsBean(type))
 			return systemBeanRegistry.getBean(type);
-
 		List<BeanProvider<?>> providers;
 		if (element.isAnnotationPresent(Named.class)) {
 			String name = element.getAnnotation(Named.class).value();
@@ -64,7 +59,6 @@ public class BeanDependencyProvider implements DependencyProvider {
 			if (providers.size() > 1)
 				throw new DifuseException(String.format("Found multiple beans of type %s", type));
 		}
-
 		return providers.get(0).provideProtectedBean(dependencyConsumer);
 	}
 
@@ -101,9 +95,9 @@ public class BeanDependencyProvider implements DependencyProvider {
 		Type itemType = type.getActualTypeArguments()[0];
 		if (!(itemType instanceof Class<?>))
 			throw new DifuseException(String.format("Unsupported list type argument %s", itemType));
-
 		Class<?> itemClass = (Class<?>) itemType;
-		return beanProviderRegistry.findByClass(itemClass).stream().map(p -> p.provideProtectedBean(dependencyConsumer))
+		return beanProviderRegistry.findByClass(itemClass).stream()//
+				.map(p -> p.provideProtectedBean(dependencyConsumer))//
 				.collect(Collectors.toList());
 	}
 
@@ -114,7 +108,6 @@ public class BeanDependencyProvider implements DependencyProvider {
 			throw new DifuseException(String.format("Unsupported map key type %s", keyType));
 		if (!(valueType instanceof Class<?>))
 			throw new DifuseException(String.format("Unsupported map value type %s", valueType));
-
 		Class<?> valueClass = (Class<?>) valueType;
 		Map<String, Object> map = new LinkedHashMap<>();
 		for (BeanProvider<?> provider : beanProviderRegistry.findByClass(valueClass)) {
