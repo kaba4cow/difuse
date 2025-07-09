@@ -57,42 +57,56 @@ public class TypeDescriptor {
 		return isClass() && getClassType().isInstance(obj);
 	}
 
-	public Class<?> getRawClass() {
+	public boolean isType(Type type) {
+		return this.type == type;
+	}
+
+	public TypeDescriptor getRawType() {
 		if (isClass())
-			return (Class<?>) type;
+			return of(type);
 		if (isParameterized())
-			return (Class<?>) getParameterizedType().getRawType();
+			return of(getParameterizedType().getRawType());
 		if (isGenericArray()) {
-			Type componentType = getGenericComponentType();
-			if (componentType instanceof Class<?>)
-				return Array.newInstance((Class<?>) componentType, 0).getClass();
+			TypeDescriptor component = getGenericComponentType();
+			if (component.isClass())
+				return of(Array.newInstance(component.getClassType(), 0).getClass());
 		}
 		throw new IllegalStateException(String.format("Could not determine raw class from type %s", type));
 	}
 
-	public Type getGenericComponentType() {
-		return getGenericArrayType().getGenericComponentType();
+	public TypeDescriptor getGenericComponentType() {
+		return of(getGenericArrayType().getGenericComponentType());
 	}
 
-	public Type[] getGenericArguments() {
-		if (isParameterized())
-			return getParameterizedType().getActualTypeArguments();
+	public TypeDescriptor[] getGenericArguments() {
+		if (isParameterized()) {
+			Type[] types = getParameterizedType().getActualTypeArguments();
+			TypeDescriptor[] descriptors = new TypeDescriptor[types.length];
+			for (int i = 0; i < types.length; i++)
+				descriptors[i] = of(types[i]);
+			return descriptors;
+		}
 		if (isGenericArray())
-			return new Type[] { getGenericArrayType().getGenericComponentType() };
+			return new TypeDescriptor[] { getGenericComponentType() };
 		if (isArray())
-			return new Type[] { getClassType().getComponentType() };
-		return new Type[0];
+			return new TypeDescriptor[] { of(getClassType().getComponentType()) };
+		return new TypeDescriptor[0];
 	}
 
 	public Class<?> getComponentClass() {
 		if (isGenericArray()) {
-			Type componentType = getGenericComponentType();
-			if (componentType instanceof Class<?>)
-				return (Class<?>) getGenericComponentType();
+			TypeDescriptor component = getGenericComponentType();
+			if (component.isClass())
+				return Array.newInstance(component.getClassType(), 0).getClass();
 		}
 		if (isArray())
 			return getClassType().getComponentType();
 		throw new IllegalStateException(String.format("Not an array type: %s", type));
+	}
+
+	@Override
+	public String toString() {
+		return type.getTypeName();
 	}
 
 }
