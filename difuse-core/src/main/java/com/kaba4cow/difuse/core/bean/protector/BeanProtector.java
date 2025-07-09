@@ -12,21 +12,21 @@ import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public class BeanProtector {
 
-	private final List<BeanAccessProviderEntry<?>> providerEntries = new ArrayList<>();
+	private final List<BeanAccessProviderEntry<?>> accessProviders = new ArrayList<>();
 
-	private final List<BeanAccessRestrictorEntry<?>> restrictorEntries = new ArrayList<>();
+	private final List<BeanAccessRestrictorEntry<?>> accessRestrictors = new ArrayList<>();
 
 	BeanProtector() {}
 
 	public boolean allowsAccess(DependencyConsumer consumer) {
 		boolean restricting = false;
-		for (BeanAccessProviderEntry<?> entry : providerEntries)
+		for (BeanAccessProviderEntry<?> entry : accessProviders)
 			if (entry.isApplicable()) {
 				restricting = true;
 				if (entry.allowsAccess(consumer))
 					return true;
 			}
-		for (BeanAccessRestrictorEntry<?> entry : restrictorEntries)
+		for (BeanAccessRestrictorEntry<?> entry : accessRestrictors)
 			if (entry.isApplicable()) {
 				restricting = true;
 				if (entry.restrictsAccess(consumer))
@@ -36,11 +36,11 @@ public class BeanProtector {
 	}
 
 	public <T extends Annotation> void addAccessProvider(T annotation, BeanAccessProvider<T> accessProvider) {
-		providerEntries.add(new BeanAccessProviderEntry<>(annotation, accessProvider));
+		accessProviders.add(new BeanAccessProviderEntry<>(annotation, accessProvider));
 	}
 
 	public <T extends Annotation> void addAccessRestrictor(T annotation, BeanAccessRestrictor<T> accessRestrictor) {
-		restrictorEntries.add(new BeanAccessRestrictorEntry<>(annotation, accessRestrictor));
+		accessRestrictors.add(new BeanAccessRestrictorEntry<>(annotation, accessRestrictor));
 	}
 
 }
