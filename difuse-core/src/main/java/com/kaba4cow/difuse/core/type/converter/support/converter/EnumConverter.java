@@ -1,6 +1,6 @@
-package com.kaba4cow.difuse.core.typeconverter.support.converter;
+package com.kaba4cow.difuse.core.type.converter.support.converter;
 
-import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
+import com.kaba4cow.difuse.core.type.converter.TypeConverterException;
 
 public class EnumConverter {
 
