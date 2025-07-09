@@ -9,7 +9,7 @@ import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProvider;
 import com.kaba4cow.difuse.core.environment.Environment;
-import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
+import com.kaba4cow.difuse.core.type.converter.support.GlobalTypeConverter;
 
 @SystemBean
 public class PropertyDependencyProvider implements DependencyProvider {

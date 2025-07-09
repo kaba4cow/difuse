@@ -15,7 +15,7 @@ import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfig
 import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.system.SystemParameters;
-import com.kaba4cow.difuse.core.typeconverter.support.TypeConverterInitializer;
+import com.kaba4cow.difuse.core.type.converter.support.TypeConverterInitializer;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean

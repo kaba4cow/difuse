@@ -1,7 +1,7 @@
-package com.kaba4cow.difuse.core.typeconverter.impl.primitive;
+package com.kaba4cow.difuse.core.type.converter.impl.primitive;
 
-import com.kaba4cow.difuse.core.typeconverter.PrimitiveTypeConverter;
-import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
+import com.kaba4cow.difuse.core.type.converter.PrimitiveTypeConverter;
+import com.kaba4cow.difuse.core.type.converter.TypeConverter;
 
 public class LongTypeConverter implements TypeConverter<Long>, PrimitiveTypeConverter {
 
