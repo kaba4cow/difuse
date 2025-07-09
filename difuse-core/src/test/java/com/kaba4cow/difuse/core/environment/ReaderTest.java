@@ -27,4 +27,9 @@ public class ReaderTest {
 		assertEquals("Loaded", loaded);
 	}
 
+	@Test
+	public void iniLoaded(@Property("ini") String loaded) {
+		assertEquals("Loaded", loaded);
+	}
+
 }
