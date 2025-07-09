@@ -25,7 +25,6 @@ public class GlobalBeanPreProcessor {
 				throw new BeanPreProcessorException(String.format("BeanPreProcessor %s could not process %s",
 						beanPreProcessor.getClass().getName(), beanSource), exception);
 			}
-		beanSource.finishProcessing();
 		return Optional.ofNullable(beanSource);
 	}
 

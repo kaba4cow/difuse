@@ -16,8 +16,6 @@ public class BeanProtector {
 
 	private final List<BeanAccessRestrictorEntry<?>> restrictorEntries = new ArrayList<>();
 
-	private boolean locked = false;
-
 	BeanProtector() {}
 
 	public boolean allowsAccess(DependencyConsumer consumer) {
@@ -38,19 +36,11 @@ public class BeanProtector {
 	}
 
 	public <T extends Annotation> void addAccessProvider(T annotation, BeanAccessProvider<T> accessProvider) {
-		if (locked)
-			throw new BeanProtectorException("Cannot add access provider: BeanProtector already locked");
 		providerEntries.add(new BeanAccessProviderEntry<>(annotation, accessProvider));
 	}
 
 	public <T extends Annotation> void addAccessRestrictor(T annotation, BeanAccessRestrictor<T> accessRestrictor) {
-		if (locked)
-			throw new BeanProtectorException("Cannot add access restrictor: BeanProtector already locked");
 		restrictorEntries.add(new BeanAccessRestrictorEntry<>(annotation, accessRestrictor));
-	}
-
-	public void lock() {
-		locked = true;
 	}
 
 }
