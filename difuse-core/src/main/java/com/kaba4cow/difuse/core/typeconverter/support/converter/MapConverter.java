@@ -9,10 +9,10 @@ import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
 
 public class MapConverter {
 
-	private final GlobalTypeConverter propertyConverter;
+	private final GlobalTypeConverter typeConverter;
 
-	public MapConverter(GlobalTypeConverter propertyConverter) {
-		this.propertyConverter = propertyConverter;
+	public MapConverter(GlobalTypeConverter typeConverter) {
+		this.typeConverter = typeConverter;
 	}
 
 	public Object convert(Object raw, Type valueType) {
@@ -28,7 +28,7 @@ public class MapConverter {
 		for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
 			Object key = entry.getKey();
 			if (key instanceof String) {
-				Object value = propertyConverter.convert(entry.getValue(), valueType);
+				Object value = typeConverter.convert(entry.getValue(), valueType);
 				map.put((String) key, value);
 			} else
 				throw new TypeConverterException(String.format("Expected String as Map key, got %s", key.getClass().getName()));

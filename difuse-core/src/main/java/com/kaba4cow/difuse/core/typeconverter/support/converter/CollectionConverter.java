@@ -8,10 +8,10 @@ import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
 
 public class CollectionConverter {
 
-	private final GlobalTypeConverter propertyConverter;
+	private final GlobalTypeConverter typeConverter;
 
-	public CollectionConverter(GlobalTypeConverter propertyConverter) {
-		this.propertyConverter = propertyConverter;
+	public CollectionConverter(GlobalTypeConverter typeConverter) {
+		this.typeConverter = typeConverter;
 	}
 
 	public Object convert(Object raw, Type itemType, Collection<Object> collection) {
@@ -27,13 +27,13 @@ public class CollectionConverter {
 	private Object convertFromString(String rawString, Type itemType, Collection<Object> collection) {
 		String[] parts = rawString.split(",");
 		for (String part : parts)
-			collection.add(propertyConverter.convert(part.trim(), itemType));
+			collection.add(typeConverter.convert(part.trim(), itemType));
 		return collection;
 	}
 
 	private Object convertFromCollection(Collection<?> rawCollection, Type itemType, Collection<Object> collection) {
 		for (Object element : rawCollection)
-			collection.add(propertyConverter.convert(element, itemType));
+			collection.add(typeConverter.convert(element, itemType));
 		return collection;
 	}
 

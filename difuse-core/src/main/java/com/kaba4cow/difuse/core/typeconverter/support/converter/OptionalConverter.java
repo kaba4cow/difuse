@@ -8,10 +8,10 @@ import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
 
 public class OptionalConverter {
 
-	private final GlobalTypeConverter propertyConverter;
+	private final GlobalTypeConverter typeConverter;
 
-	public OptionalConverter(GlobalTypeConverter propertyConverter) {
-		this.propertyConverter = propertyConverter;
+	public OptionalConverter(GlobalTypeConverter typeConverter) {
+		this.typeConverter = typeConverter;
 	}
 
 	public Object convert(Object raw, Type itemType) {
@@ -24,7 +24,7 @@ public class OptionalConverter {
 			else
 				return Optional.empty();
 		}
-		Object value = propertyConverter.convert(raw, itemType);
+		Object value = typeConverter.convert(raw, itemType);
 		return Optional.ofNullable(value);
 	}
 
