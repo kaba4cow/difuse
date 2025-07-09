@@ -9,7 +9,7 @@ public class BeanDestroyHookRegistry {
 
 	private final Map<Object, List<BeanDestroyHook>> registry = new ConcurrentHashMap<>();
 
-	public void registerDestroyHook(Object bean, BeanDestroyHook destroyHook) {
+	public void addDestroyHook(Object bean, BeanDestroyHook destroyHook) {
 		registry.computeIfAbsent(bean, key -> new ArrayList<>()).add(destroyHook);
 	}
 
@@ -20,7 +20,6 @@ public class BeanDestroyHookRegistry {
 				hook.onDestroy();
 			registry.get(bean).clear();
 		}
-		registry.clear();
 	}
 
 }
