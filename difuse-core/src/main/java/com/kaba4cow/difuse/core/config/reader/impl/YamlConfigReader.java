@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -26,7 +27,7 @@ public class YamlConfigReader implements ConfigReader {
 	}
 
 	private void flattenMap(String prefix, Map<?, ?> source, Map<String, Object> target) {
-		for (Map.Entry<?, ?> entry : source.entrySet()) {
+		for (Entry<?, ?> entry : source.entrySet()) {
 			String key = entry.getKey().toString();
 			Object value = entry.getValue();
 			String fullKey = prefix.isEmpty() ? key : String.format("%s.%s", prefix, key);

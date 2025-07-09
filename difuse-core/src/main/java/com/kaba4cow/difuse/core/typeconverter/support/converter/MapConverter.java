@@ -3,6 +3,7 @@ package com.kaba4cow.difuse.core.typeconverter.support.converter;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
 import com.kaba4cow.difuse.core.typeconverter.support.GlobalTypeConverter;
@@ -25,7 +26,7 @@ public class MapConverter {
 
 	private Map<String, Object> convertFromMap(Map<?, ?> rawMap, Type valueType) {
 		Map<String, Object> map = new HashMap<>();
-		for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
+		for (Entry<?, ?> entry : rawMap.entrySet()) {
 			Object key = entry.getKey();
 			if (key instanceof String) {
 				Object value = typeConverter.convert(entry.getValue(), valueType);

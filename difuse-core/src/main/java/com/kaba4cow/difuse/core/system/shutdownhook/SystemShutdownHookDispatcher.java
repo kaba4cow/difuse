@@ -1,6 +1,6 @@
 package com.kaba4cow.difuse.core.system.shutdownhook;
 
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class SystemShutdownHookDispatcher extends Thread {
 	@Override
 	public void run() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Dispatching shutdown hooks...")) {
-			for (Map.Entry<Object, Set<AutoCloseable>> entry : registry.getAllShutdownHooks()) {
+			for (Entry<Object, Set<AutoCloseable>> entry : registry.getAllShutdownHooks()) {
 				Object component = entry.getKey();
 				Set<AutoCloseable> closeables = entry.getValue();
 				for (AutoCloseable closeable : closeables)

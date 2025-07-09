@@ -1,7 +1,7 @@
 package com.kaba4cow.difuse.core.scope;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import com.kaba4cow.difuse.core.bean.destroyhook.BeanDestroyHookRunner;
 import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
@@ -22,7 +22,7 @@ public abstract class Scope {
 
 	public final long destroyBeans(BeanDestroyHookRunner destroyHookRunner) {
 		long total = 0L;
-		for (Map.Entry<BeanProvider<?>, List<Object>> beanEntry : beanRegistry.getBeanEntries()) {
+		for (Entry<BeanProvider<?>, List<Object>> beanEntry : beanRegistry.getBeanEntries()) {
 			BeanProvider<?> beanProvider = beanEntry.getKey();
 			List<Object> beans = beanEntry.getValue();
 			for (Object bean : beans) {

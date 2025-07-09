@@ -3,6 +3,7 @@ package com.kaba4cow.difuse.core.scope;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,13 +13,11 @@ public class ScopeBeanRegistry {
 
 	private final Map<BeanProvider<?>, List<Object>> registry = new ConcurrentHashMap<>();
 
-	public ScopeBeanRegistry() {}
-
 	public void registerBean(BeanProvider<?> beanProvider, Object bean) {
 		registry.computeIfAbsent(beanProvider, key -> new ArrayList<>()).add(bean);
 	}
 
-	public Set<Map.Entry<BeanProvider<?>, List<Object>>> getBeanEntries() {
+	public Set<Entry<BeanProvider<?>, List<Object>>> getBeanEntries() {
 		return registry.entrySet();
 	}
 
