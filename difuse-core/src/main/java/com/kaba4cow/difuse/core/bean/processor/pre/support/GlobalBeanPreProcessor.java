@@ -15,10 +15,10 @@ public class GlobalBeanPreProcessor {
 	@Provided
 	private BeanPreProcessorRegistry beanPreProcessorRegistry;
 
-	public <T extends BeanSource<?>> Optional<T> process(T beanSource) {
+	public <T extends BeanSource<?>> Optional<T> preProcess(T beanSource) {
 		for (BeanPreProcessor beanPreProcessor : beanPreProcessorRegistry.getActiveBeanPreProcessors())
 			try {
-				beanSource = beanPreProcessor.process(beanSource);
+				beanSource = beanPreProcessor.preProcess(beanSource);
 				if (Objects.isNull(beanSource))
 					return Optional.empty();
 			} catch (Exception exception) {

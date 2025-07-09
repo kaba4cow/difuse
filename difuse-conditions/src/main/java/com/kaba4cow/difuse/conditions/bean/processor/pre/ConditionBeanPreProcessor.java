@@ -11,7 +11,7 @@ public class ConditionBeanPreProcessor implements BeanPreProcessor {
 	private BeanConditionMatcher conditionMatcher;
 
 	@Override
-	public <T extends BeanSource<?>> T process(T beanSource) {
+	public <T extends BeanSource<?>> T preProcess(T beanSource) {
 		return conditionMatcher.matchesCondition(beanSource)//
 				? beanSource//
 				: null;

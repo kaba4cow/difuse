@@ -39,7 +39,7 @@ public class BeanSourceFactory {
 				beanClass, //
 				beanProtector, //
 				scopeRegistry);
-		globalBeanPreProcessor.process(classBeanSource)//
+		globalBeanPreProcessor.preProcess(classBeanSource)//
 				.ifPresent(this::registerClassBeanSource);
 	}
 
@@ -61,7 +61,7 @@ public class BeanSourceFactory {
 				beanProtector, //
 				scopeRegistry, //
 				parentBeanSource);
-		globalBeanPreProcessor.process(methodBeanSource)//
+		globalBeanPreProcessor.preProcess(methodBeanSource)//
 				.ifPresent(this::registerMethodBeanSource);
 	}
 

@@ -13,7 +13,7 @@ public class AspectBeanPreProcessor implements BeanPreProcessor {
 	private AdvisorFactory advisorFactory;
 
 	@Override
-	public <T extends BeanSource<?>> T process(T beanSource) {
+	public <T extends BeanSource<?>> T preProcess(T beanSource) {
 		if (beanSource instanceof ClassBeanSource && beanSource.getSourceElement().isAnnotationPresent(Aspect.class)) {
 			advisorFactory.createAdvisor((ClassBeanSource) beanSource);
 			return null;

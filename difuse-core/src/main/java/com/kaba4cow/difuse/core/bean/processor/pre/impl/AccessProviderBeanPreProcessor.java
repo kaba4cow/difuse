@@ -20,7 +20,7 @@ public class AccessProviderBeanPreProcessor implements BeanPreProcessor {
 	private BeanAccessProviderRegistry registry;
 
 	@Override
-	public <T extends BeanSource<?>> T process(T beanSource) {
+	public <T extends BeanSource<?>> T preProcess(T beanSource) {
 		BeanProtector protector = beanSource.getBeanProtector();
 		Set<Annotation> annotations = findAccessProviderAnnotations(beanSource.getSourceElement());
 		for (Annotation annotation : annotations)
