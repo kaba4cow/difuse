@@ -14,6 +14,7 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.typeconverter.TypeConverter;
 import com.kaba4cow.difuse.core.typeconverter.TypeConverterException;
+import com.kaba4cow.difuse.core.typeconverter.support.converter.ArrayConverter;
 import com.kaba4cow.difuse.core.typeconverter.support.converter.CollectionConverter;
 import com.kaba4cow.difuse.core.typeconverter.support.converter.EnumConverter;
 import com.kaba4cow.difuse.core.typeconverter.support.converter.MapConverter;
@@ -24,6 +25,8 @@ public class GlobalTypeConverter {
 
 	@Provided
 	private TypeConverterRegistry registry;
+
+	private final ArrayConverter arrayConverter = new ArrayConverter(this);
 
 	private final CollectionConverter collectionConverter = new CollectionConverter(this);
 
@@ -71,6 +74,8 @@ public class GlobalTypeConverter {
 			return null;
 		else if (type.isInstance(raw))
 			return raw;
+		else if (type.isArray())
+			return arrayConverter.convert(raw, type.getComponentType());
 		else if (raw instanceof String)
 			return type.isEnum()//
 					? enumConverter.convert((String) raw, type)//

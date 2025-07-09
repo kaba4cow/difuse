@@ -1,5 +1,6 @@
 package com.kaba4cow.difuse.core.environment;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,6 +63,11 @@ public class PropertyConversionTest {
 	@Test
 	public void convertsChar(@Property("char") char charValue) {
 		assertEquals('c', charValue);
+	}
+
+	@Test
+	public void convertsArray(@Property("list") int[] intArray) {
+		assertArrayEquals(new int[] { 1, 3, 5, 7, 11 }, intArray);
 	}
 
 	@Test
