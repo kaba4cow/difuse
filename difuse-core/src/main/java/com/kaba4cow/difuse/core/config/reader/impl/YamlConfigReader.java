@@ -29,7 +29,7 @@ public class YamlConfigReader implements ConfigReader {
 		for (Map.Entry<?, ?> entry : source.entrySet()) {
 			String key = entry.getKey().toString();
 			Object value = entry.getValue();
-			String fullKey = prefix.isEmpty() ? key : prefix + "." + key;
+			String fullKey = prefix.isEmpty() ? key : String.format("%s.%s", prefix, key);
 			if (value instanceof Map<?, ?>)
 				flattenMap(fullKey, (Map<?, ?>) value, target);
 			else
