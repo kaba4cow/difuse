@@ -1,8 +1,7 @@
 package com.kaba4cow.difuse.core.config.reader.support;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
@@ -16,19 +15,15 @@ public class ConfigReaderRegistry {
 
 	private static final Logger log = LoggerFactory.getLogger("ConfigReaderRegistry");
 
-	private final Map<String, ConfigReader> registry = new ConcurrentHashMap<>();
+	private final Set<ConfigReader> registry = ConcurrentHashMap.newKeySet();
 
 	void registerReader(ConfigReader reader) {
-		reader.getExtensions().stream()//
-				.distinct()//
-				.forEach(extension -> {
-					registry.put(extension, reader);
-					log.debug("Registered ConfigReader {} for extension '{}'", reader.getClass().getName(), extension);
-				});
+		if (registry.add(reader))
+			log.debug("Registered ConfigReader {} for extensions {}", reader.getClass().getName(), reader.getExtensions());
 	}
 
-	public Collection<ConfigReader> getReaders() {
-		return Collections.unmodifiableCollection(registry.values());
+	public Set<ConfigReader> getReaders() {
+		return Collections.unmodifiableSet(registry);
 	}
 
 }

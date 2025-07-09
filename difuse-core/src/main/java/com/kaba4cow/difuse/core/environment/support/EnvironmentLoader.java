@@ -37,7 +37,7 @@ public class EnvironmentLoader {
 	public void loadEnvironment() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Loading environment...")) {
 			Collection<ConfigReader> readers = configReaderRegistry.getReaders();
-			for (ConfigReader reader : readers) {
+			for (ConfigReader reader : readers)
 				reader.getExtensions().stream()//
 						.distinct()//
 						.forEach(extension -> {
@@ -45,7 +45,6 @@ public class EnvironmentLoader {
 							for (String location : locations)
 								loadConfig(location, reader);
 						});
-			}
 		}
 	}
 
