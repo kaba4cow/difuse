@@ -14,7 +14,7 @@ public class PostConstructBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		invokePostConstructMethods(bean, beanProvider);
 		return bean;
 	}

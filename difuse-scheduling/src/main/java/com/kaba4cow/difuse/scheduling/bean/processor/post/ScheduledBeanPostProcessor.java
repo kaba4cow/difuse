@@ -30,7 +30,7 @@ public class ScheduledBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		ScheduledMethodProcessor methodProcessor = new ScheduledMethodProcessor(bean, beanProvider, session);
 		methodProcessor.processMethods(CronScheduled.class, TaskFactory::createCronTask);
 		methodProcessor.processMethods(FixedDelayScheduled.class, TaskFactory::createFixedDelayTask);

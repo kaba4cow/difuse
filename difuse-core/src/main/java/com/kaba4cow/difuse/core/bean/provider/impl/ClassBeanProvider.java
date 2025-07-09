@@ -32,7 +32,7 @@ public class ClassBeanProvider extends BeanProvider<ClassBeanSource> {
 	protected Object createBean(DependencyProviderSession session) {
 		try {
 			Object bean = createBeanInstance(session);
-			return globalBeanPostProcessor.process(bean, this, session);
+			return globalBeanPostProcessor.postProcess(bean, this, session);
 		} catch (Exception exception) {
 			throw new BeanProviderException(
 					String.format("Could not create class bean of type %s", getBeanSource().getBeanClass()), exception);

@@ -23,7 +23,7 @@ public class FieldValidationBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		Class<?> beanClass = beanProvider.getBeanSource().getBeanClass();
 		if (beanClass.isAnnotationPresent(Validated.class))
 			checkValidation(beanClass, validator.validate(bean));

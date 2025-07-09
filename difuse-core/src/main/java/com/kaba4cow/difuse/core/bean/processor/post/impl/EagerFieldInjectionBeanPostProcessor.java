@@ -21,7 +21,7 @@ public class EagerFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		ClassBeanSource beanSource = beanProvider.getBeanSource();
 		findEagerFields(beanSource).forEach(field -> {
 			try {

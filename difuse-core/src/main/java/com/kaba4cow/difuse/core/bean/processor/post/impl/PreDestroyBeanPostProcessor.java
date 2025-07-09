@@ -14,7 +14,7 @@ public class PreDestroyBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		beanProvider.addDestroyHook(bean, () -> invokePreDestroyMethods(bean, beanProvider));
 		return bean;
 	}

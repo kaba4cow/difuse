@@ -27,7 +27,7 @@ public class AspectBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		return advisorWrapper.wrapBean(bean, beanProvider.getBeanSource());
 	}
 

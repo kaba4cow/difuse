@@ -13,10 +13,10 @@ public class GlobalBeanPostProcessor {
 	@Provided
 	private BeanPostProcessorRegistry beanPostProcessorRegistry;
 
-	public Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
+	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		for (BeanPostProcessor beanPostProcessor : beanPostProcessorRegistry.getActiveBeanPostProcessors())
 			try {
-				bean = beanPostProcessor.process(bean, beanProvider, session);
+				bean = beanPostProcessor.postProcess(bean, beanProvider, session);
 			} catch (Exception exception) {
 				throw new BeanPostProcessorException(String.format("BeanPostProcessor %s could not process bean of %s",
 						beanPostProcessor.getClass().getName(), beanProvider), exception);

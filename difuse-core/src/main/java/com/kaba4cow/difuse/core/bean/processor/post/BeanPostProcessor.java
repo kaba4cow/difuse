@@ -8,6 +8,6 @@ public interface BeanPostProcessor extends BeanProcessor {
 
 	BeanLifecyclePhase getLifecyclePhase();
 
-	Object process(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session);
+	Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session);
 
 }
