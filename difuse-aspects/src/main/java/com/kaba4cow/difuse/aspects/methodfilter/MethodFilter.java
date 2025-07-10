@@ -60,7 +60,7 @@ public class MethodFilter {
 	}
 
 	private boolean checkForContexts(BeanSource<?> beanSource) {
-		Class<?> consumerContext = beanSource.getContextSource().getSourceClass();
+		Class<?> consumerContext = beanSource.getContext().getSourceClass();
 		for (Class<?> allowedContext : allowedContexts)
 			if (consumerContext.equals(allowedContext))
 				return true;

@@ -4,17 +4,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
+import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
 
-public class DefaultContextSourceConfigurationBuilder implements ContextSourceConfigurationBuilder {
+public class DefaultContextConfigurationBuilder implements ContextConfigurationBuilder {
 
 	private final Set<String> includedConfigs = new HashSet<>();
 
 	private final Set<String> includedProfiles = new HashSet<>();
 
 	private final Set<Class<?>> includedContexts = new HashSet<>();
-
-	public DefaultContextSourceConfigurationBuilder() {}
 
 	public void includeConfig(String config) {
 		includedConfigs.add(config);
@@ -41,8 +39,8 @@ public class DefaultContextSourceConfigurationBuilder implements ContextSourceCo
 	}
 
 	@Override
-	public ContextSourceConfiguration build() {
-		return new ContextSourceConfiguration(includedConfigs, includedProfiles, includedContexts);
+	public ContextConfiguration build() {
+		return new ContextConfiguration(includedConfigs, includedProfiles, includedContexts);
 	}
 
 }

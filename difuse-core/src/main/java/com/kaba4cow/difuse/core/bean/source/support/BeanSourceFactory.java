@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.MethodBeanSource;
-import com.kaba4cow.difuse.core.context.source.ContextSource;
+import com.kaba4cow.difuse.core.context.source.Context;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
@@ -32,10 +32,10 @@ public class BeanSourceFactory {
 	@Provided
 	private GlobalBeanPreProcessor globalBeanPreProcessor;
 
-	public void createClassBeanSource(ContextSource contextSource, Class<?> beanClass) {
+	public void createClassBeanSource(Context context, Class<?> beanClass) {
 		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
 		ClassBeanSource classBeanSource = new ClassBeanSource(//
-				contextSource, //
+				context, //
 				beanClass, //
 				beanProtector, //
 				scopeRegistry);
@@ -45,18 +45,18 @@ public class BeanSourceFactory {
 
 	private void registerClassBeanSource(ClassBeanSource classBeanSource) {
 		beanSourceRegistry.register(classBeanSource);
-		createMethodBeanSources(classBeanSource.getContextSource(), classBeanSource);
+		createMethodBeanSources(classBeanSource.getContext(), classBeanSource);
 	}
 
-	private void createMethodBeanSources(ContextSource contextSource, ClassBeanSource parentBeanSource) {
+	private void createMethodBeanSources(Context context, ClassBeanSource parentBeanSource) {
 		for (Method beanMethod : findBeanMethods(parentBeanSource))
-			createMethodBeanSource(contextSource, beanMethod, parentBeanSource);
+			createMethodBeanSource(context, beanMethod, parentBeanSource);
 	}
 
-	private void createMethodBeanSource(ContextSource contextSource, Method beanMethod, ClassBeanSource parentBeanSource) {
+	private void createMethodBeanSource(Context context, Method beanMethod, ClassBeanSource parentBeanSource) {
 		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
 		MethodBeanSource methodBeanSource = new MethodBeanSource(//
-				contextSource, //
+				context, //
 				beanMethod, //
 				beanProtector, //
 				scopeRegistry, //

@@ -13,19 +13,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.DifuseApplication;
-import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
+import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
 
-public class ContextSourceRegistry {
+public class ContextRegistry {
 
-	private static final Logger log = LoggerFactory.getLogger("ContextSourceRegistry");
+	private static final Logger log = LoggerFactory.getLogger("ContextRegistry");
 
-	private final Map<Class<?>, ContextSource> registry = new ConcurrentHashMap<>();
+	private final Map<Class<?>, Context> registry = new ConcurrentHashMap<>();
 
-	public void register(Class<?> sourceClass, ContextSource contextSource) {
+	public void register(Class<?> sourceClass, Context context) {
 		if (!registry.containsKey(sourceClass)) {
-			registry.put(sourceClass, contextSource);
-			log.debug("Registered {}", contextSource);
+			registry.put(sourceClass, context);
+			log.debug("Registered {}", context);
 		}
 	}
 
@@ -33,7 +33,7 @@ public class ContextSourceRegistry {
 		return registry.containsKey(sourceClass);
 	}
 
-	public Collection<ContextSource> getContextSources() {
+	public Collection<Context> getContexts() {
 		return Collections.unmodifiableCollection(registry.values());
 	}
 
@@ -43,9 +43,9 @@ public class ContextSourceRegistry {
 		return Collections.unmodifiableSet(sourceClasses);
 	}
 
-	public <T> Set<T> collectConfigurations(Function<ContextSourceConfiguration, Set<T>> supplier) {
+	public <T> Set<T> collectConfigurations(Function<ContextConfiguration, Set<T>> supplier) {
 		return registry.values().stream()//
-				.map(ContextSource::getConfiguration)//
+				.map(Context::getConfiguration)//
 				.map(supplier)//
 				.flatMap(Set::stream)//
 				.collect(Collectors.toSet());

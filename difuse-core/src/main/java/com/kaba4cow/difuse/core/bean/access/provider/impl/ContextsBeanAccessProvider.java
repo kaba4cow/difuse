@@ -13,7 +13,7 @@ public class ContextsBeanAccessProvider implements BeanAccessProvider<AllowConte
 
 	@Override
 	public boolean allowsAccess(AllowContexts annotation, DependencyConsumer consumer) {
-		Class<?> consumerContext = consumer.getContextSource().getSourceClass();
+		Class<?> consumerContext = consumer.getContext().getSourceClass();
 		Class<?>[] allowedContexts = annotation.value();
 		for (Class<?> allowedContext : allowedContexts)
 			if (consumerContext.equals(allowedContext))

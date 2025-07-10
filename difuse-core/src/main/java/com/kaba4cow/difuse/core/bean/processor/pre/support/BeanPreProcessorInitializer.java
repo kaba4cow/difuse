@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.kaba4cow.difuse.core.DifuseApplication;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
@@ -16,7 +16,7 @@ public class BeanPreProcessorInitializer {
 	private static final Logger log = LoggerFactory.getLogger("BeanPreProcessorInitializer");
 
 	@Provided
-	private ContextSourceRegistry contextSourceRegistry;
+	private ContextRegistry contextRegistry;
 
 	@Provided
 	private BeanPreProcessorRegistrar beanPreProcessorRegistrar;
@@ -24,8 +24,8 @@ public class BeanPreProcessorInitializer {
 	public void initializeBeanPreProcessors() {
 		try (LoggingTimer timer = new LoggingTimer(log, "Initializing BeanPreProcessors...")) {
 			beanPreProcessorRegistrar.registerBeanPreProcessors(DifuseApplication.class);
-			for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-				beanPreProcessorRegistrar.registerBeanPreProcessors(contextSource.getSourceClass());
+			for (Context context : contextRegistry.getContexts())
+				beanPreProcessorRegistrar.registerBeanPreProcessors(context.getSourceClass());
 		}
 	}
 

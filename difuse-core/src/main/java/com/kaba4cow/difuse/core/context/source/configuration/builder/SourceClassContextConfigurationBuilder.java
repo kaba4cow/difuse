@@ -13,19 +13,19 @@ import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
 import com.kaba4cow.difuse.core.annotation.context.WithConfigs;
 import com.kaba4cow.difuse.core.annotation.context.WithContexts;
 import com.kaba4cow.difuse.core.annotation.context.WithProfiles;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
+import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
 
-public class SourceClassContextSourceConfigurationBuilder implements ContextSourceConfigurationBuilder {
+public class SourceClassContextConfigurationBuilder implements ContextConfigurationBuilder {
 
 	private final Class<?> sourceClass;
 
-	public SourceClassContextSourceConfigurationBuilder(Class<?> sourceClass) {
+	public SourceClassContextConfigurationBuilder(Class<?> sourceClass) {
 		this.sourceClass = sourceClass;
 	}
 
 	@Override
-	public ContextSourceConfiguration build() {
-		DefaultContextSourceConfigurationBuilder builder = new DefaultContextSourceConfigurationBuilder();
+	public ContextConfiguration build() {
+		DefaultContextConfigurationBuilder builder = new DefaultContextConfigurationBuilder();
 		includeValueSet(WithConfigs.class, WithConfigs::value, builder::includeConfig);
 		includeValueSet(WithProfiles.class, WithProfiles::value, builder::includeProfile);
 		includeValueSet(WithContexts.class, WithContexts::value, builder::includeContext);

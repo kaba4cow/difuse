@@ -10,7 +10,7 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.config.loader.ConfigLoader;
 import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
 @SystemBean
@@ -22,7 +22,7 @@ public class ConfigLoaderInitializer {
 	private ContextScanner contextScanner;
 
 	@Provided
-	private ContextSourceRegistry contextSourceRegistry;
+	private ContextRegistry contextRegistry;
 
 	@Provided
 	private ConfigLoaderRegistrar configLoaderRegistrar;
@@ -34,7 +34,7 @@ public class ConfigLoaderInitializer {
 	}
 
 	private Set<Class<? extends ConfigLoader>> findLoaderTypes() {
-		return contextSourceRegistry.getSourceClasses().stream()//
+		return contextRegistry.getSourceClasses().stream()//
 				.map(contextScanner::getScanner)//
 				.map(packageScanner -> packageScanner.searchSubTypesOf(ConfigLoader.class))//
 				.flatMap(Set::stream)//

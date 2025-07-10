@@ -13,7 +13,7 @@ public class ContextsBeanAccessRestrictor implements BeanAccessRestrictor<Restri
 
 	@Override
 	public boolean restrictsAccess(RestrictContexts annotation, DependencyConsumer consumer) {
-		Class<?> consumerContext = consumer.getContextSource().getSourceClass();
+		Class<?> consumerContext = consumer.getContext().getSourceClass();
 		Class<?>[] allowedContexts = annotation.value();
 		for (Class<?> allowedContext : allowedContexts)
 			if (consumerContext.equals(allowedContext))

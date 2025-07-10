@@ -9,7 +9,7 @@ import com.kaba4cow.difuse.core.annotation.bean.Bean;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.ContextSource;
+import com.kaba4cow.difuse.core.context.source.Context;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 import com.kaba4cow.difuse.core.util.reflections.PackageScanner;
 
@@ -24,12 +24,12 @@ public class BeanSourceRegistrar {
 	@Provided
 	private BeanSourceFactory beanSourceFactory;
 
-	public void registerBeanSources(ContextSource contextSource) {
-		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanSources for {}...", contextSource)) {
-			PackageScanner packageScanner = contextScanner.getScanner(contextSource);
+	public void registerBeanSources(Context context) {
+		try (LoggingTimer timer = new LoggingTimer(log, "Registering BeanSources for {}...", context)) {
+			PackageScanner packageScanner = contextScanner.getScanner(context);
 			Set<Class<?>> beanClasses = packageScanner.searchClassesAnnotatedWith(Bean.class);
 			for (Class<?> beanClass : beanClasses)
-				beanSourceFactory.createClassBeanSource(contextSource, beanClass);
+				beanSourceFactory.createClassBeanSource(context, beanClass);
 		}
 	}
 

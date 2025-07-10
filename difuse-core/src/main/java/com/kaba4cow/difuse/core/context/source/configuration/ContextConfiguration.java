@@ -2,7 +2,7 @@ package com.kaba4cow.difuse.core.context.source.configuration;
 
 import java.util.Set;
 
-public class ContextSourceConfiguration {
+public class ContextConfiguration {
 
 	private final Set<String> includedConfigs;
 
@@ -10,8 +10,7 @@ public class ContextSourceConfiguration {
 
 	private final Set<Class<?>> includedContexts;
 
-	public ContextSourceConfiguration(Set<String> includedConfigs, Set<String> includedProfiles,
-			Set<Class<?>> includedContexts) {
+	public ContextConfiguration(Set<String> includedConfigs, Set<String> includedProfiles, Set<Class<?>> includedContexts) {
 		this.includedConfigs = includedConfigs;
 		this.includedProfiles = includedProfiles;
 		this.includedContexts = includedContexts;
@@ -31,7 +30,7 @@ public class ContextSourceConfiguration {
 
 	@Override
 	public String toString() {
-		return String.format("ContextSourceConfiguration [includedConfigs=%s, includedProfiles=%s, includedContexts=%s]",
+		return String.format("ContextConfiguration [includedConfigs=%s, includedProfiles=%s, includedContexts=%s]",
 				includedConfigs, includedProfiles, includedContexts);
 	}
 

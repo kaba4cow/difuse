@@ -1,29 +1,29 @@
 package com.kaba4cow.difuse.core.test;
 
-import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.context.source.ContextSourceBuilder;
-import com.kaba4cow.difuse.core.context.source.configuration.builder.SourceClassContextSourceConfigurationBuilder;
+import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.source.ContextBuilder;
+import com.kaba4cow.difuse.core.context.source.configuration.builder.SourceClassContextConfigurationBuilder;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public class TestDependencyConsumer implements DependencyConsumer {
 
-	private final ContextSource contextSource;
+	private final Context context;
 
 	public TestDependencyConsumer(Class<?> testClass) {
-		this.contextSource = new ContextSourceBuilder()//
+		this.context = new ContextBuilder()//
 				.sourceClass(testClass)//
-				.configuration(new SourceClassContextSourceConfigurationBuilder(testClass).build())//
+				.configuration(new SourceClassContextConfigurationBuilder(testClass).build())//
 				.build();
 	}
 
 	@Override
-	public ContextSource getContextSource() {
-		return contextSource;
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
 	public Class<?> getConsumerClass() {
-		return contextSource.getSourceClass();
+		return context.getSourceClass();
 	}
 
 }

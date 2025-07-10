@@ -1,10 +1,10 @@
 package com.kaba4cow.difuse.core.dependency;
 
-import com.kaba4cow.difuse.core.context.source.ContextSource;
+import com.kaba4cow.difuse.core.context.source.Context;
 
 public interface DependencyConsumer {
 
-	ContextSource getContextSource();
+	Context getContext();
 
 	Class<?> getConsumerClass();
 

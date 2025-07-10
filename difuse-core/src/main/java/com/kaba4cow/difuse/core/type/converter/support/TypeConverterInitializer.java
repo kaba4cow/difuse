@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.type.converter.TypeConverter;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
@@ -22,7 +22,7 @@ public class TypeConverterInitializer {
 	private ContextScanner contextScanner;
 
 	@Provided
-	private ContextSourceRegistry contextSourceRegistry;
+	private ContextRegistry contextRegistry;
 
 	@Provided
 	private TypeConverterRegistrar typeConverterRegistrar;
@@ -35,7 +35,7 @@ public class TypeConverterInitializer {
 
 	@SuppressWarnings("unchecked")
 	private Set<Class<? extends TypeConverter<?>>> findConverterTypes() {
-		return contextSourceRegistry.getSourceClasses().stream()//
+		return contextRegistry.getSourceClasses().stream()//
 				.map(contextScanner::getScanner)//
 				.map(packageScanner -> packageScanner.searchSubTypesOf(TypeConverter.class))//
 				.flatMap(Set::stream)//

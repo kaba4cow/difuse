@@ -6,8 +6,8 @@ import com.kaba4cow.difuse.core.DifuseApplication;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.ContextSource;
-import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.system.bean.registry.impl.InternalSystemBeanRegistry;
 import com.kaba4cow.difuse.core.system.shutdownhook.SystemShutdownHookRegistrar;
 import com.kaba4cow.difuse.core.util.reflections.ConstructorScanner;
@@ -16,24 +16,24 @@ public class SystemBeanRegistrar {
 
 	private final ContextScanner contextScanner;
 
-	private final ContextSourceRegistry contextSourceRegistry;
+	private final ContextRegistry contextRegistry;
 
 	private final InternalSystemBeanRegistry internalBeanRegistry;
 
 	private final SystemShutdownHookRegistrar shutdownHookRegistrar;
 
-	public SystemBeanRegistrar(ContextScanner contextScanner, ContextSourceRegistry contextSourceRegistry,
+	public SystemBeanRegistrar(ContextScanner contextScanner, ContextRegistry contextRegistry,
 			InternalSystemBeanRegistry internalBeanRegistry, SystemShutdownHookRegistrar shutdownHookRegistrar) {
 		this.contextScanner = contextScanner;
-		this.contextSourceRegistry = contextSourceRegistry;
+		this.contextRegistry = contextRegistry;
 		this.internalBeanRegistry = internalBeanRegistry;
 		this.shutdownHookRegistrar = shutdownHookRegistrar;
 	}
 
 	public void registerBeans() {
 		registerBeans(DifuseApplication.class);
-		for (ContextSource contextSource : contextSourceRegistry.getContextSources())
-			registerBeans(contextSource.getSourceClass());
+		for (Context context : contextRegistry.getContexts())
+			registerBeans(context.getSourceClass());
 	}
 
 	private void registerBeans(Class<?> sourceClass) {

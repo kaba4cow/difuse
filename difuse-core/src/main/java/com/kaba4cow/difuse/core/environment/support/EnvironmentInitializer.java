@@ -11,8 +11,8 @@ import com.kaba4cow.difuse.core.config.loader.support.ConfigLoaderInitializer;
 import com.kaba4cow.difuse.core.config.reader.support.ConfigReaderInitializer;
 import com.kaba4cow.difuse.core.config.source.impl.CliConfigSource;
 import com.kaba4cow.difuse.core.config.source.impl.EnvConfigSource;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextSourceConfiguration;
-import com.kaba4cow.difuse.core.context.source.support.ContextSourceRegistry;
+import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.environment.Environment;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.type.converter.support.TypeConverterInitializer;
@@ -33,7 +33,7 @@ public class EnvironmentInitializer {
 	private TypeConverterInitializer typeConverterInitializer;
 
 	@Provided
-	private ContextSourceRegistry contextSourceRegistry;
+	private ContextRegistry contextRegistry;
 
 	@Provided
 	private Environment environment;
@@ -55,11 +55,11 @@ public class EnvironmentInitializer {
 			configReaderInitializer.initializeReaders();
 			typeConverterInitializer.initializeConverters();
 
-			contextSourceRegistry//
-					.collectConfigurations(ContextSourceConfiguration::getIncludedProfiles)//
+			contextRegistry//
+					.collectConfigurations(ContextConfiguration::getIncludedProfiles)//
 					.forEach(environment::includeProfile);
-			contextSourceRegistry//
-					.collectConfigurations(ContextSourceConfiguration::getIncludedConfigs)//
+			contextRegistry//
+					.collectConfigurations(ContextConfiguration::getIncludedConfigs)//
 					.forEach(environment::includeConfig);
 
 			log.debug("Command line args: {}", Arrays.asList(args));
