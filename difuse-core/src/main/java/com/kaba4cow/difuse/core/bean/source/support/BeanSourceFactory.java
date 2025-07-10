@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import com.kaba4cow.difuse.core.annotation.bean.Bean;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.processor.pre.support.GlobalBeanPreProcessor;
+import com.kaba4cow.difuse.core.bean.processor.pre.support.BeanPreProcessorChain;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
@@ -21,30 +21,30 @@ import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 public class BeanSourceFactory {
 
 	@Provided
-	private BeanSourceRegistry beanSourceRegistry;
+	private BeanSourceRegistry sourceRegistry;
 
 	@Provided
 	private ScopeRegistry scopeRegistry;
 
 	@Provided
-	private BeanProtectorFactory beanProtectorFactory;
+	private BeanProtectorFactory protectorFactory;
 
 	@Provided
-	private GlobalBeanPreProcessor globalBeanPreProcessor;
+	private BeanPreProcessorChain preProcessorChain;
 
 	public void createClassBeanSource(Context context, Class<?> beanClass) {
-		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
+		BeanProtector beanProtector = protectorFactory.createBeanProtector();
 		ClassBeanSource classBeanSource = new ClassBeanSource(//
 				context, //
 				beanClass, //
 				beanProtector, //
 				scopeRegistry);
-		globalBeanPreProcessor.preProcess(classBeanSource)//
+		preProcessorChain.preProcess(classBeanSource)//
 				.ifPresent(this::registerClassBeanSource);
 	}
 
 	private void registerClassBeanSource(ClassBeanSource classBeanSource) {
-		beanSourceRegistry.register(classBeanSource);
+		sourceRegistry.register(classBeanSource);
 		createMethodBeanSources(classBeanSource.getContext(), classBeanSource);
 	}
 
@@ -54,20 +54,20 @@ public class BeanSourceFactory {
 	}
 
 	private void createMethodBeanSource(Context context, Method beanMethod, ClassBeanSource parentBeanSource) {
-		BeanProtector beanProtector = beanProtectorFactory.createBeanProtector();
+		BeanProtector beanProtector = protectorFactory.createBeanProtector();
 		MethodBeanSource methodBeanSource = new MethodBeanSource(//
 				context, //
 				beanMethod, //
 				beanProtector, //
 				scopeRegistry, //
 				parentBeanSource);
-		globalBeanPreProcessor.preProcess(methodBeanSource)//
+		preProcessorChain.preProcess(methodBeanSource)//
 				.ifPresent(this::registerMethodBeanSource);
 	}
 
 	private void registerMethodBeanSource(MethodBeanSource methodBeanSource) {
 		methodBeanSource.getParentBeanSource().addChildBeanSource(methodBeanSource);
-		beanSourceRegistry.register(methodBeanSource);
+		sourceRegistry.register(methodBeanSource);
 	}
 
 	private Set<Method> findBeanMethods(ClassBeanSource classBeanSource) {

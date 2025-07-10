@@ -10,13 +10,13 @@ import com.kaba4cow.difuse.core.bean.processor.pre.BeanPreProcessorException;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
 
 @SystemBean
-public class GlobalBeanPreProcessor {
+public class BeanPreProcessorChain {
 
 	@Provided
-	private BeanPreProcessorRegistry beanPreProcessorRegistry;
+	private BeanPreProcessorRegistry preProcessorRegistry;
 
 	public <T extends BeanSource<?>> Optional<T> preProcess(T beanSource) {
-		for (BeanPreProcessor beanPreProcessor : beanPreProcessorRegistry.getActiveBeanPreProcessors())
+		for (BeanPreProcessor beanPreProcessor : preProcessorRegistry.getActiveBeanPreProcessors())
 			try {
 				beanSource = beanPreProcessor.preProcess(beanSource);
 				if (Objects.isNull(beanSource))
