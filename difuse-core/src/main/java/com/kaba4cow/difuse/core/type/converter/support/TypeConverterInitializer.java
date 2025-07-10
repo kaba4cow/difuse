@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
+import com.kaba4cow.difuse.core.context.support.ContextRegistry;
+import com.kaba4cow.difuse.core.context.support.ContextScanner;
 import com.kaba4cow.difuse.core.type.converter.TypeConverter;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 

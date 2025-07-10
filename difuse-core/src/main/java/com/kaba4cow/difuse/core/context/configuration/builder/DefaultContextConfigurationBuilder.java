@@ -1,10 +1,10 @@
-package com.kaba4cow.difuse.core.context.source.configuration.builder;
+package com.kaba4cow.difuse.core.context.configuration.builder;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.configuration.ContextConfiguration;
 
 public class DefaultContextConfigurationBuilder implements ContextConfigurationBuilder {
 

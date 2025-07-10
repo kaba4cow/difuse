@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.context.source.configuration.builder;
+package com.kaba4cow.difuse.core.context.configuration.builder;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
 import com.kaba4cow.difuse.core.annotation.context.WithConfigs;
 import com.kaba4cow.difuse.core.annotation.context.WithContexts;
 import com.kaba4cow.difuse.core.annotation.context.WithProfiles;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.configuration.ContextConfiguration;
 
 public class SourceClassContextConfigurationBuilder implements ContextConfigurationBuilder {
 

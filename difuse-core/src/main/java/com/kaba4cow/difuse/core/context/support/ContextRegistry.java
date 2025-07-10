@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.context.source.support;
+package com.kaba4cow.difuse.core.context.support;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kaba4cow.difuse.core.DifuseApplication;
-import com.kaba4cow.difuse.core.context.source.Context;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.Context;
+import com.kaba4cow.difuse.core.context.configuration.ContextConfiguration;
 
 public class ContextRegistry {
 

@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.protector.BeanProtectorFactory;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.bean.source.impl.MethodBeanSource;
-import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.Context;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 

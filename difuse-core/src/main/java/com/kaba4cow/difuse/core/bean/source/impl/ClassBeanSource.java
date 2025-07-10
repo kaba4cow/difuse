@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.Context;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;
 
 public class ClassBeanSource extends BeanSource<Class<?>> {

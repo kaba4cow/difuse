@@ -1,8 +1,8 @@
 package com.kaba4cow.difuse.core.test;
 
-import com.kaba4cow.difuse.core.context.source.Context;
-import com.kaba4cow.difuse.core.context.source.ContextBuilder;
-import com.kaba4cow.difuse.core.context.source.configuration.builder.SourceClassContextConfigurationBuilder;
+import com.kaba4cow.difuse.core.context.Context;
+import com.kaba4cow.difuse.core.context.ContextBuilder;
+import com.kaba4cow.difuse.core.context.configuration.builder.SourceClassContextConfigurationBuilder;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 
 public class TestDependencyConsumer implements DependencyConsumer {

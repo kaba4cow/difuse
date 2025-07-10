@@ -1,11 +1,11 @@
-package com.kaba4cow.difuse.core.context.source.support;
+package com.kaba4cow.difuse.core.context.support;
 
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
-import com.kaba4cow.difuse.core.context.source.Context;
-import com.kaba4cow.difuse.core.context.source.ContextBuilder;
-import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
-import com.kaba4cow.difuse.core.context.source.configuration.builder.SourceClassContextConfigurationBuilder;
+import com.kaba4cow.difuse.core.context.Context;
+import com.kaba4cow.difuse.core.context.ContextBuilder;
+import com.kaba4cow.difuse.core.context.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.configuration.builder.SourceClassContextConfigurationBuilder;
 
 public class ContextFactory {
 

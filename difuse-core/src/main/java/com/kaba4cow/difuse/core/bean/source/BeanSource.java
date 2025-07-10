@@ -3,7 +3,7 @@ package com.kaba4cow.difuse.core.bean.source;
 import java.lang.reflect.AnnotatedElement;
 
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
-import com.kaba4cow.difuse.core.context.source.Context;
+import com.kaba4cow.difuse.core.context.Context;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
 import com.kaba4cow.difuse.core.scope.Scope;
 import com.kaba4cow.difuse.core.scope.support.ScopeRegistry;

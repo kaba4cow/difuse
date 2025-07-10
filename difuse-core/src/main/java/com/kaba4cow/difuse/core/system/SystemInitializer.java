@@ -3,9 +3,9 @@ package com.kaba4cow.difuse.core.system;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.context.ContextInitializer;
-import com.kaba4cow.difuse.core.context.ContextScanner;
-import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
+import com.kaba4cow.difuse.core.context.support.ContextInitializer;
+import com.kaba4cow.difuse.core.context.support.ContextRegistry;
+import com.kaba4cow.difuse.core.context.support.ContextScanner;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInitializer;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanInjector;
 import com.kaba4cow.difuse.core.system.bean.SystemBeanRegistrar;

@@ -1,6 +1,6 @@
-package com.kaba4cow.difuse.core.context.source;
+package com.kaba4cow.difuse.core.context;
 
-import com.kaba4cow.difuse.core.context.source.configuration.ContextConfiguration;
+import com.kaba4cow.difuse.core.context.configuration.ContextConfiguration;
 
 public class Context {
 

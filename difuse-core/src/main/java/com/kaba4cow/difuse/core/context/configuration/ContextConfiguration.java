@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.context.source.configuration;
+package com.kaba4cow.difuse.core.context.configuration;
 
 import java.util.Set;
 

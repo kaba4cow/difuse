@@ -1,10 +1,8 @@
-package com.kaba4cow.difuse.core.context;
+package com.kaba4cow.difuse.core.context.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kaba4cow.difuse.core.context.source.support.ContextFactory;
-import com.kaba4cow.difuse.core.context.source.support.ContextRegistry;
 import com.kaba4cow.difuse.core.system.SystemParameters;
 import com.kaba4cow.difuse.core.util.LoggingTimer;
 
