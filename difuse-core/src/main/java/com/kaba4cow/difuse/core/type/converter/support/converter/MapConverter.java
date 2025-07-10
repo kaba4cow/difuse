@@ -1,10 +1,10 @@
 package com.kaba4cow.difuse.core.type.converter.support.converter;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.kaba4cow.difuse.core.type.TypeDescriptor;
 import com.kaba4cow.difuse.core.type.converter.TypeConverterException;
 import com.kaba4cow.difuse.core.type.converter.support.GlobalTypeConverter;
 
@@ -16,7 +16,7 @@ public class MapConverter {
 		this.typeConverter = typeConverter;
 	}
 
-	public Object convert(Object raw, Type valueType) {
+	public Object convert(Object raw, TypeDescriptor valueType) {
 		if (raw instanceof Map<?, ?>)
 			return convertFromMap((Map<?, ?>) raw, valueType);
 		else
@@ -24,7 +24,7 @@ public class MapConverter {
 					String.format("Expected string or map for Map<String, V>, got %s", raw.getClass().getName()));
 	}
 
-	private Map<String, Object> convertFromMap(Map<?, ?> rawMap, Type valueType) {
+	private Map<String, Object> convertFromMap(Map<?, ?> rawMap, TypeDescriptor valueType) {
 		Map<String, Object> map = new HashMap<>();
 		for (Entry<?, ?> entry : rawMap.entrySet()) {
 			Object key = entry.getKey();

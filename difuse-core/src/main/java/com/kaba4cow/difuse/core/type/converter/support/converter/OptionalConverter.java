@@ -1,9 +1,9 @@
 package com.kaba4cow.difuse.core.type.converter.support.converter;
 
-import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.kaba4cow.difuse.core.type.TypeDescriptor;
 import com.kaba4cow.difuse.core.type.converter.support.GlobalTypeConverter;
 
 public class OptionalConverter {
@@ -14,7 +14,7 @@ public class OptionalConverter {
 		this.typeConverter = typeConverter;
 	}
 
-	public Object convert(Object raw, Type itemType) {
+	public Object convert(Object raw, TypeDescriptor itemType) {
 		if (Objects.isNull(raw))
 			return Optional.empty();
 		else if (raw instanceof Optional<?>) {

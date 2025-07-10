@@ -2,7 +2,6 @@ package com.kaba4cow.difuse.core.dependency.provider.impl;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +29,14 @@ public class BeanDependencyProvider implements DependencyProvider {
 	private BeanProviderRegistry beanProviderRegistry;
 
 	@Override
-	public Object provideDependency(AnnotatedElement element, Type type, DependencyConsumer dependencyConsumer) {
-		TypeDescriptor descriptor = TypeDescriptor.of(type);
-		if (descriptor.isArray())
-			return provideArrayDependency(descriptor, dependencyConsumer);
-		if (descriptor.isParameterized())
-			return provideParameterizedTypeDependency(descriptor, dependencyConsumer);
-		if (descriptor.isClass())
-			return provideSingleDependency(element, descriptor, dependencyConsumer);
-		throw new DifuseException(String.format("Unsupported dependency type: %s", descriptor));
+	public Object provideDependency(AnnotatedElement element, TypeDescriptor type, DependencyConsumer dependencyConsumer) {
+		if (type.isArray())
+			return provideArrayDependency(type, dependencyConsumer);
+		if (type.isParameterized())
+			return provideParameterizedTypeDependency(type, dependencyConsumer);
+		if (type.isClass())
+			return provideSingleDependency(element, type, dependencyConsumer);
+		throw new DifuseException(String.format("Unsupported dependency type: %s", type));
 	}
 
 	private Object provideSingleDependency(AnnotatedElement element, TypeDescriptor descriptor,
@@ -105,7 +103,7 @@ public class BeanDependencyProvider implements DependencyProvider {
 	}
 
 	private Object provideArrayDependency(TypeDescriptor descriptor, DependencyConsumer dependencyConsumer) {
-		Class<?> componentType = descriptor.getComponentClass();
+		Class<?> componentType = descriptor.getComponentType().getClassType();
 		List<BeanProvider<?>> providers = beanProviderRegistry.findByClass(componentType);
 		Object array = Array.newInstance(componentType, providers.size());
 		for (int i = 0; i < providers.size(); i++)

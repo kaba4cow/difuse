@@ -93,14 +93,14 @@ public class TypeDescriptor {
 		return new TypeDescriptor[0];
 	}
 
-	public Class<?> getComponentClass() {
+	public TypeDescriptor getComponentType() {
 		if (isGenericArray()) {
 			TypeDescriptor component = getGenericComponentType();
 			if (component.isClass())
-				return Array.newInstance(component.getClassType(), 0).getClass();
+				return of(Array.newInstance(component.getClassType(), 0).getClass());
 		}
 		if (isArray())
-			return getClassType().getComponentType();
+			return of(getClassType().getComponentType());
 		throw new IllegalStateException(String.format("Not an array type: %s", type));
 	}
 

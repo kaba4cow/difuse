@@ -9,6 +9,7 @@ import java.util.Objects;
 import com.kaba4cow.difuse.core.DifuseException;
 import com.kaba4cow.difuse.core.annotation.dependency.NonRequired;
 import com.kaba4cow.difuse.core.dependency.DependencyConsumer;
+import com.kaba4cow.difuse.core.type.TypeDescriptor;
 
 public class DependencyProviderSession {
 
@@ -22,6 +23,10 @@ public class DependencyProviderSession {
 	}
 
 	public Object provideDependency(AnnotatedElement element, Type type) {
+		return provideDependency(element, TypeDescriptor.of(type));
+	}
+
+	private Object provideDependency(AnnotatedElement element, TypeDescriptor type) {
 		try {
 			Object dependency = dependencyProvider.provideDependency(element, type, dependencyConsumer);
 			if (Objects.nonNull(dependency))
@@ -32,7 +37,7 @@ public class DependencyProviderSession {
 		return handleMissingDependency(element, type, null);
 	}
 
-	private Object handleMissingDependency(AnnotatedElement element, Type type, Throwable cause) {
+	private Object handleMissingDependency(AnnotatedElement element, TypeDescriptor type, Throwable cause) {
 		if (element.isAnnotationPresent(NonRequired.class))
 			return null;
 		else
