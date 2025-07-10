@@ -1,9 +1,8 @@
 package com.kaba4cow.difuse.core.type.converter.impl.primitive;
 
 import com.kaba4cow.difuse.core.type.converter.PrimitiveTypeConverter;
-import com.kaba4cow.difuse.core.type.converter.TypeConverter;
 
-public class IntegerTypeConverter implements TypeConverter<Integer>, PrimitiveTypeConverter {
+public class IntegerTypeConverter implements PrimitiveTypeConverter<Integer> {
 
 	@Override
 	public Class<?> getPrimitiveTargetType() {

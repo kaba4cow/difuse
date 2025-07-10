@@ -21,7 +21,7 @@ public class TypeConverterRegistry {
 		Class<?> targetType = converter.getTargetType();
 		registry.put(targetType, converter);
 		if (converter instanceof PrimitiveTypeConverter) {
-			PrimitiveTypeConverter primitiveConverter = (PrimitiveTypeConverter) converter;
+			PrimitiveTypeConverter<?> primitiveConverter = (PrimitiveTypeConverter<?>) converter;
 			registry.put(primitiveConverter.getPrimitiveTargetType(), converter);
 		}
 		log.debug("Registered {} TypeConverter {}", targetType.getName(), converter.getClass().getName());
