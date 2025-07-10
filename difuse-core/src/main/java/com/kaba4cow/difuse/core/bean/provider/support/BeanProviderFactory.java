@@ -2,7 +2,7 @@ package com.kaba4cow.difuse.core.bean.provider.support;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
-import com.kaba4cow.difuse.core.bean.processor.post.support.GlobalBeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.support.BeanPostProcessorChain;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.provider.impl.MethodBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
@@ -13,18 +13,17 @@ import com.kaba4cow.difuse.core.dependency.provider.impl.GlobalDependencyProvide
 public class BeanProviderFactory {
 
 	@Provided
-	private BeanProviderRegistry beanProviderRegistry;
+	private BeanProviderRegistry providerRegistry;
 
 	@Provided
-	private GlobalBeanPostProcessor globalBeanPostProcessor;
+	private BeanPostProcessorChain postProcessorChain;
 
 	@Provided
 	private GlobalDependencyProvider dependencyProvider;
 
 	public void createClassBeanProvider(ClassBeanSource classBeanSource) {
-		ClassBeanProvider classBeanProvider = new ClassBeanProvider(classBeanSource, dependencyProvider,
-				globalBeanPostProcessor);
-		beanProviderRegistry.register(classBeanProvider);
+		ClassBeanProvider classBeanProvider = new ClassBeanProvider(classBeanSource, dependencyProvider, postProcessorChain);
+		providerRegistry.register(classBeanProvider);
 		createMethodBeanProviders(classBeanSource, classBeanProvider);
 	}
 
@@ -35,7 +34,7 @@ public class BeanProviderFactory {
 
 	private void createMethodBeanProvider(MethodBeanSource methodBeanSource, ClassBeanProvider ownerBeanProvider) {
 		MethodBeanProvider beanProvider = new MethodBeanProvider(methodBeanSource, dependencyProvider, ownerBeanProvider);
-		beanProviderRegistry.register(beanProvider);
+		providerRegistry.register(beanProvider);
 	}
 
 }

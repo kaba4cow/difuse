@@ -8,13 +8,13 @@ import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 @SystemBean
-public class GlobalBeanPostProcessor {
+public class BeanPostProcessorChain {
 
 	@Provided
-	private BeanPostProcessorRegistry beanPostProcessorRegistry;
+	private BeanPostProcessorRegistry postProcessorRegistry;
 
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
-		for (BeanPostProcessor beanPostProcessor : beanPostProcessorRegistry.getActiveBeanPostProcessors())
+		for (BeanPostProcessor beanPostProcessor : postProcessorRegistry.getActiveBeanPostProcessors())
 			try {
 				bean = beanPostProcessor.postProcess(bean, beanProvider, session);
 			} catch (Exception exception) {
