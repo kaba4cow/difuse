@@ -10,6 +10,8 @@ public enum BeanLifecyclePhase {
 
 	PROXY_WRAP, //
 
-	RUNTIME;
+	RUNTIME, //
+
+	PRE_DESTROY;
 
 }
