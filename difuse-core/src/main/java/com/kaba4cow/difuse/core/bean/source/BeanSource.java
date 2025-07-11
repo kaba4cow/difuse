@@ -1,6 +1,7 @@
 package com.kaba4cow.difuse.core.bean.source;
 
 import java.lang.reflect.AnnotatedElement;
+import java.util.Objects;
 
 import com.kaba4cow.difuse.core.bean.protector.BeanProtector;
 import com.kaba4cow.difuse.core.context.Context;
@@ -72,6 +73,24 @@ public abstract class BeanSource<T extends AnnotatedElement> implements Dependen
 
 	public Scope getScope() {
 		return scope;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(beanClass, declaringClass, sourceElement);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BeanSource<?> other = (BeanSource<?>) obj;
+		return Objects.equals(beanClass, other.beanClass) && Objects.equals(declaringClass, other.declaringClass)
+				&& Objects.equals(sourceElement, other.sourceElement);
 	}
 
 	@Override

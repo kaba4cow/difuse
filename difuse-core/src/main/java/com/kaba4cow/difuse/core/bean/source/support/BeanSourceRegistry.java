@@ -25,8 +25,8 @@ public class BeanSourceRegistry {
 
 	public void register(BeanSource<?> beanSource) {
 		globalBeanSourceValidator.validate(beanSource);
-		registry.computeIfAbsent(beanSource.getClass(), key -> ConcurrentHashMap.newKeySet()).add(beanSource);
-		log.debug("Registered {}", beanSource);
+		if (registry.computeIfAbsent(beanSource.getClass(), key -> ConcurrentHashMap.newKeySet()).add(beanSource))
+			log.debug("Registered {}", beanSource);
 	}
 
 	@SuppressWarnings("unchecked")

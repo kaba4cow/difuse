@@ -22,10 +22,8 @@ public class BeanProviderRegistry {
 
 	public void register(BeanProvider<?> beanProvider) {
 		String name = beanProvider.getBeanSource().getInfo().getName();
-		if (!registry.containsKey(name))
-			registry.put(name, ConcurrentHashMap.newKeySet());
-		registry.get(name).add(beanProvider);
-		log.debug("Registered {}", beanProvider);
+		if (registry.computeIfAbsent(name, key -> ConcurrentHashMap.newKeySet()).add(beanProvider))
+			log.debug("Registered {}", beanProvider);
 	}
 
 	public List<BeanProvider<?>> findByClass(Class<?> beanClass) {
