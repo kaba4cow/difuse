@@ -12,7 +12,7 @@ public class ProvidedMethodInjectionBeanPostProcessor implements BeanPostProcess
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.RUNTIME;
+		return BeanLifecyclePhase.METHOD_INJECTION;
 	}
 
 	@Override
