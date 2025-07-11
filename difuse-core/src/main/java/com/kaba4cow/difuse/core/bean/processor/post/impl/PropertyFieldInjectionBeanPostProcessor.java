@@ -3,9 +3,7 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
-import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
@@ -13,7 +11,7 @@ import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class EagerFieldInjectionBeanPostProcessor implements BeanPostProcessor {
+public class PropertyFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
@@ -23,7 +21,7 @@ public class EagerFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		ClassBeanSource beanSource = beanProvider.getBeanSource();
-		findEagerFields(beanSource).forEach(field -> {
+		findPropertyFields(beanSource).forEach(field -> {
 			try {
 				field.setAccessible(true);
 				field.set(bean, session.provideDependency(field, field.getGenericType()));
@@ -35,10 +33,9 @@ public class EagerFieldInjectionBeanPostProcessor implements BeanPostProcessor {
 		return bean;
 	}
 
-	private Set<Field> findEagerFields(ClassBeanSource beanSource) {
+	private Set<Field> findPropertyFields(ClassBeanSource beanSource) {
 		return BeanPostProcessorReflections.findFields(beanSource, //
-				field -> !field.isAnnotationPresent(Lazy.class), //
-				field -> field.isAnnotationPresent(Provided.class) || field.isAnnotationPresent(Property.class)//
+				field -> field.isAnnotationPresent(Property.class)//
 		);
 	}
 
