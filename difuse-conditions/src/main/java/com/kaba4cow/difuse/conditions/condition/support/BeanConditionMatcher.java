@@ -15,11 +15,11 @@ import com.kaba4cow.difuse.core.bean.source.BeanSource;
 public class BeanConditionMatcher {
 
 	@Provided
-	private BeanConditionRegistry beanSourceConditionRegistry;
+	private BeanConditionRegistry conditionRegistry;
 
 	public boolean matchesCondition(BeanSource<?> beanSource) {
 		return findConditionClass(beanSource.getSourceElement())//
-				.map(beanSourceConditionRegistry::getCondition)//
+				.map(conditionRegistry::getCondition)//
 				.map(condition -> condition.matches(beanSource))//
 				.orElse(true);
 	}

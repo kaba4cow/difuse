@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.conditions;
+package com.kaba4cow.difuse.conditions.onprofiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,10 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.kaba4cow.difuse.conditions.bean.DevProfileBean;
-import com.kaba4cow.difuse.conditions.bean.DisabledBean;
-import com.kaba4cow.difuse.conditions.bean.ProfileBean;
-import com.kaba4cow.difuse.conditions.bean.TestProfileBean;
+import com.kaba4cow.difuse.conditions.EnableConditions;
+import com.kaba4cow.difuse.conditions.disabled.DisabledBean;
+import com.kaba4cow.difuse.conditions.onprofiles.OnProfilesBeans.DevProfileBean;
+import com.kaba4cow.difuse.conditions.onprofiles.OnProfilesBeans.ProfileBean;
+import com.kaba4cow.difuse.conditions.onprofiles.OnProfilesBeans.TestProfileBean;
 import com.kaba4cow.difuse.core.annotation.context.DifuseContext;
 import com.kaba4cow.difuse.core.annotation.context.WithProfiles;
 import com.kaba4cow.difuse.core.annotation.dependency.NonRequired;
@@ -18,10 +19,11 @@ import com.kaba4cow.difuse.core.test.DifuseTestExtension;
 import com.kaba4cow.difuse.core.test.annotation.TestContext;
 
 @DifuseContext
+@EnableConditions
 @WithProfiles("test")
-@TestContext(ConditionsTest.class)
+@TestContext(OnProfilesTest.class)
 @ExtendWith(DifuseTestExtension.class)
-public class ConditionsTest {
+public class OnProfilesTest {
 
 	@Test
 	public void beanProfileEqualsTest(ProfileBean bean) {
