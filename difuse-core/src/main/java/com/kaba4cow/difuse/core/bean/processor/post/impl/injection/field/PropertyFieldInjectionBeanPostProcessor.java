@@ -3,31 +3,18 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.field;
 import java.lang.reflect.Field;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
-import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
-import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 public class PropertyFieldInjectionBeanPostProcessor extends FieldInjectionBeanPostProcessor {
 
 	@Override
-	protected boolean filterField(Field field) {
-		return field.isAnnotationPresent(Property.class);
+	protected Object getFieldValue(Field field, DependencyProviderSession session) {
+		return session.provideDependency(field, field.getGenericType());
 	}
 
 	@Override
-	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
-		ClassBeanSource beanSource = beanProvider.getBeanSource();
-		findTargetFields(beanSource).forEach(field -> {
-			try {
-				field.setAccessible(true);
-				field.set(bean, session.provideDependency(field, field.getGenericType()));
-			} catch (Exception exception) {
-				throw new BeanPostProcessorException(String.format("Could not initialize field %s for bean of type %s",
-						field.getName(), beanSource.getBeanClass().getName()), exception);
-			}
-		});
-		return bean;
+	protected boolean filterField(Field field) {
+		return field.isAnnotationPresent(Property.class);
 	}
 
 }
