@@ -7,7 +7,7 @@ public abstract class MethodInjectionBeanPostProcessor implements BeanPostProces
 
 	@Override
 	public final BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.METHOD_INJECTION;
+		return BeanLifecyclePhase.METHOD_INJECT;
 	}
 
 }

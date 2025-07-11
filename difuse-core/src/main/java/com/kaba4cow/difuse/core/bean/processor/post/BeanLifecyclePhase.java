@@ -2,13 +2,13 @@ package com.kaba4cow.difuse.core.bean.processor.post;
 
 public enum BeanLifecyclePhase {
 
-	FIELD_INJECTION, //
+	FIELD_INJECT, //
 
 	POST_CONSTRUCT, //
 
-	METHOD_INJECTION, //
+	METHOD_INJECT, //
 
-	PROXY_WRAPPING, //
+	PROXY_WRAP, //
 
 	RUNTIME;
 

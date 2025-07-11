@@ -7,7 +7,7 @@ public abstract class ProxyWrappingBeanPostProcessor implements BeanPostProcesso
 
 	@Override
 	public final BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.PROXY_WRAPPING;
+		return BeanLifecyclePhase.PROXY_WRAP;
 	}
 
 }

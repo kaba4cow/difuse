@@ -44,7 +44,7 @@ public abstract class FieldInjectionBeanPostProcessor implements BeanPostProcess
 
 	@Override
 	public final BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.FIELD_INJECTION;
+		return BeanLifecyclePhase.FIELD_INJECT;
 	}
 
 }

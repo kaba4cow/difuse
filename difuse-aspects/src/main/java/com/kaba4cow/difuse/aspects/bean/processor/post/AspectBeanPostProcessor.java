@@ -18,7 +18,7 @@ public class AspectBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.PROXY_WRAPPING;
+		return BeanLifecyclePhase.PROXY_WRAP;
 	}
 
 	@Override
