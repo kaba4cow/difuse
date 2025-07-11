@@ -3,6 +3,7 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.field;
 import java.lang.reflect.Field;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Property;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.FieldInjectionBeanPostProcessor;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
 public class PropertyFieldInjectionBeanPostProcessor extends FieldInjectionBeanPostProcessor {

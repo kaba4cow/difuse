@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.FieldInjectionBeanPostProcessor;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 
