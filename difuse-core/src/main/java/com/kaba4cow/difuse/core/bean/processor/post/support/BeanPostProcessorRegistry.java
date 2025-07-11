@@ -1,6 +1,5 @@
 package com.kaba4cow.difuse.core.bean.processor.post.support;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,14 +30,12 @@ public class BeanPostProcessorRegistry {
 
 	public List<BeanPostProcessor> getBeanPostProcessors() {
 		return registry.values().stream()//
-				.sorted(Comparator.comparing(BeanPostProcessor::getLifecyclePhase))//
 				.collect(Collectors.toList());
 	}
 
 	public List<BeanPostProcessor> getActiveBeanPostProcessors() {
 		return registry.values().stream()//
 				.filter(BeanProcessor::isActive)//
-				.sorted(Comparator.comparing(BeanPostProcessor::getLifecyclePhase))//
 				.collect(Collectors.toList());
 	}
 
