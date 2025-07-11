@@ -1,19 +1,13 @@
 package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.method;
 
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.MethodInjectionBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class ProvidedMethodInjectionBeanPostProcessor implements BeanPostProcessor {
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.METHOD_INJECTION;
-	}
+public class ProvidedMethodInjectionBeanPostProcessor extends MethodInjectionBeanPostProcessor {
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
