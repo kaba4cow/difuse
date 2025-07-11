@@ -1,12 +1,10 @@
 package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.field;
 
 import java.lang.reflect.Field;
-import java.util.Set;
 
 import com.kaba4cow.difuse.core.annotation.bean.Lazy;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessorException;
-import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
@@ -15,9 +13,14 @@ import com.kaba4cow.difuse.core.util.ProxyFactory;
 public class LazyProvidedFieldInjectionBeanPostProcessor extends FieldInjectionBeanPostProcessor {
 
 	@Override
+	protected boolean filterField(Field field) {
+		return field.isAnnotationPresent(Lazy.class) && field.isAnnotationPresent(Provided.class);
+	}
+
+	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
 		ClassBeanSource beanSource = beanProvider.getBeanSource();
-		findLazyFields(beanSource).forEach(field -> {
+		findTargetFields(beanSource).forEach(field -> {
 			try {
 				field.setAccessible(true);
 				field.set(bean, createProxy(field, session));
@@ -31,13 +34,6 @@ public class LazyProvidedFieldInjectionBeanPostProcessor extends FieldInjectionB
 
 	private Object createProxy(Field field, DependencyProviderSession session) {
 		return ProxyFactory.createLazyProxy(field.getType(), () -> session.provideDependency(field, field.getGenericType()));
-	}
-
-	private Set<Field> findLazyFields(ClassBeanSource beanSource) {
-		return BeanPostProcessorReflections.findFields(beanSource, //
-				field -> field.isAnnotationPresent(Lazy.class), //
-				field -> field.isAnnotationPresent(Provided.class)//
-		);
 	}
 
 }
