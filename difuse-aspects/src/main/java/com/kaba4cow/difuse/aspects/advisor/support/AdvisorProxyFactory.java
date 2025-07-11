@@ -1,5 +1,6 @@
 package com.kaba4cow.difuse.aspects.advisor.support;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
@@ -20,7 +21,25 @@ import com.kaba4cow.difuse.core.util.ProxyFactory;
 public class AdvisorProxyFactory {
 
 	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<Method, Set<Advisor>> advisors) {
-		return ProxyFactory.createProxy(beanSource.getBeanClass(), (proxy, method, args) -> {
+		return ProxyFactory.createProxy(//
+				beanSource.getBeanClass(), //
+				new AdvisorInvocationHandler(bean, advisors)//
+		);
+	}
+
+	private static class AdvisorInvocationHandler implements InvocationHandler {
+
+		private final Object bean;
+
+		private final Map<Method, Set<Advisor>> advisors;
+
+		public AdvisorInvocationHandler(Object bean, Map<Method, Set<Advisor>> advisors) {
+			this.bean = bean;
+			this.advisors = advisors;
+		}
+
+		@Override
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			Set<Advisor> methodAdvisors = advisors.getOrDefault(method, Collections.emptySet());
 
 			for (Advisor advisor : getAdvisors(methodAdvisors, AdviceType.BEFORE))
@@ -41,25 +60,26 @@ public class AdvisorProxyFactory {
 				invokeAdvice(advisor, new JoinPoint(bean, method, args));
 
 			return result;
-		});
-	}
+		}
 
-	private Set<Advisor> getAdvisors(Set<Advisor> advisors, AdviceType adviceType) {
-		return advisors.stream()//
-				.filter(advisor -> advisor.getAdviceType() == adviceType)//
-				.collect(Collectors.toSet());
-	}
+		private Set<Advisor> getAdvisors(Set<Advisor> advisors, AdviceType adviceType) {
+			return advisors.stream()//
+					.filter(advisor -> advisor.getAdviceType() == adviceType)//
+					.collect(Collectors.toSet());
+		}
 
-	private void invokeAdvice(Advisor advisor, JoinPoint joinPoint) throws Exception {
-		Method method = advisor.getAdviceMethod();
-		method.setAccessible(true);
-		method.invoke(advisor.getAspectInstance(), joinPoint);
-	}
+		private void invokeAdvice(Advisor advisor, JoinPoint joinPoint) throws Exception {
+			Method method = advisor.getAdviceMethod();
+			method.setAccessible(true);
+			method.invoke(advisor.getAspectInstance(), joinPoint);
+		}
 
-	private Object invokeAround(Advisor advisor, ProceedingJoinPoint joinPoint) throws Exception {
-		Method method = advisor.getAdviceMethod();
-		method.setAccessible(true);
-		return method.invoke(advisor.getAspectInstance(), joinPoint);
+		private Object invokeAround(Advisor advisor, ProceedingJoinPoint joinPoint) throws Exception {
+			Method method = advisor.getAdviceMethod();
+			method.setAccessible(true);
+			return method.invoke(advisor.getAspectInstance(), joinPoint);
+		}
+
 	}
 
 }
