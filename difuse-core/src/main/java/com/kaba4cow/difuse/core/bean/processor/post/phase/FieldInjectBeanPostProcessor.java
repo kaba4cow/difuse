@@ -13,7 +13,7 @@ import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.reflections.FieldScanner;
 
-public abstract class FieldInjectionBeanPostProcessor implements BeanPostProcessor {
+public abstract class FieldInjectBeanPostProcessor implements BeanPostProcessor {
 
 	protected abstract Object getFieldValue(Field field, DependencyProviderSession session);
 

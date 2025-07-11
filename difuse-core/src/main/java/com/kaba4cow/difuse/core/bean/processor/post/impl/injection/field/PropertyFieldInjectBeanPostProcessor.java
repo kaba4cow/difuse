@@ -2,12 +2,11 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.field;
 
 import java.lang.reflect.Field;
 
-import com.kaba4cow.difuse.core.annotation.bean.Lazy;
-import com.kaba4cow.difuse.core.annotation.dependency.Provided;
-import com.kaba4cow.difuse.core.bean.processor.post.phase.FieldInjectionBeanPostProcessor;
+import com.kaba4cow.difuse.core.annotation.dependency.Property;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.FieldInjectBeanPostProcessor;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class EagerProvidedFieldInjectionBeanPostProcessor extends FieldInjectionBeanPostProcessor {
+public class PropertyFieldInjectBeanPostProcessor extends FieldInjectBeanPostProcessor {
 
 	@Override
 	protected Object getFieldValue(Field field, DependencyProviderSession session) {
@@ -16,7 +15,7 @@ public class EagerProvidedFieldInjectionBeanPostProcessor extends FieldInjection
 
 	@Override
 	protected boolean filterField(Field field) {
-		return !field.isAnnotationPresent(Lazy.class) && field.isAnnotationPresent(Provided.class);
+		return field.isAnnotationPresent(Property.class);
 	}
 
 }
