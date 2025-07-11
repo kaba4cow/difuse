@@ -3,20 +3,14 @@ package com.kaba4cow.difuse.core.bean.processor.post.impl;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.lifecycle.PreDestroy;
 import com.kaba4cow.difuse.core.bean.destroyhook.BeanDestroyHookRegistryPool;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.PostConstructBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class PreDestroyBeanPostProcessor implements BeanPostProcessor {
+public class PreDestroyMethodPostConstructBeanPostProcessor extends PostConstructBeanPostProcessor {
 
 	@Provided
 	private BeanDestroyHookRegistryPool destroyHookRegistryPool;
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.POST_CONSTRUCTION;
-	}
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {

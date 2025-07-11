@@ -4,7 +4,7 @@ public enum BeanLifecyclePhase {
 
 	FIELD_INJECTION, //
 
-	POST_CONSTRUCTION, //
+	POST_CONSTRUCT, //
 
 	METHOD_INJECTION, //
 

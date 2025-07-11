@@ -1,17 +1,11 @@
 package com.kaba4cow.difuse.core.bean.processor.post.impl;
 
 import com.kaba4cow.difuse.core.annotation.lifecycle.PostConstruct;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.PostConstructBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 
-public class PostConstructBeanPostProcessor implements BeanPostProcessor {
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.POST_CONSTRUCTION;
-	}
+public class PostConstructMethodPostConstructBeanPostProcessor extends PostConstructBeanPostProcessor {
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
