@@ -29,14 +29,15 @@ public class AdvisorFactory {
 	private SystemBeanInjector beanInjector;
 
 	public void createAdvisor(ClassBeanSource beanSource) {
+		Class<?> aspectClass = beanSource.getBeanClass();
 		Object aspectInstance = createAspectInstance(beanSource);
-		Set<Method> methods = MethodScanner.of(beanSource.getBeanClass()).findMethods();
-		for (Method method : methods) {
-			AdviceType adviceType = resolveAdviceType(method);
+		Set<Method> methods = MethodScanner.of(aspectClass).findMethods();
+		for (Method aspectMethod : methods) {
+			AdviceType adviceType = resolveAdviceType(aspectMethod);
 			if (Objects.isNull(adviceType))
 				continue;
-			MethodFilter filter = new MethodFilter(method);
-			Advisor advisor = new Advisor(beanSource, aspectInstance, method, adviceType, filter);
+			MethodFilter filter = new MethodFilter(aspectClass, aspectMethod);
+			Advisor advisor = new Advisor(beanSource, aspectInstance, aspectMethod, adviceType, filter);
 			advisorRegistry.registerAdvisor(advisor);
 		}
 	}
