@@ -6,9 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.BiFunction;
 
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.processor.post.impl.BeanPostProcessorReflections;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.RuntimeBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
@@ -19,15 +18,10 @@ import com.kaba4cow.difuse.scheduling.failbehavior.FailBehaviorFactory;
 import com.kaba4cow.difuse.scheduling.task.MethodTask;
 import com.kaba4cow.difuse.scheduling.task.TaskFactory;
 
-public class ScheduledBeanPostProcessor implements BeanPostProcessor {
+public class ScheduledRuntimeBeanPostProcessor extends RuntimeBeanPostProcessor {
 
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.RUNTIME;
-	}
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {

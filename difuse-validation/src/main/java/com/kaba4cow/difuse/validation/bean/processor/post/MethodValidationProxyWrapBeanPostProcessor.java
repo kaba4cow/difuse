@@ -8,22 +8,16 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.executable.ExecutableValidator;
 
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.ProxyWrapBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 import com.kaba4cow.difuse.validation.MethodValidationException;
 import com.kaba4cow.difuse.validation.annotation.Validated;
 
-public class MethodValidationBeanPostProcessor implements BeanPostProcessor {
+public class MethodValidationProxyWrapBeanPostProcessor extends ProxyWrapBeanPostProcessor {
 
 	private final ExecutableValidator validator = Validation.buildDefaultValidatorFactory().getValidator().forExecutables();
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.PROXY_WRAP;
-	}
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {

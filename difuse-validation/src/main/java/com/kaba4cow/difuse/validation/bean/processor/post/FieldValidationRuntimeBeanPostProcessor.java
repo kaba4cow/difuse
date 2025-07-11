@@ -6,21 +6,15 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.kaba4cow.difuse.core.bean.processor.post.BeanLifecyclePhase;
-import com.kaba4cow.difuse.core.bean.processor.post.BeanPostProcessor;
+import com.kaba4cow.difuse.core.bean.processor.post.phase.RuntimeBeanPostProcessor;
 import com.kaba4cow.difuse.core.bean.provider.impl.ClassBeanProvider;
 import com.kaba4cow.difuse.core.dependency.provider.DependencyProviderSession;
 import com.kaba4cow.difuse.validation.FieldValidationException;
 import com.kaba4cow.difuse.validation.annotation.Validated;
 
-public class FieldValidationBeanPostProcessor implements BeanPostProcessor {
+public class FieldValidationRuntimeBeanPostProcessor extends RuntimeBeanPostProcessor {
 
 	private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
-	@Override
-	public BeanLifecyclePhase getLifecyclePhase() {
-		return BeanLifecyclePhase.RUNTIME;
-	}
 
 	@Override
 	public Object postProcess(Object bean, ClassBeanProvider beanProvider, DependencyProviderSession session) {
