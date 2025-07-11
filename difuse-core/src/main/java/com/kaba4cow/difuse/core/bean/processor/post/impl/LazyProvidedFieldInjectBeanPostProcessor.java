@@ -1,4 +1,4 @@
-package com.kaba4cow.difuse.core.bean.processor.post.impl.injection.field;
+package com.kaba4cow.difuse.core.bean.processor.post.impl;
 
 import java.lang.reflect.Field;
 
