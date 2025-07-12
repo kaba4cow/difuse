@@ -43,24 +43,25 @@ public class AdvisorProxyFactory {
 			MethodSignature signature = MethodSignature.of(method);
 			if (!advisors.containsKey(signature))
 				return method.invoke(bean, args);
+			invokeAdvices(signature, AdviceType.BEFORE, args);
+			Object result = invokeAroundAdvices(signature, method, args);
+			invokeAdvices(signature, AdviceType.AFTER, args);
+			return result;
+		}
 
-			for (Advisor advisor : getAdvisors(signature, AdviceType.BEFORE))
+		private void invokeAdvices(MethodSignature signature, AdviceType adviceType, Object[] args) throws Exception {
+			Set<Advisor> advisors = getAdvisors(signature, adviceType);
+			for (Advisor advisor : advisors)
 				invokeAdvice(advisor, new JoinPoint(bean, signature, args));
+		}
 
+		private Object invokeAroundAdvices(MethodSignature signature, Method method, Object[] args) throws Exception {
+			Set<Advisor> advisors = getAdvisors(signature, AdviceType.AROUND);
+			if (advisors.isEmpty())
+				return method.invoke(bean, args);
 			Object result = null;
-			boolean proceedCalled = false;
-
-			for (Advisor advisor : getAdvisors(signature, AdviceType.AROUND)) {
+			for (Advisor advisor : advisors)
 				result = invokeAdvice(advisor, new ProceedingJoinPoint(bean, method, args));
-				proceedCalled = true;
-			}
-
-			if (!proceedCalled)
-				result = method.invoke(bean, args);
-
-			for (Advisor advisor : getAdvisors(signature, AdviceType.AFTER))
-				invokeAdvice(advisor, new JoinPoint(bean, signature, args));
-
 			return result;
 		}
 
