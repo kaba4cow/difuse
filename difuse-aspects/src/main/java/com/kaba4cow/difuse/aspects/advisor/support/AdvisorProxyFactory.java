@@ -49,7 +49,7 @@ public class AdvisorProxyFactory {
 			boolean proceedCalled = false;
 
 			for (Advisor advisor : getAdvisors(methodAdvisors, AdviceType.AROUND)) {
-				result = invokeAround(advisor, new ProceedingJoinPoint(bean, method, args));
+				result = invokeAdvice(advisor, new ProceedingJoinPoint(bean, method, args));
 				proceedCalled = true;
 			}
 
@@ -68,16 +68,11 @@ public class AdvisorProxyFactory {
 					.collect(Collectors.toSet());
 		}
 
-		private void invokeAdvice(Advisor advisor, JoinPoint joinPoint) throws Exception {
+		private Object invokeAdvice(Advisor advisor, JoinPoint joinPoint) throws Exception {
+			Object instance = advisor.getAspectInstance();
 			Method method = advisor.getAdviceMethod();
 			method.setAccessible(true);
-			method.invoke(advisor.getAspectInstance(), joinPoint);
-		}
-
-		private Object invokeAround(Advisor advisor, ProceedingJoinPoint joinPoint) throws Exception {
-			Method method = advisor.getAdviceMethod();
-			method.setAccessible(true);
-			return method.invoke(advisor.getAspectInstance(), joinPoint);
+			return method.invoke(instance, joinPoint);
 		}
 
 	}
