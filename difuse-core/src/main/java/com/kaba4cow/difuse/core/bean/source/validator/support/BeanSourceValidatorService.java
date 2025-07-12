@@ -9,14 +9,14 @@ import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidationExcept
 import com.kaba4cow.difuse.core.bean.source.validator.BeanSourceValidator;
 
 @SystemBean
-public class GlobalBeanSourceValidator {
+public class BeanSourceValidatorService {
 
 	@Provided
-	private BeanSourceValidatorRegistry beanSourceValidatorRegistry;
+	private BeanSourceValidatorRegistry validatorRegistry;
 
 	public void validate(BeanSource<?> beanSource) {
 		try {
-			Set<BeanSourceValidator> validators = beanSourceValidatorRegistry.getValidators(beanSource);
+			Set<BeanSourceValidator> validators = validatorRegistry.getValidators(beanSource);
 			for (BeanSourceValidator validator : validators)
 				validator.validate(beanSource);
 		} catch (BeanSourceValidationException exception) {

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.BeanSource;
-import com.kaba4cow.difuse.core.bean.source.validator.support.GlobalBeanSourceValidator;
+import com.kaba4cow.difuse.core.bean.source.validator.support.BeanSourceValidatorService;
 
 @SystemBean
 public class BeanSourceRegistry {
@@ -21,10 +21,10 @@ public class BeanSourceRegistry {
 	private final Map<Class<?>, Set<BeanSource<?>>> registry = new ConcurrentHashMap<>();
 
 	@Provided
-	private GlobalBeanSourceValidator globalBeanSourceValidator;
+	private BeanSourceValidatorService validatorService;
 
 	public void register(BeanSource<?> beanSource) {
-		globalBeanSourceValidator.validate(beanSource);
+		validatorService.validate(beanSource);
 		if (registry.computeIfAbsent(beanSource.getClass(), key -> ConcurrentHashMap.newKeySet()).add(beanSource))
 			log.debug("Registered {}", beanSource);
 	}
