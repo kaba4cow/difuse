@@ -1,5 +1,6 @@
 package com.kaba4cow.difuse.aspects.advisor.support;
 
+import java.lang.reflect.InvocationHandler;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,8 +23,12 @@ public class AdvisorProxyFactory {
 	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<MethodSignature, Set<Advisor>> advisors) {
 		return ProxyFactory.createProxy(//
 				beanSource.getBeanClass(), //
-				new AdvisorInvocationHandler(beanProviderRegistry, bean, advisors)//
+				createInvocationHandler(beanSource, advisors)//
 		);
+	}
+
+	private InvocationHandler createInvocationHandler(Object bean, Map<MethodSignature, Set<Advisor>> advisors) {
+		return new AdvisorInvocationHandler(beanProviderRegistry, bean, advisors);
 	}
 
 }
