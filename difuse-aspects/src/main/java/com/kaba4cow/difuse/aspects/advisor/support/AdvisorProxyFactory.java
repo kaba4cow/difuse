@@ -8,10 +8,14 @@ import java.util.stream.Collectors;
 
 import com.kaba4cow.difuse.aspects.advisor.AdviceType;
 import com.kaba4cow.difuse.aspects.advisor.Advisor;
+import com.kaba4cow.difuse.aspects.advisor.AdvisorException;
 import com.kaba4cow.difuse.aspects.joinpoint.JoinPoint;
 import com.kaba4cow.difuse.aspects.joinpoint.ProceedingJoinPoint;
+import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
+import com.kaba4cow.difuse.core.bean.provider.BeanProvider;
+import com.kaba4cow.difuse.core.bean.provider.support.BeanProviderRegistry;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
 import com.kaba4cow.difuse.core.util.MethodSignature;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
@@ -20,20 +24,27 @@ import com.kaba4cow.difuse.core.util.ProxyFactory;
 @SystemBean
 public class AdvisorProxyFactory {
 
+	@Provided
+	private BeanProviderRegistry beanProviderRegistry;
+
 	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<MethodSignature, Set<Advisor>> advisors) {
 		return ProxyFactory.createProxy(//
 				beanSource.getBeanClass(), //
-				new AdvisorInvocationHandler(bean, advisors)//
+				new AdvisorInvocationHandler(beanProviderRegistry, bean, advisors)//
 		);
 	}
 
-	private static class AdvisorInvocationHandler implements InvocationHandler {
+	private class AdvisorInvocationHandler implements InvocationHandler {
+
+		private final BeanProviderRegistry beanProviderRegistry;
 
 		private final Object bean;
 
 		private final Map<MethodSignature, Set<Advisor>> advisors;
 
-		public AdvisorInvocationHandler(Object bean, Map<MethodSignature, Set<Advisor>> advisors) {
+		public AdvisorInvocationHandler(BeanProviderRegistry beanProviderRegistry, Object bean,
+				Map<MethodSignature, Set<Advisor>> advisors) {
+			this.beanProviderRegistry = beanProviderRegistry;
 			this.bean = bean;
 			this.advisors = advisors;
 		}
@@ -72,10 +83,17 @@ public class AdvisorProxyFactory {
 		}
 
 		private Object invokeAdvice(Advisor advisor, JoinPoint joinPoint) throws Exception {
-			Object instance = advisor.getAspectInstance();
+			Object instance = getAspectInstance(advisor);
 			Method method = advisor.getAdviceMethod();
 			method.setAccessible(true);
 			return method.invoke(instance, joinPoint);
+		}
+
+		private Object getAspectInstance(Advisor advisor) {
+			ClassBeanSource beanSource = advisor.getBeanSource();
+			return beanProviderRegistry.findBySource(beanSource)//
+					.map(BeanProvider::provideBean)//
+					.orElseThrow(() -> new AdvisorException(String.format("Could not get aspect instance of %s", beanSource)));
 		}
 
 	}

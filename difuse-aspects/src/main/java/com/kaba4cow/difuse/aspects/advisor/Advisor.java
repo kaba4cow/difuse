@@ -9,18 +9,14 @@ public class Advisor {
 
 	private final ClassBeanSource beanSource;
 
-	private final Object aspectInstance;
-
 	private final Method adviceMethod;
 
 	private final AdviceType adviceType;
 
 	private final MethodFilter methodFilter;
 
-	public Advisor(ClassBeanSource beanSource, Object aspectInstance, Method adviceMethod, AdviceType adviceType,
-			MethodFilter methodFilter) {
+	public Advisor(ClassBeanSource beanSource, Method adviceMethod, AdviceType adviceType, MethodFilter methodFilter) {
 		this.beanSource = beanSource;
-		this.aspectInstance = aspectInstance;
 		this.adviceMethod = adviceMethod;
 		this.adviceType = adviceType;
 		this.methodFilter = methodFilter;
@@ -32,10 +28,6 @@ public class Advisor {
 
 	public ClassBeanSource getBeanSource() {
 		return beanSource;
-	}
-
-	public Object getAspectInstance() {
-		return aspectInstance;
 	}
 
 	public Method getAdviceMethod() {
