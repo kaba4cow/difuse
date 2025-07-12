@@ -35,13 +35,17 @@ public class AdvisorWrapper {
 		Set<Method> methods = MethodScanner.of(beanSource.getDeclaringClass()).findMethods();
 		Map<MethodSignature, Set<Advisor>> advisors = new HashMap<>();
 		for (Method method : methods) {
-			Set<Advisor> matchingAdvisors = advisorRegistry.getAdvisors().stream()//
-					.filter(advisor -> advisor.matches(method, beanSource))//
-					.collect(Collectors.toSet());
+			Set<Advisor> matchingAdvisors = getMatchingAdvisors(method, beanSource);
 			if (!matchingAdvisors.isEmpty())
 				advisors.put(MethodSignature.of(method), matchingAdvisors);
 		}
 		return advisors;
+	}
+
+	private Set<Advisor> getMatchingAdvisors(Method method, ClassBeanSource beanSource) {
+		return advisorRegistry.getAdvisors().stream()//
+				.filter(advisor -> advisor.matches(method, beanSource))//
+				.collect(Collectors.toSet());
 	}
 
 }
