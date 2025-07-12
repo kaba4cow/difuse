@@ -14,13 +14,14 @@ import com.kaba4cow.difuse.aspects.joinpoint.ProceedingJoinPoint;
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
+import com.kaba4cow.difuse.core.util.MethodSignature;
 import com.kaba4cow.difuse.core.util.ProxyFactory;
 
 @Accessible
 @SystemBean
 public class AdvisorProxyFactory {
 
-	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<Method, Set<Advisor>> advisors) {
+	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<MethodSignature, Set<Advisor>> advisors) {
 		return ProxyFactory.createProxy(//
 				beanSource.getBeanClass(), //
 				new AdvisorInvocationHandler(bean, advisors)//
@@ -31,16 +32,20 @@ public class AdvisorProxyFactory {
 
 		private final Object bean;
 
-		private final Map<Method, Set<Advisor>> advisors;
+		private final Map<MethodSignature, Set<Advisor>> advisors;
 
-		public AdvisorInvocationHandler(Object bean, Map<Method, Set<Advisor>> advisors) {
+		public AdvisorInvocationHandler(Object bean, Map<MethodSignature, Set<Advisor>> advisors) {
 			this.bean = bean;
 			this.advisors = advisors;
 		}
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			Set<Advisor> methodAdvisors = advisors.getOrDefault(method, Collections.emptySet());
+			MethodSignature signature = MethodSignature.of(method);
+			if (!advisors.containsKey(signature))
+				return method.invoke(bean, args);
+
+			Set<Advisor> methodAdvisors = advisors.getOrDefault(signature, Collections.emptySet());
 
 			for (Advisor advisor : getAdvisors(methodAdvisors, AdviceType.BEFORE))
 				invokeAdvice(advisor, new JoinPoint(bean, method, args));

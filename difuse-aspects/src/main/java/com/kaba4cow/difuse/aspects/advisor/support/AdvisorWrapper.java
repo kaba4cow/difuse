@@ -11,6 +11,7 @@ import com.kaba4cow.difuse.core.annotation.dependency.Provided;
 import com.kaba4cow.difuse.core.annotation.system.Accessible;
 import com.kaba4cow.difuse.core.annotation.system.SystemBean;
 import com.kaba4cow.difuse.core.bean.source.impl.ClassBeanSource;
+import com.kaba4cow.difuse.core.util.MethodSignature;
 import com.kaba4cow.difuse.core.util.reflections.MethodScanner;
 
 @Accessible
@@ -24,21 +25,21 @@ public class AdvisorWrapper {
 	private AdvisorProxyFactory advisorProxyFactory;
 
 	public Object wrapBean(Object bean, ClassBeanSource beanSource) {
-		Map<Method, Set<Advisor>> advisors = getAdvisors(beanSource);
+		Map<MethodSignature, Set<Advisor>> advisors = getAdvisors(beanSource);
 		return advisors.isEmpty()//
 				? bean//
 				: advisorProxyFactory.createAdvisorProxy(bean, beanSource, advisors);
 	}
 
-	private Map<Method, Set<Advisor>> getAdvisors(ClassBeanSource beanSource) {
+	private Map<MethodSignature, Set<Advisor>> getAdvisors(ClassBeanSource beanSource) {
 		Set<Method> methods = MethodScanner.of(beanSource.getDeclaringClass()).findMethods();
-		Map<Method, Set<Advisor>> advisors = new HashMap<>();
+		Map<MethodSignature, Set<Advisor>> advisors = new HashMap<>();
 		for (Method method : methods) {
 			Set<Advisor> matchingAdvisors = advisorRegistry.getAdvisors().stream()//
 					.filter(advisor -> advisor.matches(method, beanSource))//
 					.collect(Collectors.toSet());
 			if (!matchingAdvisors.isEmpty())
-				advisors.put(method, matchingAdvisors);
+				advisors.put(MethodSignature.of(method), matchingAdvisors);
 		}
 		return advisors;
 	}
