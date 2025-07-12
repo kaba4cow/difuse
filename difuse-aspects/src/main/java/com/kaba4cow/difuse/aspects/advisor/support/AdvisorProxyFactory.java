@@ -23,7 +23,7 @@ public class AdvisorProxyFactory {
 	public Object createAdvisorProxy(Object bean, ClassBeanSource beanSource, Map<MethodSignature, Set<Advisor>> advisors) {
 		return ProxyFactory.createProxy(//
 				beanSource.getBeanClass(), //
-				createInvocationHandler(beanSource, advisors)//
+				createInvocationHandler(bean, advisors)//
 		);
 	}
 
