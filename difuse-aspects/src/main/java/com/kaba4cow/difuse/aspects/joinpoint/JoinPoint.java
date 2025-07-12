@@ -1,40 +1,31 @@
 package com.kaba4cow.difuse.aspects.joinpoint;
 
-import java.lang.reflect.Method;
-
 import com.kaba4cow.difuse.core.util.MethodSignature;
 
 public class JoinPoint {
 
 	private final Object target;
 
-	private final Method method;
+	private final MethodSignature signature;
 
 	private final Object[] args;
 
-	private final MethodSignature signature;
-
-	public JoinPoint(Object target, Method method, Object[] args) {
+	public JoinPoint(Object target, MethodSignature signature, Object[] args) {
 		this.target = target;
-		this.method = method;
+		this.signature = signature;
 		this.args = args;
-		this.signature = MethodSignature.of(method);
 	}
 
 	public Object getTarget() {
 		return target;
 	}
 
-	public Method getMethod() {
-		return method;
+	public MethodSignature getSignature() {
+		return signature;
 	}
 
 	public Object[] getArgs() {
 		return args;
-	}
-
-	public MethodSignature getSignature() {
-		return signature;
 	}
 
 }

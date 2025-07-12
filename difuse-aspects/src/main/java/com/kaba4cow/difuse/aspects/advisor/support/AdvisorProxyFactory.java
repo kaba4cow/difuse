@@ -48,7 +48,7 @@ public class AdvisorProxyFactory {
 			Set<Advisor> methodAdvisors = advisors.getOrDefault(signature, Collections.emptySet());
 
 			for (Advisor advisor : getAdvisors(methodAdvisors, AdviceType.BEFORE))
-				invokeAdvice(advisor, new JoinPoint(bean, method, args));
+				invokeAdvice(advisor, new JoinPoint(bean, signature, args));
 
 			Object result = null;
 			boolean proceedCalled = false;
@@ -62,7 +62,7 @@ public class AdvisorProxyFactory {
 				result = method.invoke(bean, args);
 
 			for (Advisor advisor : getAdvisors(methodAdvisors, AdviceType.AFTER))
-				invokeAdvice(advisor, new JoinPoint(bean, method, args));
+				invokeAdvice(advisor, new JoinPoint(bean, signature, args));
 
 			return result;
 		}
